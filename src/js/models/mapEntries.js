@@ -7,3 +7,20 @@ var mapEntries = [{
     description: "Best Vesterbro Shawarma",
     tags: ['food', 'turkish', 'fastfood']
 }];
+
+
+var MapEntry = function(data) {
+    this.name = data.name;
+    this.description = data.description;
+    this.tags = data.tags;
+};
+
+function MapEntryViewModel() {
+    var self = this;
+    this.mapEntryList = ko.observableArray([]);
+    mapEntries.forEach(function(mapEntry) {
+        self.mapEntryList.push(new MapEntry(entry));
+    });
+}
+
+ko.applyBindings(new MapEntryViewModel());
