@@ -1,0 +1,21 @@
+{
+  "name": "mapApp",
+  "description": "really cool project",
+  "main": "index.html",
+  "authors": [
+    "Niels Lindberg <eighthourcream@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/NielsLindberg/mapApp",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "knockout": "^3.4.0",
+    "underscore": "^1.8.3",
+    "jquery": "^3.1.0"
+  }
+}
