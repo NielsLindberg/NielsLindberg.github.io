@@ -1,0 +1,604 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"spee",
+				"speedMultiplicator"
+			],
+			[
+				"y",
+				"y"
+			],
+			[
+				"header",
+				"pageHeaderHeight"
+			],
+			[
+				"bd",
+				"bd+	border: ${1:1px} ${2:solid} ${3:#000};"
+			],
+			[
+				"format",
+				"formattedDescription"
+			],
+			[
+				"formate",
+				"formattedDates"
+			],
+			[
+				"formatted",
+				"formattedTitle"
+			],
+			[
+				"formattedEm",
+				"formattedEmployer"
+			],
+			[
+				"formattedEmp",
+				"formattedEmployerTitle"
+			],
+			[
+				"card",
+				"card-container"
+			],
+			[
+				"bo",
+				"text-bottom"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "/D/Workspace/Udacity/boilerplate/README.md",
+			"settings":
+			{
+				"buffer_size": 212,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Gruntfile.js",
+			"settings":
+			{
+				"buffer_size": 2758,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "package.json",
+			"settings":
+			{
+				"buffer_size": 807,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/D/Workspace/Udacity/boilerplate/src/js/main.js",
+			"settings":
+			{
+				"buffer_size": 0,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/D/Workspace/Udacity/boilerplate/src/css/style.css",
+			"settings":
+			{
+				"buffer_size": 0,
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 490.0,
+		"last_filter": "Package Control: ",
+		"selected_items":
+		[
+			[
+				"Package Control: ",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Cont",
+				"Package Control: Install Package"
+			],
+			[
+				"Autoprefix CSS",
+				"Autoprefix CSS"
+			],
+			[
+				"Package Control: install",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 571.0
+	},
+	"console":
+	{
+		"height": 153.0,
+		"history":
+		[
+			"Autoprefix CSS",
+			".jshintrc",
+			"view.run_command(\"jshint\")",
+			"$ bower install jquery",
+			"bower install jquery",
+			"npm install -g bower",
+			"bower install jquery",
+			"npm --version",
+			"install --save polymer",
+			"import urllib.request,os,hashlib; h = '2915d1851351e5ee549c20394736b442' + '8bc59f460fa1548d1514676163dafc88'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/D/Workspace/Udacity/mapApp/boilerplate"
+	],
+	"file_history":
+	[
+		"/D/Workspace/Udacity/frontend-nanodegree-mobile-portfolio/src/views/js/main.js",
+		"/D/Workspace/Udacity/boilerplate/src/css/style.css",
+		"/D/Workspace/Udacity/frontend-nanodegree-mobile-portfolio/Gruntfile.js",
+		"/D/Workspace/Udacity/frontend-nanodegree-mobile-portfolio/package.json",
+		"/D/Workspace/Udacity/frontend-nanodegree-mobile-portfolio/README.md",
+		"/D/Workspace/Udacity/frontend-nanodegree-mobile-portfolio/src/index.html",
+		"/D/Workspace/Udacity/frontend-nanodegree-mobile-portfolio/frontend-nanodegree-mobile-portfolio",
+		"/D/Workspace/Udacity/frontend-nanodegree-mobile-portfolio/src/views/css/style.css",
+		"/D/Workspace/Udacity/boilerplate/package.json",
+		"/D/Workspace/Udacity/frontend-nanodegree-mobile-portfolio/dist/project-mobile.html",
+		"/D/Workspace/Udacity/frontend-nanodegree-mobile-portfolio/src/views/pizza.html",
+		"/D/Workspace/Udacity/frontend-nanodegree-mobile-portfolio/dist/project-webperf.html",
+		"/D/Workspace/Udacity/frontend-nanodegree-mobile-portfolio/src/project-2048.html",
+		"/D/Workspace/Udacity/frontend-nanodegree-mobile-portfolio/src/js/googleanal.js",
+		"/D/Workspace/Udacity/frontend-nanodegree-mobile-portfolio/src/project-webperf.html",
+		"/D/Workspace/Udacity/frontend-nanodegree-mobile-portfolio/src/project-mobile.html",
+		"/D/Workspace/Udacity/P5/frontend-nanodegree-arcade-game/js/app.js",
+		"/D/Workspace/Udacity/frontend-nanodegree-arcade-game/js/app.js",
+		"/D/Workspace/Udacity/frontend-nanodegree-mobile-portfolio/dist/views/pizza.html",
+		"/D/Workspace/Udacity/frontend-nanodegree-mobile-portfolio/dist/views/css/style.css",
+		"/D/Workspace/Udacity/frontend-nanodegree-mobile-portfolio/dist/project-2048.html",
+		"/D/Workspace/Udacity/frontend-nanodegree-mobile-portfolio/dist/index.html",
+		"/D/Workspace/Udacity/frontend-nanodegree-mobile-portfolio/dist/js/googleanal.js",
+		"/D/Workspace/Udacity/udportfolio/Gruntfile.js",
+		"/D/Workspace/Udacity/udportfolio/package.json",
+		"/D/Workspace/Udacity/web-workers-demo/scripts/imageManips.js",
+		"/D/Workspace/Udacity/web-workers-demo/scripts/worker.js",
+		"/D/Workspace/Udacity/web-workers-demo/scripts/image-app.js",
+		"/D/Workspace/Udacity/web-workers-demo/index.html",
+		"/D/Workspace/Udacity/udportfolio/project-2048.html",
+		"/D/Workspace/Udacity/udportfolio/css/mobile.css",
+		"/D/Workspace/Udacity/udportfolio/css/style.css",
+		"/D/Workspace/Udacity/udportfolio/js/perfmatters.js",
+		"/D/Workspace/LTU/Assignment4/package.json",
+		"/D/Workspace/Udacity/udportfolio/index.html",
+		"/D/Workspace/Udacity/udportfolio/.gitignore",
+		"/D/Workspace/Udacity/P4/Gruntfile.js",
+		"/D/Workspace/Udacity/udportfolio/indexsrc.html",
+		"/D/Workspace/Udacity/P5/frontend-nanodegree-arcade-game/index.html",
+		"/D/Workspace/Udacity/P5/frontend-nanodegree-arcade-game/js/engine.js",
+		"/D/Workspace/Udacity/P5/frontend-nanodegree-arcade-game/README.md",
+		"/D/workspace/LTU/Assignment4/README.md",
+		"/D/WoW Vanilla/realmlist.wtf",
+		"/D/Workspace/Udacity/P4/css/optimized/less.style.css",
+		"/D/Workspace/Udacity/P4/css/style.less",
+		"/D/Workspace/Udacity/P4/js/edu.js",
+		"/D/Workspace/Udacity/P4/js/work.js",
+		"/C/Users/Niels/AppData/Roaming/Sublime Text 3/Packages/HTML-CSS-JS Prettify/HTMLPrettify.sublime-settings",
+		"/D/Workspace/Udacity/P4/js/bio.js",
+		"/D/Workspace/Udacity/P4/js/map.js",
+		"/D/Workspace/Udacity/P4/projects.html",
+		"/D/Workspace/Udacity/P4/index.html",
+		"/D/Workspace/Udacity/P4/js/builder.js",
+		"/D/Workspace/Udacity/P4/js/optimized/built.js",
+		"/D/Workspace/Udacity/P4/js/projects.js",
+		"/C/Users/Niels/AppData/Roaming/Sublime Text 3/Packages/User/SublimeLinter.sublime-settings",
+		"/D/Workspace/Udacity/P4/css/style.css",
+		"/D/Workspace/Udacity/P4/js/footer.js",
+		"/D/Workspace/Udacity/P4/.gitignore",
+		"/D/Workspace/Udacity/P4/test/test",
+		"/D/Workspace/Udacity/P4/css/optimized/less.style.min.css",
+		"/C/Users/Niels/AppData/Roaming/Sublime Text 3/Packages/CSScomb/Default.sublime-keymap",
+		"/C/Users/Niels/AppData/Roaming/Sublime Text 3/Packages/User/Default (Windows).sublime-keymap",
+		"/C/Users/Niels/AppData/Roaming/Sublime Text 3/Packages/User/LESS.sublime-settings",
+		"/C/Users/Niels/AppData/Roaming/Sublime Text 3/Packages/LESS/LESS.sublime-settings",
+		"/C/Users/Niels/AppData/Roaming/Sublime Text 3/Packages/LESS/README.md",
+		"/D/Workspace/Udacity/P4/css/optimized/style.min.css",
+		"/C/Users/Niels/AppData/Roaming/Sublime Text 3/Packages/Color Highlighter/Default.sublime-keymap",
+		"/D/Workspace/Udacity/P4/js/education.js",
+		"/D/Workspace/frontend-nanodegree-resume/index.html",
+		"/D/Workspace/frontend-nanodegree-resume/js/helper.js",
+		"/D/Workspace/frontend-nanodegree-resume/js/resumeBuilder.js",
+		"/D/Workspace/Udacity/P4/package.json",
+		"/D/Workspace/Udacity/P4/js/optimized/built.min.js",
+		"/D/workspace/udacity/p4/Gruntfile.js",
+		"/D/Workspace/Udacity/P3/js/bio.js",
+		"/D/Workspace/Udacity/P3/css/style.css",
+		"/D/Workspace/adhoc/lele.js",
+		"/D/Workspace/Udacity/P3/backup/index.html",
+		"/D/Workspace/Udacity/responsivedesign/Start/main.css",
+		"/D/Workspace/Udacity/responsivedesign/Start/responsive.css",
+		"/D/Workspace/Udacity/responsivedesign/Start/index.html",
+		"/D/workspace/udacity/responsivedesign/start/index.html",
+		"/C/Users/Niels/AppData/Roaming/Sublime Text 3/Packages/User/View In Browser.sublime-settings",
+		"/C/Users/Niels/AppData/Roaming/Sublime Text 3/Packages/View In Browser/View In Browser.sublime-settings",
+		"/C/Users/Niels/AppData/Roaming/Sublime Text 3/Packages/SublimeLinter/SublimeLinter.sublime-settings",
+		"/D/Workspace/Udacity/P2/building-the-prototype/card.html",
+		"/D/workspace/udacity/githubtraining/create-your-own-adventure/english/stopbernie/stopbernie.md",
+		"/D/workspace/udacity/githubtraining/create-your-own-adventure/stopbernie.md",
+		"/D/workspace/udacity/githubtraining/create-your-own-adventure/stopbernie.txt",
+		"/D/workspace/udacity/githubtraining/create-your-own-adventure/jump.md",
+		"/D/workspace/udacity/githubtraining/create-your-own-adventure/README.md",
+		"/D/workspace/udacity/githubtraining/create-your-own-adventure/readme.txt",
+		"/D/workspace/udacity/githubtraining/readme.md",
+		"/D/workspace/udacity/githubtraining/recipes/cake-recipe.txt",
+		"/D/workspace/udacity/githubtraining/readme.txt",
+		"/D/workspace/udacity/githubtraining/recipes/chili-recipe.txt",
+		"/D/workspace/Udacity/Githubtraining/recipes/chili-recipe.txt",
+		"/D/workspace/Udacity/Githubtraining/recipes/yoyo-recipe.txt",
+		"/D/Workspace/Udacity/GitHubTraining/asteroids/game.js",
+		"/D/Workspace/Udacity/P2/building-the-prototype/styles.css",
+		"/D/Workspace/Udacity/GitHubTraining/version-control/reflections/lesson_1_reflections.txt",
+		"/C/Users/Niels/.bash_profile",
+		"/D/workspace/udacity/githubtraining/version-control/reflections/lesson_2_reflections.txt",
+		"/D/Workspace/Udacity/P1/index.html",
+		"/D/Workspace/udacity/githubtraining/asteroids/game.js",
+		"/C/Users/Niels/.bashrc",
+		"/C/Users/Niels/git-prompt.sh",
+		"/C/Users/Niels/AppData/Roaming/Sublime Text 3/Packages/Color Highlighter/ColorHighlighter.sublime-settings",
+		"/C/Users/Niels/AppData/Roaming/Sublime Text 3/Packages/User/ColorHighlighter.sublime-settings",
+		"/D/Workspace/Udacity/finish.html",
+		"/D/Workspace/Udacity/start.html",
+		"/D/Workspace/Udacity/writing-selectors/index.html",
+		"/D/Workspace/Udacity/P1/reflections.txt",
+		"/D/Workspace/Udacity/P1/P1",
+		"/D/Workspace/Udacity/index.html",
+		"/C/Users/Niels/AppData/Roaming/Sublime Text 3/Packages/Emmet/Emmet.sublime-settings",
+		"/D/Workspace/LTU/Assignment3/index.html",
+		"/D/Workspace/LTU/Assignment3/css/formstyle.css",
+		"/D/Workspace/LTU/Assignment3/supportform.html",
+		"/D/Workspace/LTU/Assignment3/css/style.css",
+		"/D/Workspace/Udacity/P0/growthmindset.html",
+		"/D/Workspace/LTU/AboutMe/css/style.css",
+		"/D/Workspace/LTU/AboutMe/about.html",
+		"/D/Workspace/LTU/AboutMe/js/bio.js",
+		"/D/Workspace/LTU/AboutMe/projects.nocss.html",
+		"/D/Workspace/LTU/AboutMe/index.html",
+		"/C/Users/Niels/Documents/Qlik/Sense/Extensions/WaterfallChart-master/waterfall.css"
+	],
+	"find":
+	{
+		"height": 43.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"embed",
+			"tilesHeight",
+			"tilesWidth",
+			"topOffset",
+			"numberOfEnemies",
+			"speedMultiplicator",
+			"tileswidth",
+			"tilesHeight",
+			"console",
+			"titlesWidth",
+			"titlesHeight",
+			"101",
+			"83",
+			"titlesHeight",
+			"505",
+			"83",
+			"background",
+			"link",
+			"center",
+			"callback",
+			"googlemap",
+			"coin",
+			"style",
+			">: ",
+			"> ",
+			"Theyare",
+			"  ",
+			"really",
+			"Family",
+			"<div class=\"article\">\n<h1>Addams Family</h1>\n<p>They really are a scream the Addams Family.</p>\n<a href=\"#\">Read more +</a>\n</div>\n",
+			"class",
+			"About",
+			"=\"#\">",
+			"Home",
+			"=\"#\">",
+			"Home",
+			"here",
+			"border",
+			"'",
+			"\"",
+			"'",
+			"\""
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "/D/Workspace/Udacity/boilerplate/README.md",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 212,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								212,
+								212
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Monokai (SL).tmTheme",
+							"syntax": "Packages/Markdown/Markdown.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "Gruntfile.js",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 2758,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								498,
+								498
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScriptNext - ES6 Syntax/JavaScriptNext.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "package.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 807,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								181,
+								181
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScriptNext - ES6 Syntax/JSON (JavaScriptNext).tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "/D/Workspace/Udacity/boilerplate/src/js/main.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 0,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Monokai (SL).tmTheme",
+							"syntax": "Packages/JavaScriptNext - ES6 Syntax/JavaScriptNext.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "/D/Workspace/Udacity/boilerplate/src/css/style.css",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 0,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Monokai (SL).tmTheme",
+							"syntax": "Packages/LESS/LESS.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 26.0
+	},
+	"input":
+	{
+		"height": 35.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "/D/Workspace/Udacity/boilerplate/boilerplate.sublime-project",
+	"replace":
+	{
+		"height": 50.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": false,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 367.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

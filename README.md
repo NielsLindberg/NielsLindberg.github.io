@@ -1,0 +1,2 @@
+# Boilerplate
+This project includes some standard folder structure, build tools and node plugins usually needed for starting a web project. Will add to this whenever i find new tools that i generally start using.

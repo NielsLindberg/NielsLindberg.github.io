@@ -1,0 +1,29 @@
+{
+  "name": "mapApp",
+  "version": "1.0.0",
+  "description": "boilerplate repo for starting web dev projects",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NielsLindberg/mapApp.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NielsLindberg/mapApp/issues"
+  },
+  "homepage": "https://github.com/NielsLindberg/mapApp#readme",
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-contrib-concat": "^1.0.0",
+    "grunt-contrib-cssmin": "^1.0.1",
+    "grunt-contrib-htmlmin": "^2.0.0",
+    "grunt-contrib-imagemin": "^1.0.1",
+    "grunt-contrib-uglify": "^1.0.1",
+    "grunt-embed": "^0.2.1",
+    "grunt-responsive-images": "^0.1.7"
+  }
+}
