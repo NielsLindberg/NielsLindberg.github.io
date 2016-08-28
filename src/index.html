@@ -8,7 +8,6 @@
     <meta name="author" content="Niels Lindberg-Poulsen">
     <title>#ENTER TITLE</title>
     <link href="css/style.css" rel="stylesheet">
-    <script src="js/main.js"></script>
 </head>
 
 <body>
@@ -16,10 +15,17 @@
     </header>
     <div class="container">
         <main class="content">
+            <div data-bind="foreach: mapEntryList">
+                <h1 data-bind="text: name"></h1>
+                <p data-bind="text: description"></p>
+            </div>
         </main>
         <footer>
         </footer>
     </div>
 </body>
+<script src="../bower_components/jquery/dist/jquery.min.js"></script>
+<script src="../bower_components/knockout/dist/knockout.js"></script>
+<script src="js/models/mapEntries.js"></script>
 
 </html>

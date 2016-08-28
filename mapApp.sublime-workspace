@@ -52,42 +52,13 @@
 	"buffers":
 	[
 		{
-			"file": "/D/Workspace/Udacity/boilerplate/README.md",
+			"contents": "<!DOCTYPE html>\n<html lang=\"en\">\n\n<head>\n    <meta charset=\"utf-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n    <meta name=\"description\" content=\"#DESCRIBE YOUR PAGE\">\n    <meta name=\"author\" content=\"Niels Lindberg-Poulsen\">\n    <title>#ENTER TITLE</title>\n    <link href=\"css/style.css\" rel=\"stylesheet\">\n    \n</head>\n\n<body>\n    <header>\n    </header>\n    <div class=\"container\">\n        <main class=\"content\">\n        </main>\n        <footer>\n        </footer>\n    </div>\n</body>\n<script src=\"bower_components/\"\n<script src=\"js/main.js\"></script>\n</html>\n",
+			"file": "src/index.html",
+			"file_size": 585,
+			"file_write_time": 131168551148310876,
 			"settings":
 			{
-				"buffer_size": 212,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "Gruntfile.js",
-			"settings":
-			{
-				"buffer_size": 2758,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "package.json",
-			"settings":
-			{
-				"buffer_size": 807,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/D/Workspace/Udacity/boilerplate/src/js/main.js",
-			"settings":
-			{
-				"buffer_size": 0,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/D/Workspace/Udacity/boilerplate/src/css/style.css",
-			"settings":
-			{
-				"buffer_size": 0,
+				"buffer_size": 592,
 				"line_ending": "Windows"
 			}
 		}
@@ -158,12 +129,17 @@
 	},
 	"expanded_folders":
 	[
-		"/D/Workspace/Udacity/mapApp/boilerplate"
+		"/D/Workspace/Udacity/mapApp"
 	],
 	"file_history":
 	[
-		"/D/Workspace/Udacity/frontend-nanodegree-mobile-portfolio/src/views/js/main.js",
+		"/D/Workspace/Udacity/mapApp/src/js/models/mapEntries.js",
+		"/D/Workspace/Udacity/mapApp/bower.json",
 		"/D/Workspace/Udacity/boilerplate/src/css/style.css",
+		"/D/Workspace/Udacity/boilerplate/src/js/main.js",
+		"/D/Workspace/Udacity/mapApp/boilerplate/package.json",
+		"/D/Workspace/Udacity/boilerplate/README.md",
+		"/D/Workspace/Udacity/frontend-nanodegree-mobile-portfolio/src/views/js/main.js",
 		"/D/Workspace/Udacity/frontend-nanodegree-mobile-portfolio/Gruntfile.js",
 		"/D/Workspace/Udacity/frontend-nanodegree-mobile-portfolio/package.json",
 		"/D/Workspace/Udacity/frontend-nanodegree-mobile-portfolio/README.md",
@@ -284,12 +260,7 @@
 		"/D/Workspace/LTU/Assignment3/supportform.html",
 		"/D/Workspace/LTU/Assignment3/css/style.css",
 		"/D/Workspace/Udacity/P0/growthmindset.html",
-		"/D/Workspace/LTU/AboutMe/css/style.css",
-		"/D/Workspace/LTU/AboutMe/about.html",
-		"/D/Workspace/LTU/AboutMe/js/bio.js",
-		"/D/Workspace/LTU/AboutMe/projects.nocss.html",
-		"/D/Workspace/LTU/AboutMe/index.html",
-		"/C/Users/Niels/Documents/Qlik/Sense/Extensions/WaterfallChart-master/waterfall.css"
+		"/D/Workspace/LTU/AboutMe/css/style.css"
 	],
 	"find":
 	{
@@ -366,58 +337,29 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "/D/Workspace/Udacity/boilerplate/README.md",
+					"file": "src/index.html",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 212,
+						"buffer_size": 592,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								212,
-								212
+								353,
+								353
 							]
 						],
 						"settings":
 						{
-							"color_scheme": "Packages/User/Color Highlighter/themes/Monokai (SL).tmTheme",
-							"syntax": "Packages/Markdown/Markdown.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "Gruntfile.js",
-					"semi_transient": true,
-					"settings":
-					{
-						"buffer_size": 2758,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								498,
-								498
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScriptNext - ES6 Syntax/JavaScriptNext.tmLanguage",
+							"syntax": "Packages/HTML/HTML.sublime-syntax",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
@@ -426,94 +368,6 @@
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "package.json",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 807,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								181,
-								181
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScriptNext - ES6 Syntax/JSON (JavaScriptNext).tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "/D/Workspace/Udacity/boilerplate/src/js/main.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 0,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"color_scheme": "Packages/User/Color Highlighter/themes/Monokai (SL).tmTheme",
-							"syntax": "Packages/JavaScriptNext - ES6 Syntax/JavaScriptNext.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "/D/Workspace/Udacity/boilerplate/src/css/style.css",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 0,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"color_scheme": "Packages/User/Color Highlighter/themes/Monokai (SL).tmTheme",
-							"syntax": "Packages/LESS/LESS.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
 					"type": "text"
 				}
 			]
@@ -555,7 +409,7 @@
 		"height": 0.0
 	},
 	"pinned_build_system": "",
-	"project": "/D/Workspace/Udacity/boilerplate/boilerplate.sublime-project",
+	"project": "mapApp.sublime-project",
 	"replace":
 	{
 		"height": 50.0
