@@ -6,6 +6,6 @@ var copenhagenGeo = {
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
         center: copenhagenGeo,
-        zoom: 13
+        zoom: 15
     });
 }
