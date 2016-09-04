@@ -41,8 +41,8 @@ MapEntry.prototype.queryMarkerPosition = function(service) {
     self = this;
     function addQueryResultToObject(placeData) {
         self.location = {
-            lat: placeDate.geometry.location.lat(),
-            lng: placeDate.geometry.location.lng()
+            lat: placeData.geometry.location.lat(),
+            lng: placeData.geometry.location.lng()
         };
         self.formattedName = placeData.formatted_address;
     }
