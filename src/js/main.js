@@ -23,6 +23,7 @@ function initMap() {
         content: '123'
     });
     console.log(mapEntryViewModel);
+    console.log(mapEntryViewModel.mapEntryList());
     mapEntryViewModel.mapEntryList()["Symbol(_latestValue)"].forEach(function(mapEntry) {
         mapEntry.addMarkerData();
     });
