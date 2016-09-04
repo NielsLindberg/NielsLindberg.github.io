@@ -11,7 +11,7 @@ function initMap() {
     var infoWindow = new google.maps.InfoWindow({
         content: '123'
     });
-    "MapEntryViewModel.Symbol(_latestValue)".forEach(function(mapEntry) {
+    "MapEntryViewModel.mapEntryList.Symbol(_latestValue)".forEach(function(mapEntry) {
         mapEntry.addMarkerData();
     });
 }
