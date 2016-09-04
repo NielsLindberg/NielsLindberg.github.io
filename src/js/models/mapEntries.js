@@ -60,7 +60,6 @@ var MapEntry = function(data) {
     this.location = data.location;
     this.id = data.id;
     this.tags = data.tags;
-    this.marker = {};
 };
 
 // Since google maps api is loaded async, we need to call the addmarker from the mapInit callback function
