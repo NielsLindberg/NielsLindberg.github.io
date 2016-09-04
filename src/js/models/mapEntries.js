@@ -56,10 +56,10 @@ MapEntry.prototype.addMarkerData = function(infoWindow) {
         map: map,
         position: self.location,
         title: self.title,
-        infoWindow: infoWindow,
         animation: google.maps.Animation.DROP,
         id: self.id
     });
+    self.infoWindow = infoWindow;
     self.marker.addListener('click', function() {
         self.populateInfoWindow();
     });
