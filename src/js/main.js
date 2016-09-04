@@ -1,9 +1,10 @@
 
+var mapEntryViewModel;
 function MapEntryViewModel() {
-    var self = this;
-    this.mapEntryList = ko.observableArray([]);
+    mapEntryViewModel = this;
+    mapEntryViewModel.mapEntryList = ko.observableArray([]);
     mapEntries.forEach(function(mapEntry) {
-        self.mapEntryList.push(new MapEntry(mapEntry));
+        mapEntryViewModel.mapEntryList.push(new MapEntry(mapEntry));
     });
 }
 
@@ -21,8 +22,8 @@ function initMap() {
     var infoWindow = new google.maps.InfoWindow({
         content: '123'
     });
-    console.log(MapEntryViewModel);
-    MapEntryViewModel[mapEntryList]["Symbol(_latestValue)"].forEach(function(mapEntry) {
+    console.log(mapEntryViewModel);
+    mapEntryViewModel[mapEntryList]["Symbol(_latestValue)"].forEach(function(mapEntry) {
         mapEntry.addMarkerData();
     });
 }
