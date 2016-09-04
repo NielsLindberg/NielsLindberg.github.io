@@ -9,48 +9,48 @@ var mapEntries = [{
     tags: ['leasure', 'bathing', 'beachvolley', 'sports']
 }, {
     title: "Kebabistan",
+    description: "Nr.1 Vesterbro Shawarma",
     location: {
         lat: 57.6761,
         lng: 10.5683
     },
     id: 2,
-    description: "Nr.1 Vesterbro Shawarma",
     tags: ['food', 'turkish', 'fastfood']
 }, {
     title: "Riccos",
+    description: "Nice café for studying.",
     location: {
         lat: 54.6761,
         lng: 13.5683
     },
     id: 3,
-    description: "Nice café for studying.",
     tags: ['café', 'coffee', 'study']
 }, {
     title: "KB18",
+    description: "House/Techno Club in the Meatpacking district",
     location: {
         lat: 56.6761,
         lng: 11.5683
     },
     id: 4,
-    description: "House/Techno Club in the Meatpacking district",
     tags: ['music', 'club', 'techno', 'house']
 }, {
     title: "Culture Box",
+    description: "The main House/Techno club in Copenhagen.",
     location: {
         lat: 53.6761,
         lng: 13.5683
     },
     id: 5,
-    description: "The main House/Techno club in Copenhagen.",
     tags: ['music', 'club', 'techno', 'house']
 }, {
     title: "Boulevarden",
+    description: "Bodega at Sønder Boulevard",
     location: {
         lat: 55.6761,
         lng: 15.5683
     },
     id: 6,
-    description: "Bodega at Sønder Boulevard",
     tags: ['bodega', 'billiard']
 }];
 
