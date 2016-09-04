@@ -23,7 +23,6 @@ function initMap() {
     var infoWindow = new google.maps.InfoWindow({});
     var bounds = new google.maps.LatLngBounds();
     var service = new google.maps.places.PlacesService(map);
-    console.log(service);
     mapEntryViewModel.mapEntryList().forEach(function(mapEntry) {
         mapEntry.queryMarkerPosition();
         mapEntry.addMarkerData(infoWindow);
