@@ -40,7 +40,7 @@ var MapEntry = function(data) {
 MapEntry.prototype.queryMarkerPosition = function(service) {
     self = this;
     function addQueryResultToObject(placeData) {
-        console.log(placeDate.geometry.location);
+        console.log(placeData.geometry.location);
         self.location = {
             lat: placeData.geometry.location.lat(),
             lng: placeData.geometry.location.lng()
