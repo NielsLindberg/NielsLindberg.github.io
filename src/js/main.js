@@ -1,5 +1,5 @@
-
 var mapEntryViewModel;
+
 function MapEntryViewModel() {
     mapEntryViewModel = this;
     mapEntryViewModel.mapEntryList = ko.observableArray([]);
@@ -11,6 +11,7 @@ function MapEntryViewModel() {
 ko.applyBindings(new MapEntryViewModel());
 
 var map;
+
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
         center: {
@@ -19,13 +20,14 @@ function initMap() {
         },
         zoom: 14
     });
-    var infoWindow = new google.maps.InfoWindow({
-    });
+    var infoWindow = new google.maps.InfoWindow({});
     var bounds = new google.maps.LatLngBounds();
+    var service = new google.maps.places.PlacesService(map);
+
     mapEntryViewModel.mapEntryList().forEach(function(mapEntry) {
+        mapEntry.queryMarkerPosition();
         mapEntry.addMarkerData(infoWindow);
         mapEntry.showMarker(bounds);
     });
     map.fitBounds(bounds);
 }
-
