@@ -37,7 +37,7 @@ var MapEntry = function(data) {
     this.tags = data.tags;
 };
 
-MapEntry.prototype.queryMarkerPosition = function() {
+MapEntry.prototype.queryMarkerPosition = function(service) {
     self = this;
     function addQueryResultToObject(placeData) {
         self.location = {
