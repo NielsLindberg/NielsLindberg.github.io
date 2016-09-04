@@ -24,7 +24,7 @@ function initMap() {
     });
     console.log(mapEntryViewModel);
     console.log(mapEntryViewModel.mapEntryList());
-    mapEntryViewModel.mapEntryList()["Symbol(_latestValue)"].forEach(function(mapEntry) {
+    mapEntryViewModel.mapEntryList().forEach(function(mapEntry) {
         mapEntry.addMarkerData();
     });
 }
