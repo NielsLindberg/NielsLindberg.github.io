@@ -59,8 +59,9 @@ MapEntry.prototype.queryMarkerPosition = function() {
 
 
 // Since google maps api is loaded async, we need to call the addmarker from the mapInit callback function
-MapEntry.prototype.addMarkerData = function(infoWindow) {
+MapEntry.prototype.addMarkerData = function(map, infoWindow) {
     var self = this;
+    self.map = map;
     self.marker = new google.maps.Marker({
         title: self.title,
         animation: google.maps.Animation.DROP,
@@ -73,7 +74,7 @@ MapEntry.prototype.addMarkerData = function(infoWindow) {
 };
 
 MapEntry.prototype.showMarker = function(bounds) {
-    this.marker.setMap(map);
+    this.marker.setMap(this.map);
     bounds.extend(this.marker.position);
 };
 
@@ -86,7 +87,7 @@ MapEntry.prototype.populateInfoWindow = function() {
         var self = this;
         this.infoWindow.marker = this.marker;
         this.infoWindow.setContent('<div>' + this.marker.title + '</div>');
-        this.infoWindow.open(map, this.marker);
+        this.infoWindow.open(this.map, this.marker);
         this.infoWindow.addListener('closeclick', function() {
             self.infoWindow.setMarker(null);
         });

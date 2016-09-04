@@ -10,10 +10,8 @@ function MapEntryViewModel() {
 
 ko.applyBindings(new MapEntryViewModel());
 
-var map;
-
 function initMap() {
-    map = new google.maps.Map(document.getElementById('map'), {
+    var map = new google.maps.Map(document.getElementById('map'), {
         center: {
             lat: 55.6761,
             lng: 12.5683
@@ -22,10 +20,10 @@ function initMap() {
     });
     var infoWindow = new google.maps.InfoWindow({});
     var bounds = new google.maps.LatLngBounds();
-    var service = new google.maps.places.PlacesService();
+    var service = new google.maps.places.PlacesService(map);
     mapEntryViewModel.mapEntryList().forEach(function(mapEntry) {
         mapEntry.queryMarkerPosition();
-        mapEntry.addMarkerData(infoWindow);
+        mapEntry.addMarkerData(map, infoWindow);
         mapEntry.showMarker(bounds);
     });
     map.fitBounds(bounds);
