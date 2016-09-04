@@ -22,7 +22,7 @@ function initMap() {
     });
     var infoWindow = new google.maps.InfoWindow({});
     var bounds = new google.maps.LatLngBounds();
-    var service = new google.maps.places.PlacesService(map);
+    var service = new google.maps.places.PlacesService();
     mapEntryViewModel.mapEntryList().forEach(function(mapEntry) {
         mapEntry.queryMarkerPosition();
         mapEntry.addMarkerData(infoWindow);
