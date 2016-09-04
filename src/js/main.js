@@ -20,10 +20,9 @@ function initMap() {
         zoom: 14
     });
     var infoWindow = new google.maps.InfoWindow({
-        content: '123'
     });
     mapEntryViewModel.mapEntryList().forEach(function(mapEntry) {
-        mapEntry.addMarkerData();
+        mapEntry.addMarkerData(infoWindow);
     });
 }
 
