@@ -4,10 +4,10 @@ function initMap() {
         center: copenhagenGeo,
         zoom: 14
     });
-    var infowindow = new google.maps.InfoWindow({
-        content: 'copenhagen blablabla'
+    var infoWindow = new google.maps.InfoWindow({
+        content: ''
     });
-    marker.addListener('click', function() {
-        infowindow.open(map, marker);
+    MapEntryViewModel["Symbol(_latestValue)"].forEach(function(mapEntry) {
+        mapEntry.addMarkerData();
     });
 }

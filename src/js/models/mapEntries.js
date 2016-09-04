@@ -50,27 +50,29 @@ var MapEntry = function(data) {
 };
 
 // Since google maps api is loaded async, we need to call the addmarker from the mapInit callback function
-MapEntry.prototype.addMarkerData = function() {
+MapEntry.prototype.addMarkerData = function(infoWindow) {
     var self = this;
     self.marker = new google.maps.Marker({
         map: map,
         position: self.location,
         title: self.title,
+        infoWindow: infoWindow,
         animation: google.maps.Animation.DROP,
         id: self.id
     });
     self.marker.addListener('click', function() {
-        self.populateInfoWindow(infoWindow);
+        self.populateInfoWindow();
     });
 };
 
-MapEntry.prototype.populateInfoWindow = function(infoWindow) {
-    if (infoWindow.marker != this.marker) {
-        infoWindow.marker = this.marker;
-        infoWindow.setContent('<div>' + this.marker.title + '</div>');
-        infoWindow.open(map, this.marker);
-        infoWindow.addListener('closeclick', function() {
-            infoWindow.setMarker(null);
+MapEntry.prototype.populateInfoWindow = function() {
+    if (this.infoWindow.marker != this.marker) {
+        var self = this;
+        this.infoWindow.marker = this.marker;
+        this.infoWindow.setContent('<div>' + this.marker.title + '</div>');
+        this.infoWindow.open(map, this.marker);
+        this.infoWindow.addListener('closeclick', function() {
+            self.infoWindow.setMarker(null);
         });
     }
 };
