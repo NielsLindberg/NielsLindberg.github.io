@@ -13,4 +13,10 @@ function initMap() {
         map: map,
         title: "Copenhagen"
     });
+    var infowindow = new google.maps.InfoWindow({
+        content: 'copenhagen blablabla'
+    });
+    marker.addListener('click', function() {
+        infowindow.open(map, marker);
+    });
 }
