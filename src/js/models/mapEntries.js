@@ -66,7 +66,6 @@ var MapEntry = function(data) {
 MapEntry.prototype.addMarkerData = function(infoWindow) {
     var self = this;
     self.marker = new google.maps.Marker({
-        map: map,
         position: self.location,
         title: self.title,
         animation: google.maps.Animation.DROP,
@@ -76,6 +75,15 @@ MapEntry.prototype.addMarkerData = function(infoWindow) {
     self.marker.addListener('click', function() {
         self.populateInfoWindow();
     });
+};
+
+MapEntry.prototype.showMarker = function(bounds) {
+    this.marker.setMap(map);
+    bounds.extend(this.marker.position);
+};
+
+MapEntry.prototype.hideMarker = function() {
+    this.marker.setMap(null);
 };
 
 MapEntry.prototype.populateInfoWindow = function() {
@@ -89,3 +97,4 @@ MapEntry.prototype.populateInfoWindow = function() {
         });
     }
 };
+
