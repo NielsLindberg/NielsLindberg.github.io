@@ -76,14 +76,3 @@ MapEntry.prototype.populateInfoWindow = function() {
         });
     }
 };
-
-function MapEntryViewModel() {
-    var self = this;
-    this.mapEntryList = ko.observableArray([]);
-    mapEntries.forEach(function(mapEntry) {
-        self.mapEntryList.push(new MapEntry(mapEntry));
-    });
-    console.log(self);
-}
-
-ko.applyBindings(new MapEntryViewModel());

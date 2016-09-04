@@ -1,5 +1,15 @@
-var map;
 
+function MapEntryViewModel() {
+    var self = this;
+    this.mapEntryList = ko.observableArray([]);
+    mapEntries.forEach(function(mapEntry) {
+        self.mapEntryList.push(new MapEntry(mapEntry));
+    });
+}
+
+ko.applyBindings(new MapEntryViewModel());
+
+var map;
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
         center: {
@@ -11,7 +21,8 @@ function initMap() {
     var infoWindow = new google.maps.InfoWindow({
         content: '123'
     });
-    MapEntryViewModel.mapEntryList["Symbol(_latestValue)"].forEach(function(mapEntry) {
+    console.log(MapEntryViewModel);
+    MapEntryViewModel[mapEntryList]["Symbol(_latestValue)"].forEach(function(mapEntry) {
         mapEntry.addMarkerData();
     });
 }
