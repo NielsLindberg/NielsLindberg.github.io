@@ -46,6 +46,7 @@ MapEntry.prototype.queryMarkerPosition = function(service) {
     function callback(results, status) {
         if (status == google.maps.places.PlacesServiceStatus.OK) {
             addQueryResultToObject(results[0]);
+            console.log(results[0]);
         }
     }
     var request = {
