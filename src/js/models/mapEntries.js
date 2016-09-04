@@ -1,40 +1,54 @@
-var copenhagenGeo = {
-    lat: 55.6761,
-    lng: 12.5683
-};
 var mapEntries = [{
     title: "Islands Brygge",
     description: "City harbor bath",
-    location: copenhagenGeo,
+    location: {
+        lat: 52.6761,
+        lng: 13.5683
+    },
     id: 1,
     tags: ['leasure', 'bathing', 'beachvolley', 'sports']
 }, {
     title: "Kebabistan",
-    location: copenhagenGeo,
+    location: {
+        lat: 57.6761,
+        lng: 10.5683
+    },
     id: 2,
     description: "Nr.1 Vesterbro Shawarma",
     tags: ['food', 'turkish', 'fastfood']
 }, {
     title: "Riccos",
-    location: copenhagenGeo,
+    location: {
+        lat: 54.6761,
+        lng: 13.5683
+    },
     id: 3,
     description: "Nice café for studying.",
     tags: ['café', 'coffee', 'study']
 }, {
     title: "KB18",
-    location: copenhagenGeo,
+    location: {
+        lat: 56.6761,
+        lng: 11.5683
+    },
     id: 4,
     description: "House/Techno Club in the Meatpacking district",
     tags: ['music', 'club', 'techno', 'house']
 }, {
     title: "Culture Box",
-    location: copenhagenGeo,
+    location: {
+        lat: 53.6761,
+        lng: 13.5683
+    },
     id: 5,
     description: "The main House/Techno club in Copenhagen.",
     tags: ['music', 'club', 'techno', 'house']
 }, {
     title: "Boulevarden",
-    location: copenhagenGeo,
+    location: {
+        lat: 55.6761,
+        lng: 15.5683
+    },
     id: 6,
     description: "Bodega at Sønder Boulevard",
     tags: ['bodega', 'billiard']
@@ -66,7 +80,6 @@ MapEntry.prototype.addMarkerData = function(infoWindow) {
 };
 
 MapEntry.prototype.populateInfoWindow = function() {
-    console.log(this);
     if (this.infoWindow.marker != this.marker) {
         var self = this;
         this.infoWindow.marker = this.marker;

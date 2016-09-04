@@ -21,8 +21,11 @@ function initMap() {
     });
     var infoWindow = new google.maps.InfoWindow({
     });
+    var bounds = new google.maps.LatLngBounds();
     mapEntryViewModel.mapEntryList().forEach(function(mapEntry) {
         mapEntry.addMarkerData(infoWindow);
+        bounds.extend(mapEntry.position);
     });
+    map.fitBounds(bounds);
 }
 
