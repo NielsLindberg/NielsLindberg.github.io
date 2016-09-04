@@ -22,8 +22,6 @@ function initMap() {
     var infoWindow = new google.maps.InfoWindow({
         content: '123'
     });
-    console.log(mapEntryViewModel);
-    console.log(mapEntryViewModel.mapEntryList());
     mapEntryViewModel.mapEntryList().forEach(function(mapEntry) {
         mapEntry.addMarkerData();
     });

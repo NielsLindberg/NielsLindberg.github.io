@@ -66,6 +66,7 @@ MapEntry.prototype.addMarkerData = function(infoWindow) {
 };
 
 MapEntry.prototype.populateInfoWindow = function() {
+    console.log(this);
     if (this.infoWindow.marker != this.marker) {
         var self = this;
         this.infoWindow.marker = this.marker;
