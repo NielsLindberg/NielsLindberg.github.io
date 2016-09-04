@@ -1,0 +1,1 @@
+function initMap(){map=new google.maps.Map(document.getElementById("map"),{center:copenhagenGeo,zoom:14});var a=new google.maps.Marker({position:copenhagenGeo,map:map,title:"Copenhagen"}),b=new google.maps.InfoWindow({content:"copenhagen blablabla"});a.addListener("click",function(){b.open(map,a)})}var map,copenhagenGeo={lat:55.6761,lng:12.5683};
