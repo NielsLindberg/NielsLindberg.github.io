@@ -24,9 +24,7 @@ function initMap() {
     var bounds = new google.maps.LatLngBounds();
     mapEntryViewModel.mapEntryList().forEach(function(mapEntry) {
         mapEntry.addMarkerData(infoWindow);
-        console.log(mapEntry);
-        console.log(mapEntry.location);
-        bounds.extend(mapEntry.location);
+        bounds.extend(mapEntry.marker.position);
 
     });
     map.fitBounds(bounds);
