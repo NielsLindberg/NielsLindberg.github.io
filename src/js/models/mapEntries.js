@@ -9,7 +9,7 @@ var mapEntries = [{
     id: 2,
     tags: ['food', 'turkish', 'fastfood']
 }, {
-    title: "Riccos",
+    title: "Riccos Fælledvej",
     description: "Nice café for studying.",
     id: 3,
     tags: ['café', 'coffee', 'study']
@@ -24,7 +24,7 @@ var mapEntries = [{
     id: 5,
     tags: ['music', 'club', 'techno', 'house']
 }, {
-    title: "Boulevarden",
+    title: "Boulevarden Bodega, Sønder Boulevard",
     description: "Bodega at Sønder Boulevard",
     id: 6,
     tags: ['bodega', 'billiard']
@@ -38,24 +38,13 @@ var MapEntry = function(data) {
 };
 
 MapEntry.prototype.initMarker = function(service, map, infoWindow, bounds) {
-    self = this;
+    var self = this;
 
     function callback(results, status) {
         if (status == google.maps.places.PlacesServiceStatus.OK) {
-            self.formattedName = results[0].formatted_address;
-            self.marker = new google.maps.Marker({
-                title: self.title,
-                animation: google.maps.Animation.DROP,
-                id: self.id,
-                location: results[0].geometry.location
-            });
-            self.infoWindow = infoWindow;
-            self.marker.addListener('click', function() {
-                self.populateInfoWindow();
-            });
-            self.marker.setMap(map);
-            bounds.extend(self.marker.position);
-            map.fitBounds(bounds);
+            self.addQueryResultToObject(results[0]);
+            self.addMarkerData(map, infoWindow);
+            self.showMarker(map, bounds);
             map.fitBounds(bounds);
         }
     }
@@ -63,6 +52,26 @@ MapEntry.prototype.initMarker = function(service, map, infoWindow, bounds) {
         query: self.title
     };
     service.textSearch(request, callback);
+};
+
+MapEntry.prototype.addQueryResultToObject = function(placeData) {
+    this.location = placeData.geometry.location;
+    this.formattedName = placeData.formatted_address;
+};
+// Since google maps api is loaded async, we need to call the addmarker from the mapInit callback function
+MapEntry.prototype.addMarkerData = function(map, infoWindow) {
+    var self = this;
+    self.map = map;
+    self.marker = new google.maps.Marker({
+        title: self.title,
+        animation: google.maps.Animation.DROP,
+        id: self.id,
+        position: self.location
+    });
+    self.infoWindow = infoWindow;
+    self.marker.addListener('click', function() {
+        self.populateInfoWindow();
+    });
 };
 
 MapEntry.prototype.showMarker = function(map, bounds) {

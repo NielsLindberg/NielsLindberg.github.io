@@ -16,7 +16,8 @@ function initMap() {
             lat: 55.6761,
             lng: 12.5683
         },
-        zoom: 14
+        zoom: 14,
+        styles: styles
     });
     var infoWindow = new google.maps.InfoWindow({});
     var bounds = new google.maps.LatLngBounds();
