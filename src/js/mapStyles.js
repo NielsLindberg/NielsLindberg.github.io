@@ -17,6 +17,13 @@ var styles = [{
         "stylers": [
             { "visibility": "off" }
         ]
+    },
+    {
+        "featureType": "poi",
+        "elementType": "park",
+        "stylers": [
+            { "visibility": "on" }
+        ]
     }, {
         "featureType": "road",
         "elementType": "all",
@@ -30,7 +37,7 @@ var styles = [{
         "featureType": "road.highway",
         "elementType": "all",
         "stylers": [
-            { "visibility": "off" }
+            { "visibility": "on" }
         ]
     }, {
         "featureType": "road.arterial",
@@ -42,7 +49,7 @@ var styles = [{
         "featureType": "transit",
         "elementType": "all",
         "stylers": [
-            { "visibility": "off"}
+            { "visibility": "on"}
         ]
     }, {
         "featureType": "water",

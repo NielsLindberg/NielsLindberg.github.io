@@ -21,8 +21,9 @@ function initMap() {
     });
     var infoWindow = new google.maps.InfoWindow({});
     var bounds = new google.maps.LatLngBounds();
-    var service = new google.maps.places.PlacesService(map);
+    var placeService = new google.maps.places.PlacesService(map);
+    var streetService = new google.maps.StreetViewService();
     mapEntryViewModel.mapEntryList().forEach(function(mapEntry) {
-        mapEntry.initMarker(service, map, infoWindow, bounds);
+        mapEntry.initMarker(placeService, streetService, map, infoWindow, bounds);
     });
 }
