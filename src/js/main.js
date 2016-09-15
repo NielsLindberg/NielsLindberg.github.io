@@ -22,9 +22,6 @@ function initMap() {
     var bounds = new google.maps.LatLngBounds();
     var service = new google.maps.places.PlacesService(map);
     mapEntryViewModel.mapEntryList().forEach(function(mapEntry) {
-        mapEntry.queryMarkerPosition(service);
-        mapEntry.addMarkerData(map, infoWindow);
-        mapEntry.showMarker(bounds);
+        mapEntry.initMarker(service, map, infoWindow, bounds);
     });
-    map.fitBounds(bounds);
 }

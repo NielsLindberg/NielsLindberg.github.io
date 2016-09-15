@@ -37,17 +37,26 @@ var MapEntry = function(data) {
     this.tags = data.tags;
 };
 
-MapEntry.prototype.queryMarkerPosition = function(service) {
+MapEntry.prototype.initMarker = function(service, map, infoWindow, bounds) {
     self = this;
-    function addQueryResultToObject(placeData) {
-        self.location = placeData.geometry.location;
-        self.formattedName = placeData.formatted_address;
-    }
+
     function callback(results, status) {
         if (status == google.maps.places.PlacesServiceStatus.OK) {
-            addQueryResultToObject(results[0]);
-            console.log(results[0]);
-            console.log(status == google.maps.places.PlacesServiceStatus.OK);
+            self.formattedName = results[0].formatted_address;
+            self.marker = new google.maps.Marker({
+                title: self.title,
+                animation: google.maps.Animation.DROP,
+                id: self.id,
+                location: results[0].geometry.location
+            });
+            self.infoWindow = infoWindow;
+            self.marker.addListener('click', function() {
+                self.populateInfoWindow();
+            });
+            self.marker.setMap(map);
+            bounds.extend(self.marker.position);
+            map.fitBounds(bounds);
+            map.fitBounds(bounds);
         }
     }
     var request = {
@@ -56,23 +65,7 @@ MapEntry.prototype.queryMarkerPosition = function(service) {
     service.textSearch(request, callback);
 };
 
-
-// Since google maps api is loaded async, we need to call the addmarker from the mapInit callback function
-MapEntry.prototype.addMarkerData = function(map, infoWindow) {
-    var self = this;
-    self.map = map;
-    self.marker = new google.maps.Marker({
-        title: self.title,
-        animation: google.maps.Animation.DROP,
-        id: self.id
-    });
-    self.infoWindow = infoWindow;
-    self.marker.addListener('click', function() {
-        self.populateInfoWindow();
-    });
-};
-
-MapEntry.prototype.showMarker = function(bounds) {
+MapEntry.prototype.showMarker = function(map, bounds) {
     this.marker.setMap(this.map);
     bounds.extend(this.marker.position);
 };
