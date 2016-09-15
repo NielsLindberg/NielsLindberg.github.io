@@ -40,7 +40,7 @@ var MapEntry = function(data) {
     this.description = data.description;
     this.id = data.id;
     this.tags = data.tags;
-    this.radius = 50;
+    this.radius = 100;
 };
 
 MapEntry.prototype.initMarker = function(placeService, streetService, map, infoWindow, bounds) {
@@ -116,9 +116,10 @@ MapEntry.prototype.createPanoramaView = function() {
                 position: nearStreetViewLocation,
                 pov: {
                     heading: heading,
-                    pitch: 10
+                    pitch: 0
                 }
             };
+
             var panorama = new google.maps.StreetViewPanorama(document.getElementById('pano'), panoramaOptions);
         } else {
             self.infoWindow.setContent('<div>' + self.marker.title + '</div>' +
