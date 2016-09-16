@@ -1,4 +1,8 @@
 var mapEntryViewModel;
+var buttonPanorama = '<input id="show-panorama" type="button" value="Show Panorama">';
+var panoramaDiv = '<div id="pano"></div>';
+var buttonDirections = '<input id="show-directions" type="button" value="Show Directions">';
+
 
 function MapEntryViewModel() {
     mapEntryViewModel = this;
@@ -19,11 +23,15 @@ function initMap() {
         zoom: 14,
         styles: styles
     });
-    var infoWindow = new google.maps.InfoWindow({});
-    var bounds = new google.maps.LatLngBounds();
+    /* load the needed map services */
     var placeService = new google.maps.places.PlacesService(map);
     var streetService = new google.maps.StreetViewService();
+    var directionsService = new google.maps.DirectionsService();
+
+    var infoWindow = new google.maps.InfoWindow({});
+    var bounds = new google.maps.LatLngBounds();
+
     mapEntryViewModel.mapEntryList().forEach(function(mapEntry) {
-        mapEntry.initMarker(placeService, streetService, map, infoWindow, bounds);
+        mapEntry.initMarker(placeService, streetService, directionsService, map, infoWindow, bounds);
     });
 }
