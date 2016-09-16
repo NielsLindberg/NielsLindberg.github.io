@@ -46,6 +46,14 @@ var MapEntry = function(data) {
     this.id = data.id;
     this.tags = data.tags;
     this.radius = 100;
+    this.placeService = null;
+    this.streetService = null;
+    this.directionsService = null;
+    this.map = null;
+    this.infoWindow = null;
+    this.panorama = null;
+    this.directions = null;
+    this.bounds = null;
 };
 
 MapEntry.prototype.initMarker = function(placeService, streetService, directionsService, map, infoWindow, bounds) {
@@ -62,7 +70,7 @@ MapEntry.prototype.initMarker = function(placeService, streetService, directions
             self.addQueryResultToObject(results[0]);
             self.addMarkerData();
             self.showMarker();
-            map.fitBounds(self.bounds);
+            self.map.fitBounds(self.bounds);
         }
     }
     var request = {
@@ -103,29 +111,42 @@ MapEntry.prototype.hideMarker = function() {
 MapEntry.prototype.populateInfoWindow = function() {
     if (this.infoWindow.marker != this.marker) {
         var self = this;
-        this.infoWindow.setContent('<div id="infowindow">' + buttonPanorama + buttonDirections + '</div>');
+        this.infoWindow.setContent('<div id="infowindow"><div id="pano"></div><div id="directions"></div>' + buttonPanorama + buttonDirections + '</div>');
         this.infoWindow.marker = this.marker;
         this.infoWindow.open(this.map, this.marker);
         this.infoWindow.addListener('closeclick', function() {
             self.infoWindow.marker = null;
         });
         document.getElementById('show-panorama').addEventListener('click', function() {
+            self.hideDisplayDirections();
             self.createPanoramaView(self);
         });
         document.getElementById('show-directions').addEventListener('click', function() {
+            self.hidePanoramaView(self);
             self.displayDirections(self);
+        });
+    }
+};
+
+MapEntry.prototype.hidePanoramaView = function() {
+    document.getElementById("pano").style.display = "none";
+};
+
+MapEntry.prototype.hideDisplayDirections = function() {
+        if (directionsDisplayList.length > 0) {
+        directionsDisplayList.forEach(function(direction) {
+            direction.setMap(null);
+            direction.setDirections({routes: []});
         });
     }
 };
 
 MapEntry.prototype.createPanoramaView = function(self) {
     self.streetService = new google.maps.StreetViewService();
-
     function getStreetView(data, status) {
         if (status == google.maps.StreetViewStatus.OK) {
             var nearStreetViewLocation = data.location.latLng;
             var heading = google.maps.geometry.spherical.computeHeading(nearStreetViewLocation, self.marker.position);
-            self.infoWindow.setContent('<div id="infowindow">' + panoramaDiv + buttonPanorama + buttonDirections + '</div>');
             var panoramaOptions = {
                 position: nearStreetViewLocation,
                 linksControl: false,
@@ -137,26 +158,22 @@ MapEntry.prototype.createPanoramaView = function(self) {
                 }
             };
 
-            var panorama = new google.maps.StreetViewPanorama(document.getElementById('pano'), panoramaOptions);
-        } else {
-            self.infoWindow.setContent('<div>' + self.marker.title + '</div>' +
-                '<div>No Street View Found</div>');
+            self.panorama = new google.maps.StreetViewPanorama(document.getElementById('pano'), panoramaOptions);
         }
     }
     self.streetService.getPanoramaByLocation(self.marker.position, self.radius, getStreetView);
+    document.getElementById("pano").style.display = "block";
 };
 
+var directionsDisplayList = [];
 MapEntry.prototype.displayDirections = function(self) {
     self.directionsService = new google.maps.DirectionsService();
+    self.hideDisplayDirections();
     var origin = mapEntryViewModel.mapEntryList()[0].location;
-    // Get the destination address from the user entered value.
     var destinationAddress = self.location;
-    // Get mode again from the user entered value.
     var mode = 'TRANSIT';
     self.directionsService.route({
-        // The origin is the passed in marker's position.
         origin: origin,
-        // The destination is user entered address.
         destination: destinationAddress,
         travelMode: google.maps.TravelMode[mode]
     }, function(response, status) {
@@ -173,7 +190,9 @@ MapEntry.prototype.displayDirections = function(self) {
                 },
                 preserveViewport: true
             });
-            directionsDisplay.setPanel(document.getElementById('infowindow'));
+            directionsDisplay.setPanel(document.getElementById('directions'));
+            directionsDisplayList.push(directionsDisplay);
+            self.directions = directionsDisplay;
         } else {
             window.alert('Directions request failed due to ' + status);
         }
