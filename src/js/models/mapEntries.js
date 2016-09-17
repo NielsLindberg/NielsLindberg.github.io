@@ -2,48 +2,69 @@ var mapEntries = [{
     title: "Copenhagen Business School, Solbjerg Campus",
     description: "The main campus of CBS",
     id: "A",
+    category: 'school',
     tags: ['school', 'campus', 'cbs']
 }, {
     title: "Harbor Bath, Islands Brygge",
     description: "City harbor bath",
     id: "B",
+    category: 'leasure',
     tags: ['leasure', 'bathing', 'beachvolley', 'sports']
 }, {
     title: "Harbor Bath, Kalvebod Brygge",
     description: "City harbor bath",
     id: "C",
+    category: 'leasure',
     tags: ['leasure', 'bathing', 'beachvolley', 'sports']
 }, {
-    title: "Kebabistan",
+    title: "Kebabistan, Istedgade",
     description: "Nr.1 Vesterbro Shawarma",
     id: "D",
+    category: 'food',
     tags: ['food', 'turkish', 'fastfood']
 }, {
     title: "Riccos Fælledvej",
     description: "Nice café for studying.",
     id: "E",
+    category: 'leasure',
     tags: ['café', 'coffee', 'study']
 }, {
     title: "KB18",
     description: "House/Techno Club in the Meatpacking district",
     id: "F",
+    category: 'party',
     tags: ['music', 'club', 'techno', 'house']
 }, {
     title: "Culture Box",
     description: "The main House/Techno club in Copenhagen.",
     id: "G",
+    category: 'party',
     tags: ['music', 'club', 'techno', 'house']
 }, {
     title: "Boulevarden Bodega, Sønder Boulevard",
     description: "Bodega at Sønder Boulevard",
     id: "H",
+    category: 'party',
     tags: ['bodega', 'billiard']
+}, {
+    title: "Scarpetta, Rantzausgade",
+    description: "Nice medium priced italian restaurant",
+    id: "I",
+    category: 'food',
+    tags: ['food', 'italian', 'restaurant']
+}, {
+    title: "Five Star, Nørrebrogade",
+    description: "Indian style durums",
+    id: "I",
+    category: 'food',
+    tags: ['food', 'indian', 'fastfood']
 }];
 
 var MapEntry = function(data) {
     this.title = data.title;
     this.description = data.description;
     this.id = data.id;
+    this.category = data.category;
     this.tags = data.tags;
     this.radius = 100;
     this.placeService = null;
@@ -80,16 +101,19 @@ MapEntry.prototype.initMarker = function(placeService, streetService, directions
 };
 
 MapEntry.prototype.addQueryResultToObject = function(placeData) {
+    var self = this;
     this.placeData = placeData;
     this.location = placeData.geometry.location;
     this.formattedName = placeData.formatted_address;
-    this.icon = {
-        url: placeData.icon,
-        size: new google.maps.Size(35,35),
-        origin: new google.maps.Point(0,0),
-        anchor: new google.maps.Point(15,35),
-        scaledSize: new google.maps.Size(25,25)
-    };
+    this.icon = new google.maps.MarkerImage(
+          'http://chart.googleapis.com/chart?chst=d_map_pin_letter&chld=' +
+          self.id + '|' +
+          categoryColorsIcon[self.category] + '|' +
+          '000000',
+          new google.maps.Size(20, 30),
+          new google.maps.Point(0, 0),
+          new google.maps.Point(20, 30),
+          new google.maps.Size(20,30));
 };
 
 // Since google maps api is loaded async, we need to call the addmarker from the mapInit callback function
@@ -99,7 +123,7 @@ MapEntry.prototype.addMarkerData = function() {
         title: self.title,
         animation: google.maps.Animation.DROP,
         id: self.id,
-        label: self.id,
+        icon: self.icon,
         position: self.location
     });
     self.marker.addListener('click', function() {
@@ -119,38 +143,57 @@ MapEntry.prototype.hideMarker = function() {
 MapEntry.prototype.populateInfoWindow = function() {
     if (this.infoWindow.marker != this.marker) {
         var self = this;
-        this.infoWindow.setContent('<div id="infowindow"><div id="pano"></div><div id="directions"></div>' + buttonPanorama + buttonDirections + '</div>');
+        this.infoWindow.setContent('<div id="infowindow">' + self.title + '</div>');
         this.infoWindow.marker = this.marker;
         this.infoWindow.open(this.map, this.marker);
         this.infoWindow.addListener('closeclick', function() {
             self.infoWindow.marker = null;
-        });
-        document.getElementById('show-panorama').addEventListener('click', function() {
             self.hideDisplayDirections();
-            self.createPanoramaView(self);
-        });
-        document.getElementById('show-directions').addEventListener('click', function() {
             self.hidePanoramaView(self);
-            self.displayDirections(self);
+            self.unBindButtonsFromMarker();
         });
+        this.unBindButtonsFromMarker();
+        this.bindButtonsToMarker(self);
     }
 };
 
+MapEntry.prototype.unBindButtonsFromMarker = function() {
+    $('#show-panorama').unbind('click');
+    $('#show-photos').unbind('click');
+    $('#show-directions').unbind('click');
+};
+
+MapEntry.prototype.bindButtonsToMarker = function(self) {
+    $('#show-panorama').click(function() {
+        self.hideDisplayDirections();
+        self.createPanoramaView(self);
+    });
+    $('#show-photos').click(function() {
+        self.hideDisplayDirections();
+        self.createPanoramaView(self);
+    });
+    $('#show-directions').click(function() {
+        self.hidePanoramaView(self);
+        self.displayDirections(self);
+    });
+};
+
 MapEntry.prototype.hidePanoramaView = function() {
-    document.getElementById("pano").style.display = "none";
+    $('#pano').css('display', 'none');
 };
 
 MapEntry.prototype.hideDisplayDirections = function() {
-        if (directionsDisplayList.length > 0) {
+    if (directionsDisplayList.length > 0) {
         directionsDisplayList.forEach(function(direction) {
             direction.setMap(null);
-            direction.setDirections({routes: []});
+            direction.setDirections({ routes: [] });
         });
     }
 };
 
 MapEntry.prototype.createPanoramaView = function(self) {
     self.streetService = new google.maps.StreetViewService();
+
     function getStreetView(data, status) {
         if (status == google.maps.StreetViewStatus.OK) {
             var nearStreetViewLocation = data.location.latLng;
@@ -170,7 +213,9 @@ MapEntry.prototype.createPanoramaView = function(self) {
         }
     }
     self.streetService.getPanoramaByLocation(self.marker.position, self.radius, getStreetView);
-    document.getElementById("pano").style.display = "block";
+    $('#pano').css({
+    display:'flex',
+    flex: 1});
 };
 
 var directionsDisplayList = [];
@@ -191,14 +236,14 @@ MapEntry.prototype.displayDirections = function(self) {
                 directions: response,
                 draggable: false,
                 polylineOptions: {
-                    strokeColor: 'green'
+                    strokeColor: '#282828'
                 },
                 markerOptions: {
                     visible: false
                 },
                 preserveViewport: true
             });
-            directionsDisplay.setPanel(document.getElementById('directions'));
+            directionsDisplay.setPanel(document.getElementById('result-container'));
             directionsDisplayList.push(directionsDisplay);
             self.directions = directionsDisplay;
         } else {

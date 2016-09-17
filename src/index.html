@@ -13,16 +13,24 @@
 <body>
     <header>
     </header>
-    <div class="container">
-    <div id="map"></div>
+    <div class="page-wrapper">
         <main class="content">
-            <div data-bind="foreach: mapEntryList">
-                <h1 data-bind="text: title"></h1>
-                <p data-bind="text: description"></p>
-                <ul data-bind="foreach: tags">
-                    <li data-bind="text: $data"></li>
-                </ul>
+            <div class="left-menu">
+                <div class="list-container">
+                    <div data-bind="foreach: mapEntryList">
+                        <div class="list-item">
+                            <h4 data-bind="text: title"></h4>
+                            <p data-bind="text: category, css:category"></p>
+                        </div>
+                    </div>
+                </div>
+                <div id="result-container" class="result-container">
+                    <input id="show-panorama" type="button" value="Show Panorama">
+                    <div id="pano"></div>
+                    <input id="show-directions" type="button" value="Show Directions">
+                </div>
             </div>
+            <div id="map"></div>
         </main>
         <footer>
         </footer>
@@ -34,5 +42,5 @@
 <script src="js/mapStyles.js"></script>
 <script src="js/main.js"></script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDwCMeEpZWGWPIgmzaGxGj7D4odnXZQVkE&v=3&callback=initMap&libraries=places,geometry,drawing"></script>
-</html>
 
+</html>

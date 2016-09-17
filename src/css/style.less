@@ -1,0 +1,185 @@
+/*----------------MIXINS---------------------*/
+
+.flexbox {
+    .flex-parent {
+        .display-flex {
+            display: -webkit-flex;
+            display: -ms-flexbox;
+            display: flex;
+        }
+        .flex-direction(@direction) {
+            flex-direction: @direction;
+            -webkit-flex-direction: @direction;
+            -ms-flex-direction: @direction;
+        }
+        .flex-wrap(@wrap) {
+            -webkit-flex-wrap: @wrap;
+            -ms-flex-wrap: @wrap;
+            flex-wrap: @wrap;
+        }
+        .align-start {
+            -ms-flex-line-pack: start;
+            -webkit-align-content: flex-start;
+            align-content: flex-start;
+        }
+        .align-center {
+            -webkit-align-content: center;
+            -ms-flex-line-pack: center;
+            align-content: center;
+        }
+        .align-end {
+            -webkit-align-content: end;
+            -ms-flex-line-pack: flex-end;
+            align-content: flex-end;
+        }
+        .justify-start {
+            -webkit-justify-content: flex-start;
+            -ms-flex-pack: start;
+            justify-content: flex-start;
+        }
+        .justify-center {
+            -webkit-justify-content: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+        }
+        .justify-end {
+            -webkit-justify-content: flex-end;
+            -ms-flex-pack: end;
+            justify-content: flex-end;
+        }
+    }
+    .flex-child {
+        .flex-order(@order) {
+            -webkit-order: @order;
+            -ms-flex-order: @order;
+            order: @order;
+        }
+        .flex(@value) {
+            -webkit-flex: @value;
+            -ms-flex: @value;
+            flex: @value;
+        }
+    }
+}
+
+
+/*----------------VARIABLES---------------------*/
+
+@pageMainMaxWidth: 100%;
+@leftMenuWidth: 20%;
+@mapContainerWidth: 80%;
+@backgroundColor: #282828;
+@themeColor1: #FFFFFF;
+@themeColor2: #e384a6;
+@themeColor3: #f4d499;
+@themeColor4: #4d90d6;
+@themeColor5: #c7e38c;
+@themeColor6: #9986c8;
+@themeColor7: #edf28c;
+@themeColor8: #ffd1d4;
+@themeColor9: #5ee1dc;
+@themeColor10: #b0eead;
+@themeColor11: #fef85a;
+@themeColor12: #8badd2;
+//font mixin
+.font-settings {
+    font-family: Roboto, Arial, sans-serif;
+    font-weight: 300;
+}
+
+.school {
+    background-color: @themeColor2;
+}
+.food {
+    background-color: @themeColor3;
+}
+.leasure {
+    background-color: @themeColor4;
+}
+.party {
+    background-color: @themeColor5;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.list-container ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+.list-item {
+    .flexbox > .flex-parent > .display-flex;
+    .flexbox > .flex-parent > .flex-direction(row);
+}
+
+.list-item h4 {
+        color: @themeColor1;
+}
+
+#pano {
+    display: none;
+    padding: 0;
+    margin: 0;
+}
+
+
+/* GENERIC STYLES */
+
+.page-wrapper {
+    height: 100vh;
+    .flexbox > .flex-parent > .display-flex;
+    .flexbox > .flex-parent > .flex-direction(column);
+}
+
+.content {
+    .font-settings;
+    background-color: @backgroundColor;
+    width: @pageMainMaxWidth;
+    margin: 0;
+    padding: 0;
+    .flexbox > .flex-parent > .display-flex;
+    .flexbox > .flex-parent > .flex-wrap(wrap);
+    .flexbox > .flex-child > .flex(1);
+}
+
+#map {
+    width: @mapContainerWidth;
+    margin: 0;
+    padding: 0;
+}
+
+.left-menu {
+    padding: 0;
+    margin: 0;
+    width: @leftMenuWidth;
+    height: 100vh;
+    .flexbox > .flex-parent > .display-flex;
+    .flexbox > .flex-parent > .flex-direction(column);
+}
+
+.list-container {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    .flexbox > .flex-parent > .display-flex;
+    .flexbox > .flex-parent > .flex-wrap(wrap);
+    .flexbox > .flex-parent > .align-start;
+}
+
+.result-container {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    .flexbox > .flex-parent > .display-flex;
+    .flexbox > .flex-parent > .flex-direction(column);
+    .flexbox > .flex-parent > .flex-wrap(wrap);
+    .flexbox > .flex-child > .flex(1);
+    .flexbox > .flex-parent > .align-start;
+}

@@ -11,6 +11,13 @@ module.exports = function(grunt) {
                 }]
             }
         },
+        less: {
+            lesserisbesser: {
+                files: [{
+                    'src/css/style.css': 'src/css/style.less'
+                }]
+            }
+        },
         cssmin: {
             target: {
                 files: [{
@@ -34,8 +41,7 @@ module.exports = function(grunt) {
                         { width: 150 }
                     ]
                 },
-                files: [{
-                }]
+                files: [{}]
             }
         },
         uglify: {
@@ -76,28 +82,25 @@ module.exports = function(grunt) {
                 }
             },
             html2: {
-                files: {
-                }
+                files: {}
             },
             html3: {
-                files: {
-                }
+                files: {}
             },
             html4: {
-                files: {
-                }
+                files: {}
             },
             html5: {
-                files: {
-                }
+                files: {}
             }
         }
     });
     grunt.loadNpmTasks('grunt-contrib-imagemin');
     grunt.loadNpmTasks('grunt-responsive-images');
+    grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-htmlmin');
     grunt.loadNpmTasks('grunt-embed');
-    grunt.registerTask('default', ['imagemin', 'responsive_images', 'cssmin', 'uglify', 'htmlmin', 'embed']);
+    grunt.registerTask('default', ['imagemin', 'responsive_images','less', 'cssmin', 'uglify', 'htmlmin', 'embed']);
 };

@@ -3,6 +3,19 @@ var buttonPanorama = '<input id="show-panorama" type="button" value="Show Panora
 var panoramaDiv = '<div id="pano"></div>';
 var buttonDirections = '<input id="show-directions" type="button" value="Show Directions">';
 
+var themeColors = ['#e384a6', '#f4d499', '#4d90d6', '#c7e38c', '#9986c8', '#edf28c', '#ffd1d4', '#5ee1dc', '#b0eead', '#fef85a', '#8badd2'];
+var categoryColors = {
+    school: '#e384a6',
+    food: '#f4d499',
+    leasure: '#4d90d6',
+    party: '#c7e38c',
+};
+var categoryColorsIcon = {
+    school: 'e384a6',
+    food: 'f4d499',
+    leasure: '4d90d6',
+    party: 'c7e38c',
+};
 
 function MapEntryViewModel() {
     mapEntryViewModel = this;
@@ -13,6 +26,7 @@ function MapEntryViewModel() {
 }
 
 ko.applyBindings(new MapEntryViewModel());
+
 
 function initMap() {
     var map = new google.maps.Map(document.getElementById('map'), {

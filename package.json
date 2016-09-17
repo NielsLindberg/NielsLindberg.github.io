@@ -23,6 +23,7 @@
     "grunt-contrib-cssmin": "^1.0.1",
     "grunt-contrib-htmlmin": "^2.0.0",
     "grunt-contrib-imagemin": "^1.0.1",
+    "grunt-contrib-less": "^1.4.0",
     "grunt-contrib-uglify": "^1.0.1",
     "grunt-embed": "^0.2.1",
     "grunt-responsive-images": "^0.1.7"
