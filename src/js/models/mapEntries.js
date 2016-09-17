@@ -1,42 +1,42 @@
 var mapEntries = [{
     title: "Copenhagen Business School, Solbjerg Campus",
     description: "The main campus of CBS",
-    id: 8,
+    id: "A",
     tags: ['school', 'campus', 'cbs']
 }, {
     title: "Harbor Bath, Islands Brygge",
     description: "City harbor bath",
-    id: 1,
+    id: "B",
     tags: ['leasure', 'bathing', 'beachvolley', 'sports']
 }, {
     title: "Harbor Bath, Kalvebod Brygge",
     description: "City harbor bath",
-    id: 2,
+    id: "C",
     tags: ['leasure', 'bathing', 'beachvolley', 'sports']
 }, {
     title: "Kebabistan",
     description: "Nr.1 Vesterbro Shawarma",
-    id: 3,
+    id: "D",
     tags: ['food', 'turkish', 'fastfood']
 }, {
     title: "Riccos Fælledvej",
     description: "Nice café for studying.",
-    id: 4,
+    id: "E",
     tags: ['café', 'coffee', 'study']
 }, {
     title: "KB18",
     description: "House/Techno Club in the Meatpacking district",
-    id: 5,
+    id: "F",
     tags: ['music', 'club', 'techno', 'house']
 }, {
     title: "Culture Box",
     description: "The main House/Techno club in Copenhagen.",
-    id: 6,
+    id: "G",
     tags: ['music', 'club', 'techno', 'house']
 }, {
     title: "Boulevarden Bodega, Sønder Boulevard",
     description: "Bodega at Sønder Boulevard",
-    id: 7,
+    id: "H",
     tags: ['bodega', 'billiard']
 }];
 
@@ -83,6 +83,13 @@ MapEntry.prototype.addQueryResultToObject = function(placeData) {
     this.placeData = placeData;
     this.location = placeData.geometry.location;
     this.formattedName = placeData.formatted_address;
+    this.icon = {
+        url: placeData.icon,
+        size: new google.maps.Size(35,35),
+        origin: new google.maps.Point(0,0),
+        anchor: new google.maps.Point(15,35),
+        scaledSize: new google.maps.Size(25,25)
+    };
 };
 
 // Since google maps api is loaded async, we need to call the addmarker from the mapInit callback function
@@ -92,6 +99,7 @@ MapEntry.prototype.addMarkerData = function() {
         title: self.title,
         animation: google.maps.Animation.DROP,
         id: self.id,
+        label: self.id,
         position: self.location
     });
     self.marker.addListener('click', function() {
