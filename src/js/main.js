@@ -19,14 +19,18 @@ var categoryColorsIcon = {
 
 function MapEntryViewModel() {
     mapEntryViewModel = this;
-    mapEntryViewModel.mapEntryList = ko.observableArray([]);
-    mapEntries.forEach(function(mapEntry) {
-        mapEntryViewModel.mapEntryList.push(new MapEntry(mapEntry));
+    mapEntryViewModel.entryList = ko.observableArray([]);
+    mapEntries.forEach(function(entryData) {
+        mapEntryViewModel.entryList.push(new ListEntry(entryData));
     });
 }
 
 ko.applyBindings(new MapEntryViewModel());
 
+var mapEntryList = [];
+mapEntries.forEach(function(entryData) {
+    mapEntryList.push(new MapEntry(entryData));
+});
 
 function initMap() {
     var map = new google.maps.Map(document.getElementById('map'), {
@@ -45,7 +49,7 @@ function initMap() {
     var infoWindow = new google.maps.InfoWindow({});
     var bounds = new google.maps.LatLngBounds();
 
-    mapEntryViewModel.mapEntryList().forEach(function(mapEntry) {
+    mapEntryList.forEach(function(mapEntry) {
         mapEntry.initMarker(placeService, streetService, directionsService, map, infoWindow, bounds);
     });
 }

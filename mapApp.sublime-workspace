@@ -52,10 +52,10 @@
 	"buffers":
 	[
 		{
-			"file": "src/css/style.css",
+			"file": "src/js/models/mapEntries.js",
 			"settings":
 			{
-				"buffer_size": 211,
+				"buffer_size": 8541,
 				"line_ending": "Windows"
 			}
 		},
@@ -63,48 +63,26 @@
 			"file": "src/index.html",
 			"settings":
 			{
-				"buffer_size": 1282,
+				"buffer_size": 1806,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "src/js/mapStyles.js",
+			"contents": "var mapEntryViewModel;\nvar buttonPanorama = '<input id=\"show-panorama\" type=\"button\" value=\"Show Panorama\">';\nvar panoramaDiv = '<div id=\"pano\"></div>';\nvar buttonDirections = '<input id=\"show-directions\" type=\"button\" value=\"Show Directions\">';\n\nvar themeColors = ['#e384a6', '#f4d499', '#4d90d6', '#c7e38c', '#9986c8', '#edf28c', '#ffd1d4', '#5ee1dc', '#b0eead', '#fef85a', '#8badd2'];\nvar categoryColors = {\n    school: '#e384a6',\n    food: '#f4d499',\n    leasure: '#4d90d6',\n    party: '#c7e38c',\n};\nvar categoryColorsIcon = {\n    school: 'e384a6',\n    food: 'f4d499',\n    leasure: '4d90d6',\n    party: 'c7e38c',\n};\n\nfunction MapEntryViewModel() {\n    mapEntryViewModel = this;\n    mapEntryViewModel.mapEntryList = ko.observableArray([]);\n    mapEntries.forEach(function(mapEntry) {\n        mapEntryViewModel.mapEntryList.push(new MapEntry(mapEntry));\n    });\n}\n\nko.applyBindings(new MapEntryViewModel());\n\n\nfunction initMap() {\n    var map = new google.maps.Map(document.getElementById('map'), {\n        center: {\n            lat: 55.6761,\n            lng: 12.5683\n        },\n        zoom: 14,\n        styles: styles\n    });\n    \n    /* load the needed map services */\n    var placeService = new google.maps.places.PlacesService(map);\n    var streetService = new google.maps.StreetViewService();\n    var directionsService = new google.maps.DirectionsService();\n\n    var infoWindow = new google.maps.InfoWindow({});\n    var bounds = new google.maps.LatLngBounds();\n\n    mapEntryViewModel.mapEntryList().forEach(function(mapEntry) {\n        mapEntry.initMarker(placeService, streetService, directionsService, map, infoWindow, bounds);\n    });\n}\n",
+			"file": "src/js/main.js",
+			"file_size": 1791,
+			"file_write_time": 131192886545272755,
 			"settings":
 			{
-				"buffer_size": 1375,
-				"line_ending": "Windows",
-				"name": "[{ \"featureType\": \"administrative\", \"elementType\":"
-			}
-		},
-		{
-			"file": "src/js/models/mapEntries.js",
-			"settings":
-			{
-				"buffer_size": 6744,
+				"buffer_size": 1648,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "/D/Workspace/Udacity/P5/frontend-nanodegree-arcade-game/js/app.js",
+			"file": "dist/js/mapStyles.js",
 			"settings":
 			{
-				"buffer_size": 5800,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "bower.json",
-			"settings":
-			{
-				"buffer_size": 410,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/D/Workspace/Udacity/P4/js/map.js",
-			"settings":
-			{
-				"buffer_size": 4684,
+				"buffer_size": 706,
 				"line_ending": "Windows"
 			}
 		}
@@ -116,10 +94,14 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 490.0,
-		"last_filter": "Package Control: ",
+		"height": 213.0,
+		"last_filter": "install",
 		"selected_items":
 		[
+			[
+				"install",
+				"Package Control: Install Package"
+			],
 			[
 				"Package Control: ",
 				"Package Control: Install Package"
@@ -139,19 +121,16 @@
 			[
 				"Package Control: remove",
 				"Package Control: Remove Package"
-			],
-			[
-				"install",
-				"Package Control: Install Package"
 			]
 		],
-		"width": 571.0
+		"width": 462.0
 	},
 	"console":
 	{
 		"height": 153.0,
 		"history":
 		[
+			"install",
 			"Autoprefix CSS",
 			".jshintrc",
 			"view.run_command(\"jshint\")",
@@ -177,14 +156,36 @@
 	[
 		"/D/Workspace/Udacity/mapApp",
 		"/D/Workspace/Udacity/mapApp/bower_components",
+		"/D/Workspace/Udacity/mapApp/dist",
+		"/D/Workspace/Udacity/mapApp/dist/css",
+		"/D/Workspace/Udacity/mapApp/dist/js",
 		"/D/Workspace/Udacity/mapApp/src",
-		"/D/Workspace/Udacity/mapApp/src/js",
-		"/D/Workspace/Udacity/mapApp/src/js/models",
-		"/D/Workspace/Udacity/mapApp/src/js/views"
+		"/D/Workspace/Udacity/mapApp/src/css",
+		"/D/Workspace/Udacity/mapApp/src/js"
 	],
 	"file_history":
 	[
+		"/D/Workspace/CBS/yoprogram.py",
+		"/D/Workspace/CBS/data.json",
+		"/D/Workspace/Udacity/frontend-nanodegree-mobile-portfolio/src/index.html",
+		"/D/Workspace/CBS/yoyo.py",
+		"/D/Workspace/CBS/quandl/WWDI.py",
+		"/D/Workspace/Udacity/mapApp/src/js/mapStyles.js",
+		"/D/Workspace/Udacity/frontend-nanodegree-mobile-portfolio/Gruntfile.js",
+		"/D/Workspace/Udacity/mapApp/bower.json",
+		"/D/Workspace/Udacity/P5/frontend-nanodegree-arcade-game/js/app.js",
+		"/D/Workspace/Udacity/P4/js/builder.js",
 		"/D/Workspace/Udacity/mapApp/src/js/main.js",
+		"/D/Workspace/Udacity/mapApp/src/css/style.less",
+		"/D/Workspace/CBS/quandl/test.py",
+		"/D/Workspace/Udacity/mapApp/src/js/models/mapEntries.js",
+		"/D/Workspace/Udacity/mapApp/Gruntfile.js",
+		"/D/Workspace/Udacity/mapApp/src/index.html",
+		"/D/Workspace/Udacity/P4/css/style.less",
+		"/D/Workspace/QlikSense/amcharts/QlikSense.amCharts/amCombo/library/chalk.js",
+		"/D/Workspace/Udacity/P4/js/map.js",
+		"/D/Workspace/Udacity/mapApp/src/css/style.css",
+		"/D/Workspace/Udacity/P4/css/style.css",
 		"/C/Users/Niels/Downloads/ScandinaviaLevel2new.kml",
 		"/C/Users/Niels/Downloads/Scandinavia level 1.kml",
 		"/D/Workspace/MapData/KML-zip_20160907044612.kml",
@@ -197,20 +198,15 @@
 		"/C/Users/Niels/Downloads/Scandinavia level 2.kml",
 		"/C/Users/Niels/Downloads/DNK_adm2.kmz",
 		"/D/Workspace/Udacity/P4/js/edu.js",
-		"/D/Workspace/Udacity/P4/js/map.js",
 		"/D/Workspace/Udacity/frontend-nanodegree-arcade-game/js/app.js",
 		"/D/Workspace/Udacity/mapApp/bower_components/knockout/dist/knockout.js",
-		"/D/Workspace/Udacity/mapApp/src/js/models/mapEntries.js",
-		"/D/Workspace/Udacity/mapApp/bower.json",
 		"/D/Workspace/Udacity/boilerplate/src/css/style.css",
 		"/D/Workspace/Udacity/boilerplate/src/js/main.js",
 		"/D/Workspace/Udacity/mapApp/boilerplate/package.json",
 		"/D/Workspace/Udacity/boilerplate/README.md",
 		"/D/Workspace/Udacity/frontend-nanodegree-mobile-portfolio/src/views/js/main.js",
-		"/D/Workspace/Udacity/frontend-nanodegree-mobile-portfolio/Gruntfile.js",
 		"/D/Workspace/Udacity/frontend-nanodegree-mobile-portfolio/package.json",
 		"/D/Workspace/Udacity/frontend-nanodegree-mobile-portfolio/README.md",
-		"/D/Workspace/Udacity/frontend-nanodegree-mobile-portfolio/src/index.html",
 		"/D/Workspace/Udacity/frontend-nanodegree-mobile-portfolio/frontend-nanodegree-mobile-portfolio",
 		"/D/Workspace/Udacity/frontend-nanodegree-mobile-portfolio/src/views/css/style.css",
 		"/D/Workspace/Udacity/boilerplate/package.json",
@@ -221,7 +217,6 @@
 		"/D/Workspace/Udacity/frontend-nanodegree-mobile-portfolio/src/js/googleanal.js",
 		"/D/Workspace/Udacity/frontend-nanodegree-mobile-portfolio/src/project-webperf.html",
 		"/D/Workspace/Udacity/frontend-nanodegree-mobile-portfolio/src/project-mobile.html",
-		"/D/Workspace/Udacity/P5/frontend-nanodegree-arcade-game/js/app.js",
 		"/D/Workspace/Udacity/frontend-nanodegree-mobile-portfolio/dist/views/pizza.html",
 		"/D/Workspace/Udacity/frontend-nanodegree-mobile-portfolio/dist/views/css/style.css",
 		"/D/Workspace/Udacity/frontend-nanodegree-mobile-portfolio/dist/project-2048.html",
@@ -248,17 +243,14 @@
 		"/D/workspace/LTU/Assignment4/README.md",
 		"/D/WoW Vanilla/realmlist.wtf",
 		"/D/Workspace/Udacity/P4/css/optimized/less.style.css",
-		"/D/Workspace/Udacity/P4/css/style.less",
 		"/D/Workspace/Udacity/P4/js/work.js",
 		"/C/Users/Niels/AppData/Roaming/Sublime Text 3/Packages/HTML-CSS-JS Prettify/HTMLPrettify.sublime-settings",
 		"/D/Workspace/Udacity/P4/js/bio.js",
 		"/D/Workspace/Udacity/P4/projects.html",
 		"/D/Workspace/Udacity/P4/index.html",
-		"/D/Workspace/Udacity/P4/js/builder.js",
 		"/D/Workspace/Udacity/P4/js/optimized/built.js",
 		"/D/Workspace/Udacity/P4/js/projects.js",
 		"/C/Users/Niels/AppData/Roaming/Sublime Text 3/Packages/User/SublimeLinter.sublime-settings",
-		"/D/Workspace/Udacity/P4/css/style.css",
 		"/D/Workspace/Udacity/P4/js/footer.js",
 		"/D/Workspace/Udacity/P4/.gitignore",
 		"/D/Workspace/Udacity/P4/test/test",
@@ -300,18 +292,7 @@
 		"/D/workspace/udacity/githubtraining/readme.txt",
 		"/D/workspace/udacity/githubtraining/recipes/chili-recipe.txt",
 		"/D/workspace/Udacity/Githubtraining/recipes/chili-recipe.txt",
-		"/D/workspace/Udacity/Githubtraining/recipes/yoyo-recipe.txt",
-		"/D/Workspace/Udacity/GitHubTraining/asteroids/game.js",
-		"/D/Workspace/Udacity/P2/building-the-prototype/styles.css",
-		"/D/Workspace/Udacity/GitHubTraining/version-control/reflections/lesson_1_reflections.txt",
-		"/C/Users/Niels/.bash_profile",
-		"/D/workspace/udacity/githubtraining/version-control/reflections/lesson_2_reflections.txt",
-		"/D/Workspace/Udacity/P1/index.html",
-		"/D/Workspace/udacity/githubtraining/asteroids/game.js",
-		"/C/Users/Niels/.bashrc",
-		"/C/Users/Niels/git-prompt.sh",
-		"/C/Users/Niels/AppData/Roaming/Sublime Text 3/Packages/Color Highlighter/ColorHighlighter.sublime-settings",
-		"/C/Users/Niels/AppData/Roaming/Sublime Text 3/Packages/User/ColorHighlighter.sublime-settings"
+		"/D/workspace/Udacity/Githubtraining/recipes/yoyo-recipe.txt"
 	],
 	"find":
 	{
@@ -329,6 +310,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"food",
 			"service",
 			"<SimpleData name=\"NAME_2\"></SimpleData>",
 			"<name>",
@@ -393,33 +375,35 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 2,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "src/css/style.css",
+					"file": "src/js/models/mapEntries.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 211,
+						"buffer_size": 8541,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								12,
-								12
+								5061,
+								5061
 							]
 						],
 						"settings":
 						{
 							"color_scheme": "Packages/User/Color Highlighter/themes/Monokai (SL).tmTheme",
-							"syntax": "Packages/LESS/LESS.tmLanguage"
+							"syntax": "Packages/JavaScriptNext - ES6 Syntax/JavaScriptNext.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 2640.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 3,
@@ -431,77 +415,46 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1282,
+						"buffer_size": 1806,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								764,
-								764
+								1761,
+								1761
 							]
 						],
 						"settings":
 						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Monokai (SL).tmTheme",
 							"syntax": "Packages/HTML/HTML.sublime-syntax",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "src/js/mapStyles.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1375,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								653,
-								653
-							]
-						],
-						"settings":
-						{
-							"auto_name": "[{ \"featureType\": \"administrative\", \"elementType\":",
-							"color_scheme": "Packages/User/Color Highlighter/themes/Monokai (SL).tmTheme",
-							"syntax": "Packages/JavaScriptNext - ES6 Syntax/JavaScriptNext.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 120.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 2,
 					"type": "text"
 				},
 				{
-					"buffer": 3,
-					"file": "src/js/models/mapEntries.js",
+					"buffer": 2,
+					"file": "src/js/main.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 6744,
+						"buffer_size": 1648,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2985,
-								2985
+								1323,
+								1323
 							]
 						],
 						"settings":
@@ -512,103 +465,39 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 2017.0,
+						"translation.y": 600.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
-					"buffer": 4,
-					"file": "/D/Workspace/Udacity/P5/frontend-nanodegree-arcade-game/js/app.js",
-					"semi_transient": false,
+					"buffer": 3,
+					"file": "dist/js/mapStyles.js",
+					"semi_transient": true,
 					"settings":
 					{
-						"buffer_size": 5800,
+						"buffer_size": 706,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1666,
-								1666
+								0,
+								0
 							]
 						],
 						"settings":
 						{
 							"color_scheme": "Packages/User/Color Highlighter/themes/Monokai (SL).tmTheme",
-							"syntax": "Packages/JavaScriptNext - ES6 Syntax/JavaScriptNext.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": -0.0,
-						"translation.y": 180.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "bower.json",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 410,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								289,
-								289
-							]
-						],
-						"settings":
-						{
-							"color_scheme": "Packages/User/Color Highlighter/themes/Monokai (SL).tmTheme",
-							"syntax": "Packages/JavaScriptNext - ES6 Syntax/JSON (JavaScriptNext).tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
+							"syntax": "Packages/JavaScriptNext - ES6 Syntax/JavaScriptNext.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "/D/Workspace/Udacity/P4/js/map.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4684,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2737,
-								2737
-							]
-						],
-						"settings":
-						{
-							"color_scheme": "Packages/User/Color Highlighter/themes/Monokai (SL).tmTheme",
-							"syntax": "Packages/JavaScriptNext - ES6 Syntax/JavaScriptNext.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 840.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 6,
+					"stack_index": 1,
 					"type": "text"
 				}
 			]

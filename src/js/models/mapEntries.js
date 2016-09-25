@@ -60,12 +60,23 @@ var mapEntries = [{
     tags: ['food', 'indian', 'fastfood']
 }];
 
-var MapEntry = function(data) {
+var Entry = function (data) {
     this.title = data.title;
     this.description = data.description;
     this.id = data.id;
     this.category = data.category;
     this.tags = data.tags;
+};
+
+var ListEntry = function(data) {
+    Entry.call(this, data);
+};
+
+ListEntry.prototype = Object.create(Entry.prototype);
+ListEntry.prototype.constructor = ListEntry;
+
+var MapEntry = function(data) {
+    Entry.call(this, data);
     this.radius = 100;
     this.placeService = null;
     this.streetService = null;
@@ -76,6 +87,9 @@ var MapEntry = function(data) {
     this.directions = null;
     this.bounds = null;
 };
+
+MapEntry.prototype = Object.create(Entry.prototype);
+MapEntry.prototype.constructor = MapEntry;
 
 MapEntry.prototype.initMarker = function(placeService, streetService, directionsService, map, infoWindow, bounds) {
     var self = this;
@@ -110,10 +124,10 @@ MapEntry.prototype.addQueryResultToObject = function(placeData) {
           self.id + '|' +
           categoryColorsIcon[self.category] + '|' +
           '000000',
-          new google.maps.Size(20, 30),
+          new google.maps.Size(20, 32),
           new google.maps.Point(0, 0),
-          new google.maps.Point(20, 30),
-          new google.maps.Size(20,30));
+          new google.maps.Point(20, 32),
+          new google.maps.Size(20,32));
 };
 
 // Since google maps api is loaded async, we need to call the addmarker from the mapInit callback function
@@ -189,6 +203,7 @@ MapEntry.prototype.hideDisplayDirections = function() {
             direction.setDirections({ routes: [] });
         });
     }
+    $('#directions').css('display', 'none');
 };
 
 MapEntry.prototype.createPanoramaView = function(self) {
@@ -222,7 +237,7 @@ var directionsDisplayList = [];
 MapEntry.prototype.displayDirections = function(self) {
     self.directionsService = new google.maps.DirectionsService();
     self.hideDisplayDirections();
-    var origin = mapEntryViewModel.mapEntryList()[0].location;
+    var origin = mapEntryList[0].location;
     var destinationAddress = self.location;
     var mode = 'TRANSIT';
     self.directionsService.route({
@@ -243,11 +258,14 @@ MapEntry.prototype.displayDirections = function(self) {
                 },
                 preserveViewport: true
             });
-            directionsDisplay.setPanel(document.getElementById('result-container'));
+            directionsDisplay.setPanel(document.getElementById('directions'));
             directionsDisplayList.push(directionsDisplay);
             self.directions = directionsDisplay;
         } else {
             window.alert('Directions request failed due to ' + status);
         }
     });
+    $('#directions').css({
+    display:'flex',
+    flex: 1});
 };
