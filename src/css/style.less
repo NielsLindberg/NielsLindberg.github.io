@@ -90,12 +90,15 @@
 .school {
     background-color: @themeColor2;
 }
+
 .food {
     background-color: @themeColor3;
 }
+
 .leasure {
     background-color: @themeColor4;
 }
+
 .party {
     background-color: @themeColor5;
 }
@@ -120,21 +123,22 @@ body {
 }
 
 .list-item h4 {
-        color: @themeColor1;
+    color: @themeColor1;
 }
 
-#pano {
+.content-container {
     display: none;
     padding: 0;
     margin: 0;
-}
-
-#directions {
-    display: none;
-    margin: 0;
-    padding: 0;
     overflow-y: scroll;
 }
+
+.content-button {
+    display: none;
+    padding: 0;
+    marging: 0;
+}
+
 
 /* GENERIC STYLES */
 
@@ -174,6 +178,8 @@ body {
     padding: 0;
     margin: 0;
     width: 100%;
+    height: 60%;
+    overflow-y: scroll;
     .flexbox > .flex-parent > .display-flex;
     .flexbox > .flex-parent > .flex-wrap(wrap);
     .flexbox > .flex-parent > .align-start;
@@ -188,4 +194,8 @@ body {
     .flexbox > .flex-parent > .flex-wrap(wrap);
     .flexbox > .flex-child > .flex(1);
     .flexbox > .flex-parent > .align-start;
+}
+
+#directions {
+    background-color: @themeColor1;
 }

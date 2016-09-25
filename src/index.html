@@ -25,10 +25,10 @@
                     </div>
                 </div>
                 <div id="result-container" class="result-container">
-                    <input id="show-panorama" type="button" value="Show Panorama">
-                    <div id="pano"></div>
-                    <input id="show-directions" type="button" value="Show Directions">
-                    <div id="directions"></div>
+                    <input id="show-panorama" class="content-button" type="button" value="Show Panorama">
+                    <div id="pano" class="content-container"></div>
+                    <input id="show-directions" class="content-button" type="button" value="Show Directions">
+                    <div id="directions" class="content-container"></div>
                 </div>
             </div>
             <div id="map"></div>
@@ -41,7 +41,6 @@
 <script src="../bower_components/knockout/dist/knockout.js"></script>
 <script src="js/models/mapEntries.js"></script>
 <script src="js/mapStyles.js"></script>
-<script src="data.json"></script>
 <script src="js/main.js"></script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDwCMeEpZWGWPIgmzaGxGj7D4odnXZQVkE&v=3&callback=initMap&libraries=places,geometry,drawing"></script>
 

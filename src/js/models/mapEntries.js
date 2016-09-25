@@ -60,7 +60,7 @@ var mapEntries = [{
     tags: ['food', 'indian', 'fastfood']
 }];
 
-var Entry = function (data) {
+var Entry = function(data) {
     this.title = data.title;
     this.description = data.description;
     this.id = data.id;
@@ -120,14 +120,14 @@ MapEntry.prototype.addQueryResultToObject = function(placeData) {
     this.location = placeData.geometry.location;
     this.formattedName = placeData.formatted_address;
     this.icon = new google.maps.MarkerImage(
-          'http://chart.googleapis.com/chart?chst=d_map_pin_letter&chld=' +
-          self.id + '|' +
-          categoryColorsIcon[self.category] + '|' +
-          '000000',
-          new google.maps.Size(20, 32),
-          new google.maps.Point(0, 0),
-          new google.maps.Point(20, 32),
-          new google.maps.Size(20,32));
+        'http://chart.googleapis.com/chart?chst=d_map_pin_letter&chld=' +
+        self.id + '|' +
+        categoryColorsIcon[self.category] + '|' +
+        '000000',
+        new google.maps.Size(20, 32),
+        new google.maps.Point(0, 0),
+        new google.maps.Point(20, 32),
+        new google.maps.Size(20, 32));
 };
 
 // Since google maps api is loaded async, we need to call the addmarker from the mapInit callback function
@@ -141,6 +141,8 @@ MapEntry.prototype.addMarkerData = function() {
         position: self.location
     });
     self.marker.addListener('click', function() {
+        self.hidePanoramaView(self);
+        self.hideDisplayDirections();
         self.populateInfoWindow();
     });
 };
@@ -172,17 +174,13 @@ MapEntry.prototype.populateInfoWindow = function() {
 };
 
 MapEntry.prototype.unBindButtonsFromMarker = function() {
-    $('#show-panorama').unbind('click');
-    $('#show-photos').unbind('click');
-    $('#show-directions').unbind('click');
+    $('.content-button').unbind('click');
+    $('.content-button').css('display', 'none');
 };
 
 MapEntry.prototype.bindButtonsToMarker = function(self) {
+    $('.content-button').css('display', 'block');
     $('#show-panorama').click(function() {
-        self.hideDisplayDirections();
-        self.createPanoramaView(self);
-    });
-    $('#show-photos').click(function() {
         self.hideDisplayDirections();
         self.createPanoramaView(self);
     });
@@ -229,8 +227,9 @@ MapEntry.prototype.createPanoramaView = function(self) {
     }
     self.streetService.getPanoramaByLocation(self.marker.position, self.radius, getStreetView);
     $('#pano').css({
-    display:'flex',
-    flex: 1});
+        display: 'flex',
+        flex: 1
+    });
 };
 
 var directionsDisplayList = [];
@@ -266,6 +265,7 @@ MapEntry.prototype.displayDirections = function(self) {
         }
     });
     $('#directions').css({
-    display:'flex',
-    flex: 1});
+        display: 'flex',
+        flex: 1
+    });
 };
