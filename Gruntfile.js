@@ -77,9 +77,7 @@ module.exports = function(grunt) {
                 threshold: '5KB'
             },
             html1: {
-                files: {
-                    'dist/index.html': 'dist/index.html'
-                }
+                files: {}
             },
             html2: {
                 files: {}
