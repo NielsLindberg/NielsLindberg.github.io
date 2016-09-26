@@ -1,8 +1,3 @@
-var mapEntryViewModel;
-var buttonPanorama = '<input id="show-panorama" type="button" value="Show Panorama">';
-var panoramaDiv = '<div id="pano"></div>';
-var buttonDirections = '<input id="show-directions" type="button" value="Show Directions">';
-
 var themeColors = ['#e384a6', '#f4d499', '#4d90d6', '#c7e38c', '#9986c8', '#edf28c', '#ffd1d4', '#5ee1dc', '#b0eead', '#fef85a', '#8badd2'];
 var categoryColors = {
     school: '#e384a6',
@@ -17,20 +12,54 @@ var categoryColorsIcon = {
     party: 'c7e38c',
 };
 
-function MapEntryViewModel() {
-    mapEntryViewModel = this;
-    mapEntryViewModel.entryList = ko.observableArray([]);
+var vm;
+
+function ViewModel() {
+    vm = this;
+
+    vm.filterMarkers = function() {
+        vm.mapEntryList.forEach(function(mapEntry) {
+            if (mapEntry.category == vm.categoriesFilter || vm.categoriesFilter == 'None') {
+               // mapEntry.showMarker();
+            } else {
+               // mapEntry.hideMarker();
+            }
+        });
+    };
+
+    vm.entryList = ko.observableArray([]);
+    vm.mapEntryList = [];
     mapEntries.forEach(function(entryData) {
-        mapEntryViewModel.entryList.push(new ListEntry(entryData));
+        vm.entryList.push(new ListEntry(entryData));
+        vm.mapEntryList.push(new MapEntry(entryData));
+    });
+
+    vm.categories = ko.computed(function() {
+        var categories = ko.utils.arrayMap(vm.entryList(), function(listEntry) {
+            return listEntry.category;
+        });
+        return categories.sort();
+    }, vm);
+
+    vm.categoriesFilter = ko.observable();
+
+    vm.uniqueCategories = ko.dependentObservable(function() {
+        return ko.utils.arrayGetDistinctValues(vm.categories()).sort();
+    }, vm);
+
+    vm.entryListFiltered = ko.computed(function() {
+        var filter = vm.categoriesFilter();
+        if (!filter || filter == "None") {
+            return vm.entryList();
+        } else {
+            return ko.utils.arrayFilter(vm.entryList(), function(listEntry) {
+                return listEntry.category == filter;
+            }, vm.filterMarkers());
+        }
     });
 }
 
-ko.applyBindings(new MapEntryViewModel());
-
-var mapEntryList = [];
-mapEntries.forEach(function(entryData) {
-    mapEntryList.push(new MapEntry(entryData));
-});
+ko.applyBindings(new ViewModel());
 
 function initMap() {
     var map = new google.maps.Map(document.getElementById('map'), {
@@ -49,7 +78,8 @@ function initMap() {
     var infoWindow = new google.maps.InfoWindow({});
     var bounds = new google.maps.LatLngBounds();
 
-    mapEntryList.forEach(function(mapEntry) {
+    vm.mapEntryList.forEach(function(mapEntry) {
         mapEntry.initMarker(placeService, streetService, directionsService, map, infoWindow, bounds);
     });
 }
+

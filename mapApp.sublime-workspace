@@ -60,6 +60,14 @@
 			}
 		},
 		{
+			"file": "Gruntfile.js",
+			"settings":
+			{
+				"buffer_size": 2830,
+				"line_ending": "Windows"
+			}
+		},
+		{
 			"file": "src/index.html",
 			"settings":
 			{
@@ -79,7 +87,7 @@
 			"file": "src/js/main.js",
 			"settings":
 			{
-				"buffer_size": 1736,
+				"buffer_size": 1696,
 				"line_ending": "Windows"
 			}
 		}
@@ -160,9 +168,9 @@
 	],
 	"file_history":
 	[
+		"/D/Workspace/CBS/yoprogram.py",
 		"/D/Workspace/Udacity/P5/frontend-nanodegree-arcade-game/js/app.js",
 		"/D/Workspace/Udacity/frontend-nanodegree-arcade-game/js/app.js",
-		"/D/Workspace/CBS/yoprogram.py",
 		"/D/Workspace/CBS/data.json",
 		"/D/Workspace/Udacity/frontend-nanodegree-mobile-portfolio/src/index.html",
 		"/D/Workspace/CBS/yoyo.py",
@@ -370,7 +378,7 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 0,
 			"sheets":
 			[
 				{
@@ -386,8 +394,8 @@
 						"selection":
 						[
 							[
-								4895,
-								4895
+								5589,
+								5589
 							]
 						],
 						"settings":
@@ -398,14 +406,44 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 3420.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "Gruntfile.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2830,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2423,
+								2423
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScriptNext - ES6 Syntax/JavaScriptNext.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1080.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
 					"type": "text"
 				},
 				{
-					"buffer": 1,
+					"buffer": 2,
 					"file": "src/index.html",
 					"semi_transient": false,
 					"settings":
@@ -417,8 +455,8 @@
 						"selection":
 						[
 							[
-								1650,
-								1650
+								15,
+								15
 							]
 						],
 						"settings":
@@ -429,14 +467,14 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 480.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
-					"buffer": 2,
+					"buffer": 3,
 					"file": "src/css/style.less",
 					"semi_transient": false,
 					"settings":
@@ -467,20 +505,20 @@
 					"type": "text"
 				},
 				{
-					"buffer": 3,
+					"buffer": 4,
 					"file": "src/js/main.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1736,
+						"buffer_size": 1696,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								963,
-								963
+								1032,
+								1032
 							]
 						],
 						"settings":
@@ -491,10 +529,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 240.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 4,
 					"type": "text"
 				}
 			]

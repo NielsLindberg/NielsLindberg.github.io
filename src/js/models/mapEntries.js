@@ -61,6 +61,7 @@ var mapEntries = [{
 }];
 
 var Entry = function(data) {
+    var self = this;
     this.title = data.title;
     this.description = data.description;
     this.id = data.id;
@@ -70,6 +71,7 @@ var Entry = function(data) {
 
 var ListEntry = function(data) {
     Entry.call(this, data);
+    this.show = ko.observable(true);
 };
 
 ListEntry.prototype = Object.create(Entry.prototype);
@@ -153,6 +155,7 @@ MapEntry.prototype.showMarker = function() {
 };
 
 MapEntry.prototype.hideMarker = function() {
+    console.log(this);
     this.marker.setMap(null);
 };
 
@@ -236,7 +239,7 @@ var directionsDisplayList = [];
 MapEntry.prototype.displayDirections = function(self) {
     self.directionsService = new google.maps.DirectionsService();
     self.hideDisplayDirections();
-    var origin = mapEntryList[0].location;
+    var origin = vm.mapEntryList[0].location;
     var destinationAddress = self.location;
     var mode = 'TRANSIT';
     self.directionsService.route({

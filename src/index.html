@@ -16,9 +16,10 @@
     <div class="page-wrapper">
         <main class="content">
             <div class="left-menu">
+            <select data-bind="options: uniqueCategories, value: categoriesFilter"></select>
                 <div class="list-container">
-                    <div data-bind="foreach: entryList">
-                        <div class="list-item">
+                    <div data-bind="foreach: entryListFiltered">
+                        <div data-bind="visible: show" class="list-item">
                             <h4 data-bind="text: title"></h4>
                             <p data-bind="text: category, css:category"></p>
                         </div>
