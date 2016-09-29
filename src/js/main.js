@@ -63,6 +63,8 @@ function ViewModel() {
 
     vm.filterMarkers = function() {
         mapEntryList.forEach(function(mapEntry) {
+            console.log(vm.categoriesFilter());
+            console.log(mapEntry.category);
             if (mapEntry.category == vm.categoriesFilter() || vm.categoriesFilter() == 'None') {
                 mapEntry.showMarker();
             } else {
@@ -73,13 +75,17 @@ function ViewModel() {
 
     vm.entryListFiltered = ko.computed(function() {
         var filter = vm.categoriesFilter();
-        if (!filter || filter == "None") {
+        if (!filter || filter == 'None') {
             return vm.entryList();
         } else {
             return ko.utils.arrayFilter(vm.entryList(), function(listEntry) {
                 return listEntry.category == filter;
-            }, vm.filterMarkers());
+            });
         }
+    });
+
+    vm.entryListFiltered.subscribe(function() {
+        vm.filterMarkers();
     });
 }
 
