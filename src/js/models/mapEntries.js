@@ -155,7 +155,6 @@ MapEntry.prototype.showMarker = function() {
 };
 
 MapEntry.prototype.hideMarker = function() {
-    console.log(this);
     this.marker.setMap(null);
 };
 
@@ -239,7 +238,7 @@ var directionsDisplayList = [];
 MapEntry.prototype.displayDirections = function(self) {
     self.directionsService = new google.maps.DirectionsService();
     self.hideDisplayDirections();
-    var origin = vm.mapEntryList[0].location;
+    var origin = mapEntryList[0].location;
     var destinationAddress = self.location;
     var mode = 'TRANSIT';
     self.directionsService.route({

@@ -13,55 +13,16 @@ var categoryColorsIcon = {
 };
 
 var vm;
+var mapEntryList = [];
+var entryList = [];
+var categoriesFilter = 'None';
 
-function ViewModel() {
-    vm = this;
+mapEntries.forEach(function(entryData) {
+    entryList.push(new ListEntry(entryData));
+    mapEntryList.push(new MapEntry(entryData));
+});
 
-    vm.filterMarkers = function() {
-        vm.mapEntryList.forEach(function(mapEntry) {
-            if (mapEntry.category == vm.categoriesFilter || vm.categoriesFilter == 'None') {
-               // mapEntry.showMarker();
-            } else {
-               // mapEntry.hideMarker();
-            }
-        });
-    };
-
-    vm.entryList = ko.observableArray([]);
-    vm.mapEntryList = [];
-    mapEntries.forEach(function(entryData) {
-        vm.entryList.push(new ListEntry(entryData));
-        vm.mapEntryList.push(new MapEntry(entryData));
-    });
-
-    vm.categories = ko.computed(function() {
-        var categories = ko.utils.arrayMap(vm.entryList(), function(listEntry) {
-            return listEntry.category;
-        });
-        return categories.sort();
-    }, vm);
-
-    vm.categoriesFilter = ko.observable();
-
-    vm.uniqueCategories = ko.dependentObservable(function() {
-        return ko.utils.arrayGetDistinctValues(vm.categories()).sort();
-    }, vm);
-
-    vm.entryListFiltered = ko.computed(function() {
-        var filter = vm.categoriesFilter();
-        if (!filter || filter == "None") {
-            return vm.entryList();
-        } else {
-            return ko.utils.arrayFilter(vm.entryList(), function(listEntry) {
-                return listEntry.category == filter;
-            }, vm.filterMarkers());
-        }
-    });
-}
-
-ko.applyBindings(new ViewModel());
-
-function initMap() {
+initMap = function() {
     var map = new google.maps.Map(document.getElementById('map'), {
         center: {
             lat: 55.6761,
@@ -78,8 +39,48 @@ function initMap() {
     var infoWindow = new google.maps.InfoWindow({});
     var bounds = new google.maps.LatLngBounds();
 
-    vm.mapEntryList.forEach(function(mapEntry) {
+    mapEntryList.forEach(function(mapEntry) {
         mapEntry.initMarker(placeService, streetService, directionsService, map, infoWindow, bounds);
+    });
+};
+
+function ViewModel() {
+    vm = this;
+    vm.entryList = ko.observableArray(entryList);
+    vm.categoriesFilter = ko.observable(categoriesFilter);
+
+    vm.categories = ko.computed(function() {
+        var categories = ko.utils.arrayMap(vm.entryList(), function(listEntry) {
+            return listEntry.category;
+        });
+        return categories.sort();
+    }, vm);
+
+    vm.uniqueCategories = ko.computed(function() {
+        var uniqueCategories = ['None'];
+        return uniqueCategories.concat(ko.utils.arrayGetDistinctValues(vm.categories()).sort());
+    }, vm);
+
+    vm.filterMarkers = function() {
+        mapEntryList.forEach(function(mapEntry) {
+            if (mapEntry.category == vm.categoriesFilter() || vm.categoriesFilter() == 'None') {
+                mapEntry.showMarker();
+            } else {
+                mapEntry.hideMarker();
+            }
+        });
+    };
+
+    vm.entryListFiltered = ko.computed(function() {
+        var filter = vm.categoriesFilter();
+        if (!filter || filter == "None") {
+            return vm.entryList();
+        } else {
+            return ko.utils.arrayFilter(vm.entryList(), function(listEntry) {
+                return listEntry.category == filter;
+            }, vm.filterMarkers());
+        }
     });
 }
 
+ko.applyBindings(new ViewModel());
