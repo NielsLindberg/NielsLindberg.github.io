@@ -121,18 +121,21 @@ MapEntry.prototype.addQueryResultToObject = function(placeData) {
     this.placeData = placeData;
     this.location = placeData.geometry.location;
     this.formattedName = placeData.formatted_address;
-    this.icon = new google.maps.MarkerImage(
-        'http://chart.googleapis.com/chart?chst=d_map_pin_letter&chld=' +
-        self.id + '|' +
-        categoryColorsIcon[self.category] + '|' +
-        '000000',
-        new google.maps.Size(20, 32),
-        new google.maps.Point(0, 0),
-        new google.maps.Point(20, 32),
-        new google.maps.Size(20, 32));
+    this.icon = {
+        url: 'http://chart.googleapis.com/chart?chst=d_map_pin_letter&chld=' +
+            self.id + '|' +
+            categoryColorsIcon[self.category] + '|' +
+            '000000',
+        size: new google.maps.Size(20, 32),
+        origin: new google.maps.Point(0, 0),
+        anchor: new google.maps.Point(0, 0)
+    };
 };
 
-// Since google maps api is loaded async, we need to call the addmarker from the mapInit callback function
+MapEntry.prototype.updateMarkerSize = function(scale) {
+    this.marker.icon.size = new google.maps.Size(20*scale,32*scale);
+};
+
 MapEntry.prototype.addMarkerData = function() {
     var self = this;
     this.marker = new google.maps.Marker({
@@ -143,10 +146,22 @@ MapEntry.prototype.addMarkerData = function() {
         position: self.location
     });
     self.marker.addListener('click', function() {
+        self.animateMarker();
         self.hidePanoramaView(self);
         self.hideDisplayDirections();
         self.populateInfoWindow();
     });
+};
+
+MapEntry.prototype.animateMarker = function() {
+
+    /* Remove animation from all markers */
+    /*vm.mapEntryList.forEach(function(mapEntry) {
+        mapEntry.updateMarkerSize(1);
+    });
+
+    /* Activate animation on this marker if not active already */
+    this.updateMarkerSize(2);
 };
 
 MapEntry.prototype.showMarker = function() {
@@ -166,6 +181,7 @@ MapEntry.prototype.populateInfoWindow = function() {
         this.infoWindow.open(this.map, this.marker);
         this.infoWindow.addListener('closeclick', function() {
             self.infoWindow.marker = null;
+            self.updateMarkerSize(1);
             self.hideDisplayDirections();
             self.hidePanoramaView(self);
             self.unBindButtonsFromMarker();

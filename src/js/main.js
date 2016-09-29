@@ -45,6 +45,7 @@ function ViewModel() {
         });
     };
 
+    /* Category filter stuff */
     vm.categoriesFilter = ko.observable('None');
 
     vm.categories = ko.computed(function() {
@@ -83,6 +84,7 @@ function ViewModel() {
     vm.entryListFiltered.subscribe(function() {
         vm.filterMarkers();
     });
+
 }
 
 ko.applyBindings(new ViewModel());
