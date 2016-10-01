@@ -105,7 +105,8 @@ MapEntry.prototype.initMarker = function(placeService, streetService, directions
     function callback(results, status) {
         if (status == google.maps.places.PlacesServiceStatus.OK) {
             self.addQueryResultToObject(results[0]);
-            self.addMarkerData();
+            self.addMarker();
+            self.addMarkerListeners();
             self.showMarker();
             self.map.fitBounds(self.bounds);
         }
@@ -126,25 +127,14 @@ MapEntry.prototype.addQueryResultToObject = function(placeData) {
             self.id + '|' +
             categoryColorsIcon[self.category] + '|' +
             '000000',
-        size: new google.maps.Size(20, 32),
+        scaledSize: new google.maps.Size(20, 32),
         origin: new google.maps.Point(0, 0),
         anchor: new google.maps.Point(0, 0)
     };
 };
 
-MapEntry.prototype.updateMarkerSize = function(scale) {
-    this.marker.icon.size = new google.maps.Size(20*scale,32*scale);
-};
-
-MapEntry.prototype.addMarkerData = function() {
+MapEntry.prototype.addMarkerListeners = function () {
     var self = this;
-    this.marker = new google.maps.Marker({
-        title: self.title,
-        animation: google.maps.Animation.DROP,
-        id: self.id,
-        icon: self.icon,
-        position: self.location
-    });
     self.marker.addListener('click', function() {
         self.animateMarker();
         self.hidePanoramaView(self);
@@ -153,15 +143,27 @@ MapEntry.prototype.addMarkerData = function() {
     });
 };
 
+MapEntry.prototype.addMarker = function() {
+    var self = this;
+    this.marker = new google.maps.Marker({
+        title: self.title,
+        animation: google.maps.Animation.DROP,
+        id: self.id,
+        icon: self.icon,
+        position: self.location,
+        opacity: 0.7
+    });
+};
+
 MapEntry.prototype.animateMarker = function() {
 
     /* Remove animation from all markers */
-    /*vm.mapEntryList.forEach(function(mapEntry) {
-        mapEntry.updateMarkerSize(1);
+    vm.mapEntryList.forEach(function(mapEntry) {
+        mapEntry.marker.setOpacity(0.7);
     });
 
     /* Activate animation on this marker if not active already */
-    this.updateMarkerSize(2);
+    this.marker.setOpacity(1);
 };
 
 MapEntry.prototype.showMarker = function() {
@@ -181,7 +183,7 @@ MapEntry.prototype.populateInfoWindow = function() {
         this.infoWindow.open(this.map, this.marker);
         this.infoWindow.addListener('closeclick', function() {
             self.infoWindow.marker = null;
-            self.updateMarkerSize(1);
+            self.marker.setOpacity(0.7);
             self.hideDisplayDirections();
             self.hidePanoramaView(self);
             self.unBindButtonsFromMarker();
@@ -202,6 +204,7 @@ MapEntry.prototype.bindButtonsToMarker = function(self) {
         self.hideDisplayDirections();
         self.createPanoramaView(self);
     });
+
     $('#show-directions').click(function() {
         self.hidePanoramaView(self);
         self.displayDirections(self);

@@ -60,7 +60,7 @@ body {
 }
 .list-container ul {
   margin: 0;
-  padding: 0;
+  padding: 5;
   list-style-type: none;
 }
 .list-item {
@@ -71,7 +71,7 @@ body {
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
 }
-.list-item h4 {
+.list-item p {
   color: #FFFFFF;
 }
 .content-container {

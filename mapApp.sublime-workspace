@@ -52,21 +52,13 @@
 	"buffers":
 	[
 		{
-			"contents": "var mapEntries = [{\n    title: \"Copenhagen Business School, Solbjerg Campus\",\n    description: \"The main campus of CBS\",\n    id: \"A\",\n    category: 'school',\n    tags: ['school', 'campus', 'cbs']\n}, {\n    title: \"Harbor Bath, Islands Brygge\",\n    description: \"City harbor bath\",\n    id: \"B\",\n    category: 'leasure',\n    tags: ['leasure', 'bathing', 'beachvolley', 'sports']\n}, {\n    title: \"Harbor Bath, Kalvebod Brygge\",\n    description: \"City harbor bath\",\n    id: \"C\",\n    category: 'leasure',\n    tags: ['leasure', 'bathing', 'beachvolley', 'sports']\n}, {\n    title: \"Kebabistan, Istedgade\",\n    description: \"Nr.1 Vesterbro Shawarma\",\n    id: \"D\",\n    category: 'food',\n    tags: ['food', 'turkish', 'fastfood']\n}, {\n    title: \"Riccos Fælledvej\",\n    description: \"Nice café for studying.\",\n    id: \"E\",\n    category: 'leasure',\n    tags: ['café', 'coffee', 'study']\n}, {\n    title: \"KB18\",\n    description: \"House/Techno Club in the Meatpacking district\",\n    id: \"F\",\n    category: 'party',\n    tags: ['music', 'club', 'techno', 'house']\n}, {\n    title: \"Culture Box\",\n    description: \"The main House/Techno club in Copenhagen.\",\n    id: \"G\",\n    category: 'party',\n    tags: ['music', 'club', 'techno', 'house']\n}, {\n    title: \"Boulevarden Bodega, Sønder Boulevard\",\n    description: \"Bodega at Sønder Boulevard\",\n    id: \"H\",\n    category: 'party',\n    tags: ['bodega', 'billiard']\n}, {\n    title: \"Scarpetta, Rantzausgade\",\n    description: \"Nice medium priced italian restaurant\",\n    id: \"I\",\n    category: 'food',\n    tags: ['food', 'italian', 'restaurant']\n}, {\n    title: \"Five Star, Nørrebrogade\",\n    description: \"Indian style durums\",\n    id: \"I\",\n    category: 'food',\n    tags: ['food', 'indian', 'fastfood']\n}];\n\nvar Entry = function(data) {\n    var self = this;\n    this.title = data.title;\n    this.description = data.description;\n    this.id = data.id;\n    this.category = data.category;\n    this.tags = data.tags;\n};\n\nvar ListEntry = function(data) {\n    Entry.call(this, data);\n    this.show = ko.observable(true);\n};\n\nListEntry.prototype = Object.create(Entry.prototype);\nListEntry.prototype.constructor = ListEntry;\n\nvar MapEntry = function(data) {\n    Entry.call(this, data);\n    this.radius = 100;\n    this.placeService = null;\n    this.streetService = null;\n    this.directionsService = null;\n    this.map = null;\n    this.infoWindow = null;\n    this.panorama = null;\n    this.directions = null;\n    this.bounds = null;\n};\n\nMapEntry.prototype = Object.create(Entry.prototype);\nMapEntry.prototype.constructor = MapEntry;\n\nMapEntry.prototype.initMarker = function(placeService, streetService, directionsService, map, infoWindow, bounds) {\n    var self = this;\n    this.placeService = placeService;\n    this.streetService = streetService;\n    this.directionsService = directionsService;\n    this.map = map;\n    this.infoWindow = infoWindow;\n    this.bounds = bounds;\n\n    function callback(results, status) {\n        if (status == google.maps.places.PlacesServiceStatus.OK) {\n            self.addQueryResultToObject(results[0]);\n            self.addMarkerData();\n            self.showMarker();\n            self.map.fitBounds(self.bounds);\n        }\n    }\n    var request = {\n        query: self.title\n    };\n    placeService.textSearch(request, callback);\n};\n\nMapEntry.prototype.addQueryResultToObject = function(placeData) {\n    var self = this;\n    this.placeData = placeData;\n    this.location = placeData.geometry.location;\n    this.formattedName = placeData.formatted_address;\n    this.icon = new google.maps.MarkerImage(\n        'http://chart.googleapis.com/chart?chst=d_map_pin_letter&chld=' +\n        self.id + '|' +\n        categoryColorsIcon[self.category] + '|' +\n        '000000',\n        new google.maps.Size(20, 32),\n        new google.maps.Point(0, 0),\n        new google.maps.Point(20, 32),\n        new google.maps.Size(20, 32));\n};\n\n// Since google maps api is loaded async, we need to call the addmarker from the mapInit callback function\nMapEntry.prototype.addMarkerData = function() {\n    var self = this;\n    this.marker = new google.maps.Marker({\n        title: self.title,\n        animation: google.maps.Animation.DROP,\n        id: self.id,\n        icon: self.icon,\n        position: self.location\n    });\n    self.marker.addListener('click', function() {\n        self.hidePanoramaView(self);\n        self.hideDisplayDirections();\n        self.populateInfoWindow();\n    });\n};\n\nMapEntry.prototype.showMarker = function() {\n    this.marker.setMap(this.map);\n    this.bounds.extend(this.marker.position);\n};\n\nMapEntry.prototype.hideMarker = function() {\n    this.marker.setMap(null);\n};\n\nMapEntry.prototype.populateInfoWindow = function() {\n    if (this.infoWindow.marker != this.marker) {\n        var self = this;\n        this.infoWindow.setContent('<div id=\"infowindow\">' + self.title + '</div>');\n        this.infoWindow.marker = this.marker;\n        this.infoWindow.open(this.map, this.marker);\n        this.infoWindow.addListener('closeclick', function() {\n            self.infoWindow.marker = null;\n            self.hideDisplayDirections();\n            self.hidePanoramaView(self);\n            self.unBindButtonsFromMarker();\n        });\n        this.unBindButtonsFromMarker();\n        this.bindButtonsToMarker(self);\n    }\n};\n\nMapEntry.prototype.unBindButtonsFromMarker = function() {\n    $('.content-button').unbind('click');\n    $('.content-button').css('display', 'none');\n};\n\nMapEntry.prototype.bindButtonsToMarker = function(self) {\n    $('.content-button').css('display', 'block');\n    $('#show-panorama').click(function() {\n        self.hideDisplayDirections();\n        self.createPanoramaView(self);\n    });\n    $('#show-directions').click(function() {\n        self.hidePanoramaView(self);\n        self.displayDirections(self);\n    });\n};\n\nMapEntry.prototype.hidePanoramaView = function() {\n    $('#pano').css('display', 'none');\n};\n\nMapEntry.prototype.hideDisplayDirections = function() {\n    if (directionsDisplayList.length > 0) {\n        directionsDisplayList.forEach(function(direction) {\n            direction.setMap(null);\n            direction.setDirections({ routes: [] });\n        });\n    }\n    $('#directions').css('display', 'none');\n};\n\nMapEntry.prototype.createPanoramaView = function(self) {\n    self.streetService = new google.maps.StreetViewService();\n\n    function getStreetView(data, status) {\n        if (status == google.maps.StreetViewStatus.OK) {\n            var nearStreetViewLocation = data.location.latLng;\n            var heading = google.maps.geometry.spherical.computeHeading(nearStreetViewLocation, self.marker.position);\n            var panoramaOptions = {\n                position: nearStreetViewLocation,\n                linksControl: false,\n                panControl: false,\n                enableCloseButton: false,\n                pov: {\n                    heading: heading,\n                    pitch: 0\n                }\n            };\n\n            self.panorama = new google.maps.StreetViewPanorama(document.getElementById('pano'), panoramaOptions);\n        }\n    }\n    self.streetService.getPanoramaByLocation(self.marker.position, self.radius, getStreetView);\n    $('#pano').css({\n        display: 'flex',\n        flex: 1\n    });\n};\n\nvar directionsDisplayList = [];\nMapEntry.prototype.displayDirections = function(self) {\n    self.directionsService = new google.maps.DirectionsService();\n    self.hideDisplayDirections();\n    var origin = vm.mapEntryList[0].location;\n    var destinationAddress = self.location;\n    var mode = 'TRANSIT';\n    self.directionsService.route({\n        origin: origin,\n        destination: destinationAddress,\n        travelMode: google.maps.TravelMode[mode]\n    }, function(response, status) {\n        if (status === google.maps.DirectionsStatus.OK) {\n            var directionsDisplay = new google.maps.DirectionsRenderer({\n                map: self.map,\n                directions: response,\n                draggable: false,\n                polylineOptions: {\n                    strokeColor: '#282828'\n                },\n                markerOptions: {\n                    visible: false\n                },\n                preserveViewport: true\n            });\n            directionsDisplay.setPanel(document.getElementById('directions'));\n            directionsDisplayList.push(directionsDisplay);\n            self.directions = directionsDisplay;\n        } else {\n            window.alert('Directions request failed due to ' + status);\n        }\n    });\n    $('#directions').css({\n        display: 'flex',\n        flex: 1\n    });\n};\n",
+			"contents": "var mapEntries = [{\n    title: \"Copenhagen Business School, Solbjerg Campus\",\n    description: \"The main campus of CBS\",\n    id: \"A\",\n    category: 'school',\n    tags: ['school', 'campus', 'cbs']\n}, {\n    title: \"Harbor Bath, Islands Brygge\",\n    description: \"City harbor bath\",\n    id: \"B\",\n    category: 'leasure',\n    tags: ['leasure', 'bathing', 'beachvolley', 'sports']\n}, {\n    title: \"Harbor Bath, Kalvebod Brygge\",\n    description: \"City harbor bath\",\n    id: \"C\",\n    category: 'leasure',\n    tags: ['leasure', 'bathing', 'beachvolley', 'sports']\n}, {\n    title: \"Kebabistan, Istedgade\",\n    description: \"Nr.1 Vesterbro Shawarma\",\n    id: \"D\",\n    category: 'food',\n    tags: ['food', 'turkish', 'fastfood']\n}, {\n    title: \"Riccos Fælledvej\",\n    description: \"Nice café for studying.\",\n    id: \"E\",\n    category: 'leasure',\n    tags: ['café', 'coffee', 'study']\n}, {\n    title: \"KB18\",\n    description: \"House/Techno Club in the Meatpacking district\",\n    id: \"F\",\n    category: 'party',\n    tags: ['music', 'club', 'techno', 'house']\n}, {\n    title: \"Culture Box\",\n    description: \"The main House/Techno club in Copenhagen.\",\n    id: \"G\",\n    category: 'party',\n    tags: ['music', 'club', 'techno', 'house']\n}, {\n    title: \"Boulevarden Bodega, Sønder Boulevard\",\n    description: \"Bodega at Sønder Boulevard\",\n    id: \"H\",\n    category: 'party',\n    tags: ['bodega', 'billiard']\n}, {\n    title: \"Scarpetta, Rantzausgade\",\n    description: \"Nice medium priced italian restaurant\",\n    id: \"I\",\n    category: 'food',\n    tags: ['food', 'italian', 'restaurant']\n}, {\n    title: \"Five Star, Nørrebrogade\",\n    description: \"Indian style durums\",\n    id: \"I\",\n    category: 'food',\n    tags: ['food', 'indian', 'fastfood']\n}];\n\nvar Entry = function(data) {\n    var self = this;\n    this.title = data.title;\n    this.description = data.description;\n    this.id = data.id;\n    this.category = data.category;\n    this.tags = data.tags;\n};\n\nvar ListEntry = function(data) {\n    Entry.call(this, data);\n    this.show = ko.observable(true);\n};\n\nListEntry.prototype = Object.create(Entry.prototype);\nListEntry.prototype.constructor = ListEntry;\n\nvar MapEntry = function(data) {\n    Entry.call(this, data);\n    this.radius = 100;\n    this.placeService = null;\n    this.streetService = null;\n    this.directionsService = null;\n    this.map = null;\n    this.infoWindow = null;\n    this.panorama = null;\n    this.directions = null;\n    this.bounds = null;\n};\n\nMapEntry.prototype = Object.create(Entry.prototype);\nMapEntry.prototype.constructor = MapEntry;\n\nMapEntry.prototype.initMarker = function(placeService, streetService, directionsService, map, infoWindow, bounds) {\n    var self = this;\n    this.placeService = placeService;\n    this.streetService = streetService;\n    this.directionsService = directionsService;\n    this.map = map;\n    this.infoWindow = infoWindow;\n    this.bounds = bounds;\n\n    function callback(results, status) {\n        if (status == google.maps.places.PlacesServiceStatus.OK) {\n            self.addQueryResultToObject(results[0]);\n            self.addMarkerData();\n            self.showMarker();\n            self.map.fitBounds(self.bounds);\n        }\n    }\n    var request = {\n        query: self.title\n    };\n    placeService.textSearch(request, callback);\n};\n\nMapEntry.prototype.addQueryResultToObject = function(placeData) {\n    var self = this;\n    this.placeData = placeData;\n    this.location = placeData.geometry.location;\n    this.formattedName = placeData.formatted_address;\n    this.icon = {\n        url: 'http://chart.googleapis.com/chart?chst=d_map_pin_letter&chld=' +\n            self.id + '|' +\n            categoryColorsIcon[self.category] + '|' +\n            '000000',\n        size: new google.maps.Size(20, 32),\n        origin: new google.maps.Point(0, 0),\n        anchor: new google.maps.Point(0, 0)\n    };\n};\n\nMapEntry.prototype.updateMarkerSize = function(scale) {\n    this.marker.icon.size = new google.maps.Size(20*scale,32*scale);\n};\n\nMapEntry.prototype.addMarkerData = function() {\n    var self = this;\n    this.marker = new google.maps.Marker({\n        title: self.title,\n        animation: google.maps.Animation.DROP,\n        id: self.id,\n        icon: self.icon,\n        position: self.location\n    });\n    self.marker.addListener('click', function() {\n        self.animateMarker();\n        self.hidePanoramaView(self);\n        self.hideDisplayDirections();\n        self.populateInfoWindow();\n    });\n};\n\nMapEntry.prototype.animateMarker = function() {\n\n    /* Remove animation from all markers */\n    /*vm.mapEntryList.forEach(function(mapEntry) {\n        mapEntry.updateMarkerSize(1);\n    });\n\n    /* Activate animation on this marker if not active already */\n    this.updateMarkerSize(2);\n};\n\nMapEntry.prototype.showMarker = function() {\n    this.marker.setMap(this.map);\n    this.bounds.extend(this.marker.position);\n};\n\nMapEntry.prototype.hideMarker = function() {\n    this.marker.setMap(null);\n};\n\nMapEntry.prototype.populateInfoWindow = function() {\n    if (this.infoWindow.marker != this.marker) {\n        var self = this;\n        this.infoWindow.setContent('<div id=\"infowindow\">' + self.title + '</div>');\n        this.infoWindow.marker = this.marker;\n        this.infoWindow.open(this.map, this.marker);\n        this.infoWindow.addListener('closeclick', function() {\n            self.infoWindow.marker = null;\n            self.updateMarkerSize(1);\n            self.hideDisplayDirections();\n            self.hidePanoramaView(self);\n            self.unBindButtonsFromMarker();\n        });\n        this.unBindButtonsFromMarker();\n        this.bindButtonsToMarker(self);\n    }\n};\n\nMapEntry.prototype.unBindButtonsFromMarker = function() {\n    $('.content-button').unbind('click');\n    $('.content-button').css('display', 'none');\n};\n\nMapEntry.prototype.bindButtonsToMarker = function(self) {\n    $('.content-button').css('display', 'block');\n    $('#show-panorama').click(function() {\n        self.hideDisplayDirections();\n        self.createPanoramaView(self);\n    });\n    \n    $('#show-directions').click(function() {\n        self.hidePanoramaView(self);\n        self.displayDirections(self);\n    });\n};\n\nMapEntry.prototype.hidePanoramaView = function() {\n    $('#pano').css('display', 'none');\n};\n\nMapEntry.prototype.hideDisplayDirections = function() {\n    if (directionsDisplayList.length > 0) {\n        directionsDisplayList.forEach(function(direction) {\n            direction.setMap(null);\n            direction.setDirections({ routes: [] });\n        });\n    }\n    $('#directions').css('display', 'none');\n};\n\nMapEntry.prototype.createPanoramaView = function(self) {\n    self.streetService = new google.maps.StreetViewService();\n\n    function getStreetView(data, status) {\n        if (status == google.maps.StreetViewStatus.OK) {\n            var nearStreetViewLocation = data.location.latLng;\n            var heading = google.maps.geometry.spherical.computeHeading(nearStreetViewLocation, self.marker.position);\n            var panoramaOptions = {\n                position: nearStreetViewLocation,\n                linksControl: false,\n                panControl: false,\n                enableCloseButton: false,\n                pov: {\n                    heading: heading,\n                    pitch: 0\n                }\n            };\n\n            self.panorama = new google.maps.StreetViewPanorama(document.getElementById('pano'), panoramaOptions);\n        }\n    }\n    self.streetService.getPanoramaByLocation(self.marker.position, self.radius, getStreetView);\n    $('#pano').css({\n        display: 'flex',\n        flex: 1\n    });\n};\n\nvar directionsDisplayList = [];\nMapEntry.prototype.displayDirections = function(self) {\n    self.directionsService = new google.maps.DirectionsService();\n    self.hideDisplayDirections();\n    var origin = vm.mapEntryList[0].location;\n    var destinationAddress = self.location;\n    var mode = 'TRANSIT';\n    self.directionsService.route({\n        origin: origin,\n        destination: destinationAddress,\n        travelMode: google.maps.TravelMode[mode]\n    }, function(response, status) {\n        if (status === google.maps.DirectionsStatus.OK) {\n            var directionsDisplay = new google.maps.DirectionsRenderer({\n                map: self.map,\n                directions: response,\n                draggable: false,\n                polylineOptions: {\n                    strokeColor: '#282828'\n                },\n                markerOptions: {\n                    visible: false\n                },\n                preserveViewport: true\n            });\n            directionsDisplay.setPanel(document.getElementById('directions'));\n            directionsDisplayList.push(directionsDisplay);\n            self.directions = directionsDisplay;\n        } else {\n            window.alert('Directions request failed due to ' + status);\n        }\n    });\n    $('#directions').css({\n        display: 'flex',\n        flex: 1\n    });\n};\n",
 			"file": "src/js/models/mapEntries.js",
-			"file_size": 8884,
-			"file_write_time": 131193825271402458,
+			"file_size": 9234,
+			"file_write_time": 131196360591943806,
 			"settings":
 			{
-				"buffer_size": 8581,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "src/index.html",
-			"settings":
-			{
-				"buffer_size": 2000,
+				"buffer_size": 8944,
 				"line_ending": "Windows"
 			}
 		},
@@ -82,7 +74,15 @@
 			"file": "src/js/main.js",
 			"settings":
 			{
-				"buffer_size": 2595,
+				"buffer_size": 2756,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "src/index.html",
+			"settings":
+			{
+				"buffer_size": 2000,
 				"line_ending": "Windows"
 			}
 		}
@@ -374,7 +374,7 @@
 	"groups":
 	[
 		{
-			"selected": 3,
+			"selected": 0,
 			"sheets":
 			[
 				{
@@ -383,15 +383,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 8581,
+						"buffer_size": 8944,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4641,
-								4641
+								5636,
+								5636
 							]
 						],
 						"settings":
@@ -402,45 +402,14 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 4745.0,
+						"translation.y": 3014.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "src/index.html",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2000,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1938,
-								1938
-							]
-						],
-						"settings":
-						{
-							"color_scheme": "Packages/User/Color Highlighter/themes/Monokai (SL).tmTheme",
-							"syntax": "Packages/HTML/HTML.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 240.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
 					"file": "src/css/style.less",
 					"semi_transient": false,
 					"settings":
@@ -452,8 +421,8 @@
 						"selection":
 						[
 							[
-								2762,
-								2762
+								2960,
+								2960
 							]
 						],
 						"settings":
@@ -464,27 +433,27 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 2280.0,
+						"translation.y": 2430.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
-					"buffer": 3,
+					"buffer": 2,
 					"file": "src/js/main.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2595,
+						"buffer_size": 2756,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1208,
-								1208
+								849,
+								849
 							]
 						],
 						"settings":
@@ -495,10 +464,40 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
+						"translation.y": 142.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "src/index.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2000,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1945,
+								1945
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 1,
 					"type": "text"
 				}
 			]
