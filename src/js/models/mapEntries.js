@@ -2,62 +2,68 @@ var mapEntries = [{
     title: "CBS, Solbjerg Campus",
     description: "The main campus of CBS",
     id: "A",
-    category: 'school',
+    category: 'School',
     tags: ['school', 'campus', 'cbs']
 }, {
     title: "Harbor Bath, Islands Brygge",
     description: "City harbor bath",
     id: "B",
-    category: 'leasure',
+    category: 'Bathing',
     tags: ['leasure', 'bathing', 'beachvolley', 'sports']
 }, {
     title: "Harbor Bath, Kalvebod Brygge",
     description: "City harbor bath",
     id: "C",
-    category: 'leasure',
+    category: 'Bathing',
     tags: ['leasure', 'bathing', 'beachvolley', 'sports']
 }, {
     title: "Kebabistan, Istedgade",
     description: "Nr.1 Vesterbro Shawarma",
     id: "D",
-    category: 'food',
+    category: 'Fastfood',
     tags: ['food', 'turkish', 'fastfood']
 }, {
     title: "Riccos Fælledvej",
     description: "Nice café for studying.",
     id: "E",
-    category: 'leasure',
+    category: 'Café',
     tags: ['café', 'coffee', 'study']
 }, {
     title: "KB18, Kødbyen",
     description: "House/Techno Club in the Meatpacking district",
     id: "F",
-    category: 'party',
+    category: 'Club',
     tags: ['music', 'club', 'techno', 'house']
 }, {
     title: "Culture Box, Kronprinsessegade",
     description: "The main House/Techno club in Copenhagen.",
     id: "G",
-    category: 'party',
+    category: 'Club',
     tags: ['music', 'club', 'techno', 'house']
 }, {
     title: "Boulevarden Bodega, Sønder Boulevard",
     description: "Bodega at Sønder Boulevard",
     id: "H",
-    category: 'party',
+    category: 'Bodega',
     tags: ['bodega', 'billiard']
 }, {
     title: "Scarpetta, Rantzausgade",
     description: "Nice medium priced italian restaurant",
     id: "I",
-    category: 'food',
+    category: 'Restaurant',
     tags: ['food', 'italian', 'restaurant']
 }, {
     title: "Five Star, Nørrebrogade",
     description: "Indian style durums",
     id: "I",
-    category: 'food',
+    category: 'Fastfood',
     tags: ['food', 'indian', 'fastfood']
+}, {
+    title: "Bolsjefabrikken, Ragnhildgade",
+    description: "Alternative music venue",
+    id: "J",
+    category: 'Club',
+    tags: ['music', 'alternative', 'party']
 }];
 
 var Entry = function(data) {
@@ -84,6 +90,7 @@ var MapEntry = function(data) {
     this.streetService = null;
     this.directionsService = null;
     this.map = null;
+    this.foundPlace = null;
     this.infoWindow = null;
     this.panorama = null;
     this.directions = null;
@@ -101,18 +108,28 @@ MapEntry.prototype.initMarker = function(placeService, streetService, directions
     this.map = map;
     this.infoWindow = infoWindow;
     this.bounds = bounds;
-
+    var attempts = 1;
     function callback(results, status) {
+
         if (status == google.maps.places.PlacesServiceStatus.OK) {
             self.addQueryResultToObject(results[0]);
             self.addMarker();
             self.addMarkerListeners();
             self.showMarker();
             self.map.fitBounds(self.bounds);
+            self.foundPlace = true;
+        } else if (attempts < 4) {
+            setTimeout(function() {
+                attempts++;
+                placeService.textSearch(request, callback);
+            }, 1000);
+            self.foundPlace = false;
+        } else {
+            self.foundPlace = false;
         }
     }
     var request = {
-        query: self.title
+        query: self.title,
     };
     placeService.textSearch(request, callback);
 };
@@ -136,7 +153,6 @@ MapEntry.prototype.addQueryResultToObject = function(placeData) {
 MapEntry.prototype.addMarkerListeners = function() {
     var self = this;
     self.marker.addListener('click', function() {
-        self.animateMarker();
         self.hidePanoramaView(self);
         self.hideDisplayDirections();
         self.populateInfoWindow();
@@ -155,20 +171,9 @@ MapEntry.prototype.addMarker = function() {
     });
 };
 
-MapEntry.prototype.animateMarker = function() {
-
-    /* Remove animation from all markers */
-    vm.mapEntryList.forEach(function(mapEntry) {
-        mapEntry.marker.setOpacity(0.9);
-    });
-
-    /* Activate animation on this marker if not active already */
-    this.marker.setOpacity(1);
-};
-
 MapEntry.prototype.showMarker = function() {
-        this.marker.setMap(this.map);
-        this.bounds.extend(this.marker.position);
+    this.marker.setMap(this.map);
+    this.bounds.extend(this.marker.position);
 };
 
 MapEntry.prototype.hideMarker = function() {
@@ -182,15 +187,18 @@ MapEntry.prototype.populateInfoWindow = function() {
         this.infoWindow.marker = this.marker;
         this.infoWindow.open(this.map, this.marker);
         this.infoWindow.addListener('closeclick', function() {
-            self.infoWindow.marker = null;
-            self.marker.setOpacity(0.9);
-            self.hideDisplayDirections();
-            self.hidePanoramaView(self);
-            self.unBindButtonsFromMarker();
+            self.closeInfoWindowEvents();
         });
         this.unBindButtonsFromMarker();
         this.bindButtonsToMarker(self);
     }
+};
+
+MapEntry.prototype.closeInfoWindowEvents = function() {
+    this.infoWindow.marker = null;
+    this.hideDisplayDirections();
+    this.hidePanoramaView(this);
+    this.unBindButtonsFromMarker();
 };
 
 MapEntry.prototype.unBindButtonsFromMarker = function() {

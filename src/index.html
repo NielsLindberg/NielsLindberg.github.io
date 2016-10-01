@@ -20,11 +20,12 @@
                 <div class="list-container">
                     <ul data-bind="foreach: entryListFiltered">
                         <div data-bind="visible: show" class="list-item">
-                            <p class="title-label" data-bind="text: title"></p>
+                            <p class="title-label" data-bind="text: title, click: vm.itemLabelFilter"></p>
                             <p class="category-label" data-bind="text: category, click: vm.categoryLabelFilter"></p>
-                            <p class="item-id" data-bind="text: id, style: { backgroundColor: vm.categoryColors[category] }, click: vm.itemLabelFilter"></p>
+                            <p class="item-id" data-bind="text: id, style: { backgroundColor: vm.categoryColors[category] }"></p>
                         </div>
                     </ul>
+                    </hr>
                 </div>
                 <div id="result-container" class="result-container">
                     <input id="show-panorama" class="content-button" type="button" value="Show Panorama">

@@ -1,6 +1,7 @@
 var themeColors = ['#ffffff', '#e384a6', '#f4d499', '#4d90d6', '#c7e38c', '#9986c8', '#edf28c', '#ffd1d4', '#5ee1dc', '#b0eead', '#fef85a', '#8badd2'];
 
 var vm;
+
 function ViewModel() {
     vm = this;
     vm.mapEntryList = [];
@@ -45,8 +46,13 @@ function ViewModel() {
 
     vm.itemLabelFilter = function(data, event) {
         /* forceing notefications by setting to null first */
-        vm.itemFilter('');
-        vm.itemFilter(data.id);
+        vm.mapEntryList.forEach(function(mapEntry) {
+            mapEntry.hidePanoramaView(mapEntry);
+            mapEntry.hideDisplayDirections();
+            if (mapEntry.id == data.id) {
+                mapEntry.populateInfoWindow();
+            }
+        });
     };
 
     vm.categories = ko.computed(function() {
@@ -71,19 +77,27 @@ function ViewModel() {
     vm.categoryColors = {};
     vm.categoryIconColors = {};
     vm.uniqueCategories().forEach(function(category, index) {
-        vm.categoryColors[category] = themeColors[index];
-        vm.categoryIconColors[category] = themeColors[index].substring(1,7);
-
+        var color;
+        var colorIcon;
+        if (index < themeColors.length - 1) {
+            color = themeColors[index];
+            colorIcon = themeColors[index].substring(1, 7);
+        } else {
+            color = themeColors[themeColors.length - 1];
+            colorIcon = themeColors[themeColors.length - 1].substring(1, 7);
+        }
+        vm.categoryColors[category] = color;
+        vm.categoryIconColors[category] = colorIcon;
     });
 
     vm.filterMarkers = function() {
         vm.mapEntryList.forEach(function(mapEntry) {
-                if (mapEntry.category == vm.categoriesFilter() || vm.categoriesFilter() == 'All') {
-                    mapEntry.showMarker();
-                } else {
-                    mapEntry.hideMarker();
-                }
-            });
+            if (mapEntry.category == vm.categoriesFilter() || vm.categoriesFilter() == 'All') {
+                mapEntry.showMarker();
+            } else {
+                mapEntry.hideMarker();
+            }
+        });
     };
 
     vm.categoriesFilter.subscribe(function() {
@@ -96,16 +110,7 @@ function ViewModel() {
             }));
         }
     });
-    vm.itemFilter.subscribe(function() {
-        var filter = vm.itemFilter();
-        if (!filter || filter == 'All') {
-            vm.entryListFiltered(vm.entryList());
-        } else {
-            vm.entryListFiltered(ko.utils.arrayFilter(vm.entryList(), function(listEntry) {
-                return listEntry.id == filter;
-            }));
-        }
-    });
+
     vm.entryListFiltered.subscribe(function() {
         vm.filterMarkers();
     });
