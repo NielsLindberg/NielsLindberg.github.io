@@ -18,12 +18,13 @@
             <div class="left-menu">
             <select data-bind="options: uniqueCategories, value: categoriesFilter"></select>
                 <div class="list-container">
-                    <div data-bind="foreach: entryListFiltered">
+                    <ul data-bind="foreach: entryListFiltered">
                         <div data-bind="visible: show" class="list-item">
-                            <p data-bind="text: title"></p>
-                            <p data-bind="text: category, css:category"></p>
+                            <p class="title-label" data-bind="text: title"></p>
+                            <p class="category-label" data-bind="text: category, click: vm.categoryLabelFilter"></p>
+                            <p class="item-id" data-bind="text: id, style: { backgroundColor: vm.categoryColors[category] }, click: vm.itemLabelFilter"></p>
                         </div>
-                    </div>
+                    </ul>
                 </div>
                 <div id="result-container" class="result-container">
                     <input id="show-panorama" class="content-button" type="button" value="Show Panorama">

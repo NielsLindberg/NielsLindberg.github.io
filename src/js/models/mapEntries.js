@@ -1,5 +1,5 @@
 var mapEntries = [{
-    title: "Copenhagen Business School, Solbjerg Campus",
+    title: "CBS, Solbjerg Campus",
     description: "The main campus of CBS",
     id: "A",
     category: 'school',
@@ -29,13 +29,13 @@ var mapEntries = [{
     category: 'leasure',
     tags: ['café', 'coffee', 'study']
 }, {
-    title: "KB18",
+    title: "KB18, Kødbyen",
     description: "House/Techno Club in the Meatpacking district",
     id: "F",
     category: 'party',
     tags: ['music', 'club', 'techno', 'house']
 }, {
-    title: "Culture Box",
+    title: "Culture Box, Kronprinsessegade",
     description: "The main House/Techno club in Copenhagen.",
     id: "G",
     category: 'party',
@@ -125,15 +125,15 @@ MapEntry.prototype.addQueryResultToObject = function(placeData) {
     this.icon = {
         url: 'http://chart.googleapis.com/chart?chst=d_map_pin_letter&chld=' +
             self.id + '|' +
-            categoryColorsIcon[self.category] + '|' +
+            vm.categoryIconColors[self.category] + '|' +
             '000000',
-        scaledSize: new google.maps.Size(20, 32),
+        size: new google.maps.Size(20, 32),
         origin: new google.maps.Point(0, 0),
-        anchor: new google.maps.Point(0, 0)
+        anchor: new google.maps.Point(10, 32)
     };
 };
 
-MapEntry.prototype.addMarkerListeners = function () {
+MapEntry.prototype.addMarkerListeners = function() {
     var self = this;
     self.marker.addListener('click', function() {
         self.animateMarker();
@@ -151,7 +151,7 @@ MapEntry.prototype.addMarker = function() {
         id: self.id,
         icon: self.icon,
         position: self.location,
-        opacity: 0.7
+        opacity: 0.9
     });
 };
 
@@ -159,7 +159,7 @@ MapEntry.prototype.animateMarker = function() {
 
     /* Remove animation from all markers */
     vm.mapEntryList.forEach(function(mapEntry) {
-        mapEntry.marker.setOpacity(0.7);
+        mapEntry.marker.setOpacity(0.9);
     });
 
     /* Activate animation on this marker if not active already */
@@ -167,8 +167,8 @@ MapEntry.prototype.animateMarker = function() {
 };
 
 MapEntry.prototype.showMarker = function() {
-    this.marker.setMap(this.map);
-    this.bounds.extend(this.marker.position);
+        this.marker.setMap(this.map);
+        this.bounds.extend(this.marker.position);
 };
 
 MapEntry.prototype.hideMarker = function() {
@@ -183,7 +183,7 @@ MapEntry.prototype.populateInfoWindow = function() {
         this.infoWindow.open(this.map, this.marker);
         this.infoWindow.addListener('closeclick', function() {
             self.infoWindow.marker = null;
-            self.marker.setOpacity(0.7);
+            self.marker.setOpacity(0.9);
             self.hideDisplayDirections();
             self.hidePanoramaView(self);
             self.unBindButtonsFromMarker();

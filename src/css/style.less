@@ -42,6 +42,11 @@
             -ms-flex-pack: center;
             justify-content: center;
         }
+        .justify-between {
+            -webkit-justify-content: space-between;
+            -ms-flex-pack: space-between;
+            justify-content: space-between;
+        }
         .justify-end {
             -webkit-justify-content: flex-end;
             -ms-flex-pack: end;
@@ -59,6 +64,11 @@
             -ms-flex: @value;
             flex: @value;
         }
+        .align-self(@value) {
+            -ms-flex-item-align: @value;
+            -ms-grid-row-align: @value;
+            align-self: @value;
+        }
     }
 }
 
@@ -68,8 +78,10 @@
 @pageMainMaxWidth: 100%;
 @leftMenuWidth: 20%;
 @mapContainerWidth: 80%;
-@backgroundColor: #282828;
-@themeColor1: #FFFFFF;
+@backgroundColor: #201c2b;
+@colorLowFocus: #898395;
+@themeColor1: #dad8de;
+@themeColorHover: #faf9fa;
 @themeColor2: #e384a6;
 @themeColor3: #f4d499;
 @themeColor4: #4d90d6;
@@ -83,55 +95,78 @@
 @themeColor12: #8badd2;
 //font mixin
 .font-settings {
-    font-family: Roboto, Arial, sans-serif;
+    font-family: Helvetica Neue, Helvetica, sans-serif;
     font-weight: 300;
 }
 
-.school {
-    background-color: @themeColor2;
-}
-
-.food {
-    background-color: @themeColor3;
-}
-
-.leasure {
-    background-color: @themeColor4;
-}
-
-.party {
-    background-color: @themeColor5;
-}
-
-html,
-body {
+html {
+    font-size: 10px;
     width: 100%;
     height: 100%;
     margin: 0;
     padding: 0;
 }
 
+body {
+    font-size: 1.2rem;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    line-height: 2rem;
+}
+
 .list-container ul {
     margin: 0;
-    padding: 5;
+    padding: 0 5px 0 5px;
+    width: 100%;
     list-style-type: none;
 }
 
 .list-item {
     .flexbox > .flex-parent > .display-flex;
     .flexbox > .flex-parent > .flex-direction(row);
+    .flexbox > .flex-parent > .justify-end;
+    width: 100%;
 }
 
 .list-item p {
-    color: @themeColor1;
+    font-size: 1.2rem;
+    padding: 0 5px 0 5px;
+    margin: 2px;
+}
 
+.list-item .item-id {
+    border-radius: 50%;
+    min-width: 9px;
+    text-align: center;
+}
+
+.list-item .title-label {
+    .flexbox > .flex-child > .flex(1);
+    color: @themeColor1;
+}
+
+.list-item .category-label {
+    font-style: italic;
+    color: @colorLowFocus;
+}
+
+.list-item .title-label:hover {
+    cursor: pointer;
+    color: @themeColorHover;
+}
+
+.list-item .category-label:hover {
+    cursor: pointer;
+    color: @themeColorHover;
 }
 
 .content-container {
     display: none;
     padding: 0;
     margin: 0;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 .content-button {
@@ -180,7 +215,7 @@ body {
     margin: 0;
     width: 100%;
     height: 60%;
-    overflow-y: scroll;
+    overflow-y: auto;
     .flexbox > .flex-parent > .display-flex;
     .flexbox > .flex-parent > .flex-wrap(wrap);
     .flexbox > .flex-parent > .align-start;

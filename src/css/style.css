@@ -29,6 +29,11 @@
   -ms-flex-pack: center;
   justify-content: center;
 }
+.flexbox .flex-parent .justify-between {
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: space-between;
+  justify-content: space-between;
+}
 .flexbox .flex-parent .justify-end {
   -webkit-justify-content: flex-end;
   -ms-flex-pack: end;
@@ -36,31 +41,28 @@
 }
 /*----------------VARIABLES---------------------*/
 .font-settings {
-  font-family: Roboto, Arial, sans-serif;
+  font-family: Helvetica Neue, Helvetica, sans-serif;
   font-weight: 300;
 }
-.school {
-  background-color: #e384a6;
-}
-.food {
-  background-color: #f4d499;
-}
-.leasure {
-  background-color: #4d90d6;
-}
-.party {
-  background-color: #c7e38c;
-}
-html,
-body {
+html {
+  font-size: 10px;
   width: 100%;
   height: 100%;
   margin: 0;
   padding: 0;
 }
+body {
+  font-size: 1.2rem;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  line-height: 2rem;
+}
 .list-container ul {
   margin: 0;
-  padding: 5;
+  padding: 0 5px 0 5px;
+  width: 100%;
   list-style-type: none;
 }
 .list-item {
@@ -70,15 +72,44 @@ body {
   flex-direction: row;
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+  width: 100%;
 }
 .list-item p {
-  color: #FFFFFF;
+  font-size: 1.2rem;
+  padding: 0 5px 0 5px;
+  margin: 2px;
+}
+.list-item .item-id {
+  border-radius: 50%;
+  min-width: 9px;
+  text-align: center;
+}
+.list-item .title-label {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  color: #dad8de;
+}
+.list-item .category-label {
+  font-style: italic;
+  color: #898395;
+}
+.list-item .title-label:hover {
+  cursor: pointer;
+  color: #faf9fa;
+}
+.list-item .category-label:hover {
+  cursor: pointer;
+  color: #faf9fa;
 }
 .content-container {
   display: none;
   padding: 0;
   margin: 0;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 .content-button {
   display: none;
@@ -96,9 +127,9 @@ body {
   -ms-flex-direction: column;
 }
 .content {
-  font-family: Roboto, Arial, sans-serif;
+  font-family: Helvetica Neue, Helvetica, sans-serif;
   font-weight: 300;
-  background-color: #282828;
+  background-color: #201c2b;
   width: 100%;
   margin: 0;
   padding: 0;
@@ -134,7 +165,7 @@ body {
   margin: 0;
   width: 100%;
   height: 60%;
-  overflow-y: scroll;
+  overflow-y: auto;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
@@ -166,5 +197,5 @@ body {
   align-content: flex-start;
 }
 #directions {
-  background-color: #FFFFFF;
+  background-color: #dad8de;
 }
