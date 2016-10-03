@@ -145,14 +145,14 @@ body {
   flex: 1;
 }
 #map {
-  width: 85%;
+  width: 80%;
   margin: 0;
   padding: 0;
 }
 .left-menu {
   padding: 0;
   margin: 0;
-  width: 15%;
+  width: 20%;
   height: 100vh;
   display: -webkit-flex;
   display: -ms-flexbox;

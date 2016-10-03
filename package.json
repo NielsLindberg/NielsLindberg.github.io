@@ -26,6 +26,7 @@
     "grunt-contrib-less": "^1.4.0",
     "grunt-contrib-uglify": "^1.0.1",
     "grunt-embed": "^0.2.1",
-    "grunt-responsive-images": "^0.1.7"
+    "grunt-responsive-images": "^0.1.7",
+    "yelp": "^1.0.1"
   }
 }

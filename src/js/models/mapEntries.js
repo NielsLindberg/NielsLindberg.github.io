@@ -1,77 +1,88 @@
 var mapEntries = [{
     search: "CBS, Solbjerg Campus",
     title: "CBS, Solbjerg Campus",
-    category: 'School'
+    category: 'School',
+    foursquare: '4d46ad8c7e2e5481dac5758f'
 }, {
     search: "Harbor Bath, Islands Brygge",
     title: "Harbor Bath, Islands Brygge",
-    category: 'Bathing'
+    category: 'Bathing',
+    foursquare: '4d46ad8c7e2e5481dac5758f'
 }, {
     search: "Harbor Bath, Kalvebod Brygge",
     title: "Harbor Bath, Kalvebod Brygge",
-    category: 'Bathing'
+    category: 'Bathing',
+    foursquare: '4d46ad8c7e2e5481dac5758f'
 }, {
     search: "Kebabistan, Istedgade",
     title: "Kebabistan",
-    category: 'Fastfood'
+    category: 'Fastfood',
+    foursquare: '4d46ad8c7e2e5481dac5758f'
 }, {
     search: "Ricco's, Fælledvej",
     title: "Ricco's, Fælledvej",
-    category: 'Café'
+    category: 'Café',
+    foursquare: '4d46ad8c7e2e5481dac5758f'
 }, {
     search: "KB18, Kødbyen",
     title: "KB18",
-    category: 'Club'
+    category: 'Club',
+    foursquare: '4d46ad8c7e2e5481dac5758f'
 }, {
     search: "Culture Box, Kronprinsessegade",
     title: "Culture Box",
-    category: 'Club'
+    category: 'Club',
+    foursquare: '4d46ad8c7e2e5481dac5758f'
 }, {
     search: "Boulevarden, Sønder Boulevard",
     title: "Boulevarden",
-    category: 'Bodega'
+    category: 'Bodega',
+    foursquare: '4d46ad8c7e2e5481dac5758f'
 }, {
     search: "Scarpetta, Rantzausgade",
     title: "Scarpetta",
-    category: 'Restaurant'
+    category: 'Restaurant',
+    foursquare: '4d46ad8c7e2e5481dac5758f'
 }, {
     search: "Five Star, Nørrebrogade",
     title: "Five Star Shawarma",
-    category: 'Fastfood'
+    category: 'Fastfood',
+    foursquare: '4d46ad8c7e2e5481dac5758f'
 }, {
     search: "Bolsjefabrikken, Ragnhildgade",
     title: "Bolsjefabrikken",
-    category: 'Club'
-},
-{
+    category: 'Club',
+    foursquare: '4d46ad8c7e2e5481dac5758f'
+}, {
     search: "Howitzvej 60",
     title: "CBS, IT Campus",
-    category: 'School'
-},
-{
+    category: 'School',
+    foursquare: '4d46ad8c7e2e5481dac5758f'
+}, {
     search: "Pasta Mania, Elmegade",
     title: "Pasta Mania",
-    category: 'Fastfood'
-},
-{
+    category: 'Fastfood',
+    foursquare: '4d46ad8c7e2e5481dac5758f'
+}, {
     search: "Liban Cuisine, Rantzausgade",
     title: "Liban Cuisine",
-    category: 'Fastfood'
-},
-{
+    category: 'Fastfood',
+    foursquare: '4d46ad8c7e2e5481dac5758f'
+}, {
     search: "Diligencen, Korsgade",
     title: "Diligencen",
-    category: 'Bodega'
-},
-{
+    category: 'Bodega',
+    foursquare: '4d46ad8c7e2e5481dac5758f'
+}, {
     search: "Søhesten, Sølvgade",
     title: "Søhesten",
-    category: 'Bodega'
-},
-{
+    category: 'Bodega',
+    foursquare: '4d46ad8c7e2e5481dac5758f'
+}, {
     search: "Amager Strandpark",
     title: "Amager Beachpark",
-    category: 'Bathing'
+    category: 'Bathing',
+    foursquare: '4d46ad8c7e2e5481dac5758f'
 }];
 
 var Entry = function(data, id) {
@@ -80,6 +91,7 @@ var Entry = function(data, id) {
     this.search = data.search;
     this.id = id;
     this.category = data.category;
+    this.foursquare = data.foursquare;
 };
 
 var ListEntry = function(data, id) {
@@ -115,6 +127,7 @@ MapEntry.prototype.initMarker = function(placeService, streetService, directions
     this.infoWindow = infoWindow;
     this.bounds = bounds;
     var attempts = 1;
+
     function callback(results, status) {
 
         if (status == google.maps.places.PlacesServiceStatus.OK) {
@@ -124,11 +137,11 @@ MapEntry.prototype.initMarker = function(placeService, streetService, directions
             self.showMarker();
             self.map.fitBounds(self.bounds);
             self.foundPlace = true;
-        } else if (attempts < 4) {
+        } else if (attempts < 120) {
             setTimeout(function() {
                 attempts++;
                 placeService.textSearch(request, callback);
-            }, 1000);
+            }, 100);
             self.foundPlace = false;
         } else {
             self.foundPlace = false;
@@ -143,6 +156,8 @@ MapEntry.prototype.initMarker = function(placeService, streetService, directions
 MapEntry.prototype.addQueryResultToObject = function(placeData) {
     var self = this;
     this.placeData = placeData;
+    console.log(this.placeData.geometry.location.lat());
+    console.log(this.placeData.geometry.location.lng());
     this.location = placeData.geometry.location;
     this.formattedName = placeData.formatted_address;
     this.icon = {
@@ -203,6 +218,7 @@ MapEntry.prototype.closeInfoWindowEvents = function() {
     this.infoWindow.marker = null;
     this.hideDisplayDirections();
     this.hidePanoramaView(this);
+    this.hideFacebookView();
     this.unBindButtonsFromMarker();
 };
 
@@ -215,17 +231,29 @@ MapEntry.prototype.bindButtonsToMarker = function(self) {
     $('.content-button').css('display', 'block');
     $('#show-panorama').click(function() {
         self.hideDisplayDirections();
+        self.hideFacebookView();
         self.createPanoramaView(self);
     });
 
     $('#show-directions').click(function() {
         self.hidePanoramaView(self);
+        self.hideFacebookView();
         self.displayDirections(self);
     });
+    $('#show-facebook').click(function() {
+        self.hidePanoramaView(self);
+        self.hideDisplayDirections();
+        self.createFacebookView();
+    });
+
 };
 
 MapEntry.prototype.hidePanoramaView = function() {
     $('#pano').css('display', 'none');
+};
+
+MapEntry.prototype.hideFacebookView = function() {
+    $('#facebook').css('display', 'none');
 };
 
 MapEntry.prototype.hideDisplayDirections = function() {
@@ -236,6 +264,27 @@ MapEntry.prototype.hideDisplayDirections = function() {
         });
     }
     $('#directions').css('display', 'none');
+};
+
+
+MapEntry.prototype.createFacebookView = function() {
+    $(document).ready(function() {
+        var accessToken = {
+            access_token: '1796256433992124|I4R9ZDFj8C2XuzB0LXMqXm3VRe0'
+        };
+        $.ajaxSetup({
+            cache: true
+        });
+        $.getScript('//connect.facebook.net/en_US/sdk.js', function() {
+            FB.init({
+                appId: '{1796256433992124}',
+                version: 'v2.7' // or v2.1, v2.2, v2.3, ...
+            });
+            FB.api('/CopenhagenBusinessSchool?fields=id,name,description', function(response) {
+                console.log(response);
+            }, accessToken);
+        });
+    });
 };
 
 MapEntry.prototype.createPanoramaView = function(self) {
