@@ -2,87 +2,78 @@ var mapEntries = [{
     search: "CBS, Solbjerg Campus",
     title: "CBS, Solbjerg Campus",
     category: 'School',
-    foursquare: '4d46ad8c7e2e5481dac5758f'
 }, {
     search: "Harbor Bath, Islands Brygge",
     title: "Harbor Bath, Islands Brygge",
     category: 'Bathing',
-    foursquare: '4d46ad8c7e2e5481dac5758f'
+    yelp: 'havnebadet-islands-brygge-københavn-s'
 }, {
     search: "Harbor Bath, Kalvebod Brygge",
     title: "Harbor Bath, Kalvebod Brygge",
     category: 'Bathing',
-    foursquare: '4d46ad8c7e2e5481dac5758f'
+    yelp: 'kalvebod-bølge-københavn'
 }, {
     search: "Kebabistan, Istedgade",
     title: "Kebabistan",
     category: 'Fastfood',
-    foursquare: '4d46ad8c7e2e5481dac5758f'
+    yelp: 'kebabistan-københavn'
 }, {
     search: "Ricco's, Fælledvej",
     title: "Ricco's, Fælledvej",
     category: 'Café',
-    foursquare: '4d46ad8c7e2e5481dac5758f'
 }, {
     search: "KB18, Kødbyen",
     title: "KB18",
     category: 'Club',
-    foursquare: '4d46ad8c7e2e5481dac5758f'
+    yelp: 'kb18-københavn-v'
 }, {
     search: "Culture Box, Kronprinsessegade",
     title: "Culture Box",
     category: 'Club',
-    foursquare: '4d46ad8c7e2e5481dac5758f'
+    yelp: 'culture-box-københavn-2'
 }, {
     search: "Boulevarden, Sønder Boulevard",
     title: "Boulevarden",
     category: 'Bodega',
-    foursquare: '4d46ad8c7e2e5481dac5758f'
 }, {
     search: "Scarpetta, Rantzausgade",
     title: "Scarpetta",
     category: 'Restaurant',
-    foursquare: '4d46ad8c7e2e5481dac5758f'
+    yelp: 'scarpetta-københavn-n'
 }, {
     search: "Five Star, Nørrebrogade",
     title: "Five Star Shawarma",
     category: 'Fastfood',
-    foursquare: '4d46ad8c7e2e5481dac5758f'
+    yelp: 'five-star-shawarma-københavn'
 }, {
     search: "Bolsjefabrikken, Ragnhildgade",
     title: "Bolsjefabrikken",
     category: 'Club',
-    foursquare: '4d46ad8c7e2e5481dac5758f'
+    yelp: 'bolsjefabrikken-københavn-ø'
 }, {
     search: "Howitzvej 60",
     title: "CBS, IT Campus",
     category: 'School',
-    foursquare: '4d46ad8c7e2e5481dac5758f'
 }, {
     search: "Pasta Mania, Elmegade",
     title: "Pasta Mania",
     category: 'Fastfood',
-    foursquare: '4d46ad8c7e2e5481dac5758f'
+    yelp: 'pasta-mania-københavn-n'
 }, {
     search: "Liban Cuisine, Rantzausgade",
     title: "Liban Cuisine",
     category: 'Fastfood',
-    foursquare: '4d46ad8c7e2e5481dac5758f'
+    yelp: 'liban-cuisine-københavn'
 }, {
     search: "Diligencen, Korsgade",
     title: "Diligencen",
     category: 'Bodega',
-    foursquare: '4d46ad8c7e2e5481dac5758f'
-}, {
-    search: "Søhesten, Sølvgade",
-    title: "Søhesten",
-    category: 'Bodega',
-    foursquare: '4d46ad8c7e2e5481dac5758f'
+    yelp: 'diligencen-københavn-n'
 }, {
     search: "Amager Strandpark",
     title: "Amager Beachpark",
     category: 'Bathing',
-    foursquare: '4d46ad8c7e2e5481dac5758f'
+    yelp: 'amager-strandpark-københavn-s'
 }];
 
 var Entry = function(data, id) {
@@ -91,7 +82,7 @@ var Entry = function(data, id) {
     this.search = data.search;
     this.id = id;
     this.category = data.category;
-    this.foursquare = data.foursquare;
+    this.yelp = data.yelp;
 };
 
 var ListEntry = function(data, id) {
@@ -174,6 +165,7 @@ MapEntry.prototype.addMarkerListeners = function() {
     self.marker.addListener('click', function() {
         self.hidePanoramaView(self);
         self.hideDisplayDirections();
+        self.hideYelpView();
         self.populateInfoWindow();
     });
 };
@@ -207,7 +199,6 @@ MapEntry.prototype.populateInfoWindow = function() {
         this.infoWindow.addListener('closeclick', function() {
             self.closeInfoWindowEvents();
         });
-        this.unBindButtonsFromMarker();
         this.bindButtonsToMarker(self);
     }
 };
@@ -216,7 +207,7 @@ MapEntry.prototype.closeInfoWindowEvents = function() {
     this.infoWindow.marker = null;
     this.hideDisplayDirections();
     this.hidePanoramaView(this);
-    this.hideFacebookView();
+    this.hideYelpView();
     this.unBindButtonsFromMarker();
 };
 
@@ -229,19 +220,19 @@ MapEntry.prototype.bindButtonsToMarker = function(self) {
     $('.content-button').css('display', 'block');
     $('#show-panorama').click(function() {
         self.hideDisplayDirections();
-        self.hideFacebookView();
+        self.hideYelpView();
         self.createPanoramaView(self);
     });
 
     $('#show-directions').click(function() {
         self.hidePanoramaView(self);
-        self.hideFacebookView();
+        self.hideYelpView();
         self.displayDirections(self);
     });
-    $('#show-facebook').click(function() {
+    $('#show-yelp').click(function() {
         self.hidePanoramaView(self);
         self.hideDisplayDirections();
-        self.createFacebookView();
+        self.requestYelpData();
     });
 
 };
@@ -250,8 +241,8 @@ MapEntry.prototype.hidePanoramaView = function() {
     $('#pano').css('display', 'none');
 };
 
-MapEntry.prototype.hideFacebookView = function() {
-    $('#facebook').css('display', 'none');
+MapEntry.prototype.hideYelpView = function() {
+    $('#yelp').css('display', 'none');
 };
 
 MapEntry.prototype.hideDisplayDirections = function() {
@@ -264,25 +255,57 @@ MapEntry.prototype.hideDisplayDirections = function() {
     $('#directions').css('display', 'none');
 };
 
+MapEntry.prototype.hideContentViews = function () {
+    this.hidePanoramaView();
+    this.hideYelpView();
+    this.hideDisplayDirections();
+};
 
-MapEntry.prototype.createFacebookView = function() {
-    $(document).ready(function() {
-        var accessToken = {
-            access_token: '1796256433992124|I4R9ZDFj8C2XuzB0LXMqXm3VRe0'
-        };
-        $.ajaxSetup({
-            cache: true
-        });
-        $.getScript('//connect.facebook.net/en_US/sdk.js', function() {
-            FB.init({
-                appId: '{1796256433992124}',
-                version: 'v2.7' // or v2.1, v2.2, v2.3, ...
-            });
-            FB.api('/CopenhagenBusinessSchool?fields=id,name,description', function(response) {
-                console.log(response);
-            }, accessToken);
-        });
-    });
+MapEntry.prototype.requestYelpData = function() {
+    var self = this;
+    function nonce_generate() {
+        return (Math.floor(Math.random() * 1e12).toString());
+    }
+
+    var YELP_BASE_URL = 'https://api.yelp.com/v2/';
+    var YELP_KEY = '_xLjE_NxysOGBW9vTF4YAA';
+    var YELP_TOKEN = 'foyoWs_yChb81DQX4JivNt8b-ka_hVr9';
+    var YELP_KEY_SECRET = 'rR7blQEyj5FSjmtupIgScck7D58';
+    var YELP_TOKEN_SECRET = 'MkQHBL_fc2r4nIOrcLXemdffK2Y';
+
+    var businessIDencoded = encodeURI(this.yelp);
+    var yelp_url = YELP_BASE_URL + 'business/' + businessIDencoded;
+    var parameters = {
+        oauth_consumer_key: YELP_KEY,
+        oauth_token: YELP_TOKEN,
+        oauth_nonce: nonce_generate(),
+        oauth_timestamp: Math.floor(Date.now() / 1000),
+        oauth_signature_method: 'HMAC-SHA1',
+        oauth_version: '1.0',
+        callback: 'cb'
+    };
+
+    var encodedSignature = oauthSignature.generate('GET', yelp_url, parameters, YELP_KEY_SECRET, YELP_TOKEN_SECRET);
+    parameters.oauth_signature = encodedSignature;
+
+    var settings = {
+        url: yelp_url,
+        data: parameters,
+        cache: true, // This is crucial to include as well to prevent jQuery from adding on a cache-buster parameter "_=23489489749837", invalidating our oauth-signature
+        dataType: 'jsonp',
+        success: function(results) {
+            // Do stuff with results
+            self.yelpData = results;
+        },
+        fail: function(results) {
+            // Do stuff on fail
+            self.yelpData = "NO YELP DATA";
+        }
+    };
+
+    // Send AJAX query via jQuery library.
+    $.ajax(settings);
+    console.log(self);
 };
 
 MapEntry.prototype.createPanoramaView = function(self) {

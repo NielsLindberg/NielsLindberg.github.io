@@ -77,6 +77,23 @@ body {
   justify-content: flex-end;
   width: 100%;
 }
+#buttons {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  flex-direction: row;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  width: 100%;
+}
+#buttons > input {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+}
 .list-item p {
   font-size: 1.2rem;
   padding: 0 5px 0 5px;

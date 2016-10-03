@@ -52,10 +52,18 @@
 	"buffers":
 	[
 		{
+			"file": "src/js/main.js",
+			"settings":
+			{
+				"buffer_size": 4093,
+				"line_ending": "Windows"
+			}
+		},
+		{
 			"file": "src/js/models/mapEntries.js",
 			"settings":
 			{
-				"buffer_size": 9352,
+				"buffer_size": 10653,
 				"line_ending": "Windows"
 			}
 		},
@@ -63,15 +71,7 @@
 			"file": "src/css/style.less",
 			"settings":
 			{
-				"buffer_size": 5186,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "src/js/main.js",
-			"settings":
-			{
-				"buffer_size": 4029,
+				"buffer_size": 5200,
 				"line_ending": "Windows"
 			}
 		},
@@ -79,7 +79,7 @@
 			"file": "src/index.html",
 			"settings":
 			{
-				"buffer_size": 2239,
+				"buffer_size": 4204,
 				"line_ending": "Windows"
 			}
 		}
@@ -160,8 +160,8 @@
 	],
 	"file_history":
 	[
-		"/D/Workspace/Udacity/mapApp/Gruntfile.js",
 		"/D/Workspace/CBS/yoprogram.py",
+		"/D/Workspace/Udacity/mapApp/Gruntfile.js",
 		"/D/Workspace/Udacity/P5/frontend-nanodegree-arcade-game/js/app.js",
 		"/D/Workspace/Udacity/frontend-nanodegree-arcade-game/js/app.js",
 		"/D/Workspace/CBS/data.json",
@@ -375,24 +375,24 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 3,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "src/js/models/mapEntries.js",
+					"file": "src/js/main.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 9352,
+						"buffer_size": 4093,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2032,
-								2032
+								575,
+								575
 							]
 						],
 						"settings":
@@ -403,27 +403,58 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 648.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "src/css/style.less",
+					"file": "src/js/models/mapEntries.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 5186,
+						"buffer_size": 10653,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3466,
-								3466
+								5189,
+								5189
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Monokai (SL).tmTheme",
+							"syntax": "Packages/JavaScriptNext - ES6 Syntax/JavaScriptNext.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2700.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "src/css/style.less",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5200,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2215,
+								2215
 							]
 						],
 						"settings":
@@ -434,41 +465,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 432.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "src/js/main.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4029,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2160,
-								2160
-							]
-						],
-						"settings":
-						{
-							"color_scheme": "Packages/User/Color Highlighter/themes/Monokai (SL).tmTheme",
-							"syntax": "Packages/JavaScriptNext - ES6 Syntax/JavaScriptNext.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
 					"type": "text"
 				},
 				{
@@ -477,15 +477,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2239,
+						"buffer_size": 4204,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1141,
-								1141
+								1227,
+								1227
 							]
 						],
 						"settings":
@@ -495,10 +495,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 324.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 0,
 					"type": "text"
 				}
 			]

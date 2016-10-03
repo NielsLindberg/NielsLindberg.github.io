@@ -14,55 +14,6 @@
 </head>
 
 <body>
-    <script>
-    function nonce_generate() {
-        return (Math.floor(Math.random() * 1e12).toString());
-    }
-
-    var YELP_BASE_URL = 'https://api.yelp.com/v2/';
-    var YELP_KEY = '_xLjE_NxysOGBW9vTF4YAA';
-    var YELP_TOKEN = 'foyoWs_yChb81DQX4JivNt8b-ka_hVr9';
-    var YELP_KEY_SECRET = 'rR7blQEyj5FSjmtupIgScck7D58';
-    var YELP_TOKEN_SECRET = 'MkQHBL_fc2r4nIOrcLXemdffK2Y';
-
-    var lat = 55.6677494;
-    var lng = 12.548833000000059;
-    var businessID = 'scarpetta-københavn-n';
-    var businessIDencoded = encodeURI(businessID);
-    var yelp_url = YELP_BASE_URL + 'business/' + businessIDencoded;
-    var parameters = {
-        oauth_consumer_key: YELP_KEY,
-        oauth_token: YELP_TOKEN,
-        oauth_nonce: nonce_generate(),
-        oauth_timestamp: Math.floor(Date.now() / 1000),
-        oauth_signature_method: 'HMAC-SHA1',
-        oauth_version: '1.0',
-        callback: 'cb'
-        //term: 'food',
-        //ll: lat + ',' +lng
-    };
-
-    var encodedSignature = oauthSignature.generate('GET', yelp_url, parameters, YELP_KEY_SECRET, YELP_TOKEN_SECRET);
-    parameters.oauth_signature = encodedSignature;
-
-    var settings = {
-        url: yelp_url,
-        data: parameters,
-        cache: true, // This is crucial to include as well to prevent jQuery from adding on a cache-buster parameter "_=23489489749837", invalidating our oauth-signature
-        dataType: 'jsonp',
-        success: function(results) {
-            // Do stuff with results
-            console.log(results);
-        },
-        fail: function(results) {
-            // Do stuff on fail
-            console.log(results);
-        }
-    };
-
-    // Send AJAX query via jQuery library.
-    $.ajax(settings);
-    </script>
     <header>
     </header>
     <div class="page-wrapper">
@@ -80,12 +31,14 @@
                     </hr>
                 </div>
                 <div id="result-container" class="result-container">
-                    <input id="show-panorama" class="content-button" type="button" value="Show Panorama">
+                    <div id="buttons">
+                        <input id="show-panorama" class="content-button" type="button" value="Streetview">
+                        <input id="show-directions" class="content-button" type="button" value="Directions">
+                        <input id="show-yelp" class="content-button" type="button" value="Yelp">
+                    </div>
                     <div id="pano" class="content-container"></div>
-                    <input id="show-directions" class="content-button" type="button" value="Show Directions">
                     <div id="directions" class="content-container"></div>
-                    <input id="show-facebook" class="content-button" type="button" value="Show Facebook">
-                    <div id="facebook" class="content-container"></div>
+                    <div id="yelp" class="content-container"></div>
                 </div>
             </div>
             <div id="map"></div>

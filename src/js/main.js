@@ -1,5 +1,4 @@
 var themeColors = ['#ffffff', '#e384a6', '#f4d499', '#4d90d6', '#c7e38c', '#9986c8', '#edf28c', '#ffd1d4', '#5ee1dc', '#b0eead', '#fef85a', '#8badd2'];
-
 var vm;
 
 function ViewModel() {
@@ -46,10 +45,7 @@ function ViewModel() {
     };
 
     vm.itemLabelFilter = function(data, event) {
-        /* forceing notefications by setting to null first */
         vm.mapEntryList.forEach(function(mapEntry) {
-            mapEntry.hidePanoramaView(mapEntry);
-            mapEntry.hideDisplayDirections();
             if (mapEntry.id == data.id) {
                 mapEntry.populateInfoWindow();
             }
@@ -61,13 +57,6 @@ function ViewModel() {
             return listEntry.category;
         });
         return categories.sort();
-    }, vm);
-
-    vm.listIds = ko.computed(function() {
-        var ids = ko.utils.arrayMap(vm.entryListFiltered(), function(listEntry) {
-            return listEntry.id;
-        });
-        return ids.sort();
     }, vm);
 
     vm.uniqueCategories = ko.computed(function() {
@@ -93,6 +82,7 @@ function ViewModel() {
 
     vm.filterMarkers = function() {
         vm.mapEntryList.forEach(function(mapEntry) {
+            mapEntry.closeInfoWindowEvents();
             if (mapEntry.category == vm.categoriesFilter() || vm.categoriesFilter() == 'All') {
                 mapEntry.showMarker();
             } else {
