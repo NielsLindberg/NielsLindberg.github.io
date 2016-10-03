@@ -156,8 +156,6 @@ MapEntry.prototype.initMarker = function(placeService, streetService, directions
 MapEntry.prototype.addQueryResultToObject = function(placeData) {
     var self = this;
     this.placeData = placeData;
-    console.log(this.placeData.geometry.location.lat());
-    console.log(this.placeData.geometry.location.lng());
     this.location = placeData.geometry.location;
     this.formattedName = placeData.formatted_address;
     this.icon = {

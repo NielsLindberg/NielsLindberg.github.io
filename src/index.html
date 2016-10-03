@@ -27,8 +27,9 @@
 
     var lat = 55.6677494;
     var lng = 12.548833000000059;
-    var yelp_url = YELP_BASE_URL + 'search/';
-
+    var businessID = 'scarpetta-københavn-n';
+    var businessIDencoded = encodeURI(businessID);
+    var yelp_url = YELP_BASE_URL + 'business/' + businessIDencoded;
     var parameters = {
         oauth_consumer_key: YELP_KEY,
         oauth_token: YELP_TOKEN,
@@ -36,9 +37,9 @@
         oauth_timestamp: Math.floor(Date.now() / 1000),
         oauth_signature_method: 'HMAC-SHA1',
         oauth_version: '1.0',
-        callback: 'cb',
-        term: 'food',
-        ll: lat + ',' +lng
+        callback: 'cb'
+        //term: 'food',
+        //ll: lat + ',' +lng
     };
 
     var encodedSignature = oauthSignature.generate('GET', yelp_url, parameters, YELP_KEY_SECRET, YELP_TOKEN_SECRET);
