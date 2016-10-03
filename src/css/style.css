@@ -82,26 +82,27 @@ body {
   padding: 0 5px 0 5px;
   margin: 2px;
 }
-.list-item .item-id {
+.list-item > .item-id {
   border-radius: 50%;
   min-width: 9px;
   text-align: center;
 }
-.list-item .title-label {
+.list-item > .title-label {
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
   color: #dad8de;
+  min-width: 0;
 }
-.list-item .category-label {
+.list-item > .category-label {
   font-style: italic;
   color: #898395;
 }
-.list-item .title-label:hover {
+.list-item > .title-label:hover {
   cursor: pointer;
   color: #faf9fa;
 }
-.list-item .category-label:hover {
+.list-item > .category-label:hover {
   cursor: pointer;
   color: #faf9fa;
 }
@@ -144,7 +145,7 @@ body {
   flex: 1;
 }
 #map {
-  width: 80%;
+  width: 85%;
   margin: 0;
   padding: 0;
 }

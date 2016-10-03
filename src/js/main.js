@@ -7,9 +7,10 @@ function ViewModel() {
     vm.mapEntryList = [];
     vm.entryList = ko.observableArray([]);
 
-    mapEntries.forEach(function(entryData) {
-        vm.entryList.push(new ListEntry(entryData));
-        vm.mapEntryList.push(new MapEntry(entryData));
+    mapEntries.forEach(function(entryData,index) {
+        var id = String.fromCharCode(65 + index);
+        vm.entryList.push(new ListEntry(entryData, id));
+        vm.mapEntryList.push(new MapEntry(entryData, id));
     });
 
     vm.entryListFiltered = ko.observableArray(vm.entryList());

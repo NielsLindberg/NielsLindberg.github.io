@@ -19,7 +19,7 @@
             <select data-bind="options: uniqueCategories, value: categoriesFilter"></select>
                 <div class="list-container">
                     <ul data-bind="foreach: entryListFiltered">
-                        <div data-bind="visible: show" class="list-item">
+                        <div class="list-item">
                             <p class="title-label" data-bind="text: title, click: vm.itemLabelFilter"></p>
                             <p class="category-label" data-bind="text: category, click: vm.categoryLabelFilter"></p>
                             <p class="item-id" data-bind="text: id, style: { backgroundColor: vm.categoryColors[category] }"></p>

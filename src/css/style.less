@@ -77,7 +77,7 @@
 
 @pageMainMaxWidth: 100%;
 @leftMenuWidth: 15%;
-@mapContainerWidth: 80%;
+@mapContainerWidth: 85%;
 @backgroundColor: #201c2b;
 @colorLowFocus: #898395;
 @themeColor1: #dad8de;
@@ -136,28 +136,29 @@ body {
     margin: 2px;
 }
 
-.list-item .item-id {
+.list-item > .item-id {
     border-radius: 50%;
-    min-width: 9px;
+    min-width:9px;
     text-align: center;
 }
 
-.list-item .title-label {
+.list-item > .title-label {
     .flexbox > .flex-child > .flex(1);
     color: @themeColor1;
+    min-width:0;
 }
 
-.list-item .category-label {
+.list-item > .category-label {
     font-style: italic;
     color: @colorLowFocus;
 }
 
-.list-item .title-label:hover {
+.list-item > .title-label:hover {
     cursor: pointer;
     color: @themeColorHover;
 }
 
-.list-item .category-label:hover {
+.list-item > .category-label:hover {
     cursor: pointer;
     color: @themeColorHover;
 }

@@ -1,90 +1,96 @@
 var mapEntries = [{
+    search: "CBS, Solbjerg Campus",
     title: "CBS, Solbjerg Campus",
-    description: "The main campus of CBS",
-    id: "A",
-    category: 'School',
-    tags: ['school', 'campus', 'cbs']
+    category: 'School'
 }, {
+    search: "Harbor Bath, Islands Brygge",
     title: "Harbor Bath, Islands Brygge",
-    description: "City harbor bath",
-    id: "B",
-    category: 'Bathing',
-    tags: ['leasure', 'bathing', 'beachvolley', 'sports']
+    category: 'Bathing'
 }, {
+    search: "Harbor Bath, Kalvebod Brygge",
     title: "Harbor Bath, Kalvebod Brygge",
-    description: "City harbor bath",
-    id: "C",
-    category: 'Bathing',
-    tags: ['leasure', 'bathing', 'beachvolley', 'sports']
+    category: 'Bathing'
 }, {
-    title: "Kebabistan, Istedgade",
-    description: "Nr.1 Vesterbro Shawarma",
-    id: "D",
-    category: 'Fastfood',
-    tags: ['food', 'turkish', 'fastfood']
+    search: "Kebabistan, Istedgade",
+    title: "Kebabistan",
+    category: 'Fastfood'
 }, {
-    title: "Riccos Fælledvej",
-    description: "Nice café for studying.",
-    id: "E",
-    category: 'Café',
-    tags: ['café', 'coffee', 'study']
+    search: "Ricco's, Fælledvej",
+    title: "Ricco's, Fælledvej",
+    category: 'Café'
 }, {
-    title: "KB18, Kødbyen",
-    description: "House/Techno Club in the Meatpacking district",
-    id: "F",
-    category: 'Club',
-    tags: ['music', 'club', 'techno', 'house']
+    search: "KB18, Kødbyen",
+    title: "KB18",
+    category: 'Club'
 }, {
-    title: "Culture Box, Kronprinsessegade",
-    description: "The main House/Techno club in Copenhagen.",
-    id: "G",
-    category: 'Club',
-    tags: ['music', 'club', 'techno', 'house']
+    search: "Culture Box, Kronprinsessegade",
+    title: "Culture Box",
+    category: 'Club'
 }, {
-    title: "Boulevarden Bodega, Sønder Boulevard",
-    description: "Bodega at Sønder Boulevard",
-    id: "H",
-    category: 'Bodega',
-    tags: ['bodega', 'billiard']
+    search: "Boulevarden, Sønder Boulevard",
+    title: "Boulevarden",
+    category: 'Bodega'
 }, {
-    title: "Scarpetta, Rantzausgade",
-    description: "Nice medium priced italian restaurant",
-    id: "I",
-    category: 'Restaurant',
-    tags: ['food', 'italian', 'restaurant']
+    search: "Scarpetta, Rantzausgade",
+    title: "Scarpetta",
+    category: 'Restaurant'
 }, {
-    title: "Five Star, Nørrebrogade",
-    description: "Indian style durums",
-    id: "I",
-    category: 'Fastfood',
-    tags: ['food', 'indian', 'fastfood']
+    search: "Five Star, Nørrebrogade",
+    title: "Five Star Shawarma",
+    category: 'Fastfood'
 }, {
-    title: "Bolsjefabrikken, Ragnhildgade",
-    description: "Alternative music venue",
-    id: "J",
-    category: 'Club',
-    tags: ['music', 'alternative', 'party']
+    search: "Bolsjefabrikken, Ragnhildgade",
+    title: "Bolsjefabrikken",
+    category: 'Club'
+},
+{
+    search: "Howitzvej 60",
+    title: "CBS, IT Campus",
+    category: 'School'
+},
+{
+    search: "Pasta Mania, Elmegade",
+    title: "Pasta Mania",
+    category: 'Fastfood'
+},
+{
+    search: "Liban Cuisine, Rantzausgade",
+    title: "Liban Cuisine",
+    category: 'Fastfood'
+},
+{
+    search: "Diligencen, Korsgade",
+    title: "Diligencen",
+    category: 'Bodega'
+},
+{
+    search: "Søhesten, Sølvgade",
+    title: "Søhesten",
+    category: 'Bodega'
+},
+{
+    search: "Amager Strandpark",
+    title: "Amager Beachpark",
+    category: 'Bathing'
 }];
 
-var Entry = function(data) {
+var Entry = function(data, id) {
     var self = this;
     this.title = data.title;
-    this.description = data.description;
-    this.id = data.id;
+    this.search = data.search;
+    this.id = id;
     this.category = data.category;
-    this.tags = data.tags;
 };
 
-var ListEntry = function(data) {
-    Entry.call(this, data);
-    this.show = ko.observable(true);
+var ListEntry = function(data, id) {
+    Entry.call(this, data, id);
 };
 
 ListEntry.prototype = Object.create(Entry.prototype);
 ListEntry.prototype.constructor = ListEntry;
 
-var MapEntry = function(data) {
-    Entry.call(this, data);
+var MapEntry = function(data, id) {
+    Entry.call(this, data, id);
     this.radius = 100;
     this.placeService = null;
     this.streetService = null;
@@ -129,7 +135,7 @@ MapEntry.prototype.initMarker = function(placeService, streetService, directions
         }
     }
     var request = {
-        query: self.title,
+        query: self.search,
     };
     placeService.textSearch(request, callback);
 };
@@ -167,7 +173,6 @@ MapEntry.prototype.addMarker = function() {
         id: self.id,
         icon: self.icon,
         position: self.location,
-        opacity: 0.9
     });
 };
 
