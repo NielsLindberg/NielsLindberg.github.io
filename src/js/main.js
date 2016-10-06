@@ -7,13 +7,16 @@ function ViewModel() {
     vm.mapEntryList = [];
     vm.entryList = ko.observableArray([]);
 
+    /* this loop crated both an observable array for the list items
+    aswell as a standard array for the mapmarkers the id's are generated automatically*/
     mapEntries.forEach(function(entryData, index) {
         var id = String.fromCharCode(65 + index);
         vm.entryList.push(new ListEntry(entryData, id));
         vm.mapEntryList.push(new MapEntry(entryData, id));
     });
 
-
+    /*this observable array is the filtered version of entrylist, it is this array
+    that is being referenced in the binding to the DOM on the item list */
     vm.entryListFiltered = ko.observableArray(vm.entryList());
     vm.initMap = function() {
         var map = new google.maps.Map(document.getElementById('map'), {
@@ -37,14 +40,16 @@ function ViewModel() {
     };
     /* Category filter stuff */
     vm.categoriesFilter = ko.observable('All');
-    vm.itemFilter = ko.observable('All');
 
+    /* when selecting in the drop down, this observable will be replaced by the value selected */
     vm.categoryLabelFilter = function(data, event) {
         /* forceing notefications by setting to null first */
         vm.categoriesFilter('');
         vm.categoriesFilter(data.category);
     };
 
+    /* when selecting on a title in the item list the corresponding markers infowindow is opened
+    and the result viewing buttons are binded to this item */
     vm.itemLabelFilter = function(data, event) {
         vm.mapEntryList.forEach(function(mapEntry) {
             if (mapEntry.id == data.id) {
@@ -55,6 +60,7 @@ function ViewModel() {
         $('#result-title').text(data.title);
     };
 
+    /* this computed obersable holds the categories values in the item list */
     vm.categories = ko.computed(function() {
         var categories = ko.utils.arrayMap(vm.entryList(), function(listEntry) {
             return listEntry.category;
@@ -62,11 +68,14 @@ function ViewModel() {
         return categories.sort();
     }, vm);
 
+    /* this computed observable holds the unique categoires and adds an All value used
+    to select all categories */
     vm.uniqueCategories = ko.computed(function() {
         var uniqueCategories = ['All'];
         return uniqueCategories.concat(ko.utils.arrayGetDistinctValues(vm.categories()).sort());
     }, vm);
 
+    /* for each unique categories we assign a color related to that used for the markers*/
     vm.categoryColors = {};
     vm.categoryIconColors = {};
     vm.uniqueCategories().forEach(function(category, index) {
@@ -83,6 +92,10 @@ function ViewModel() {
         vm.categoryIconColors[category] = colorIcon;
     });
 
+    /* this method filters the markers based on the category dropdown value
+    when any markers are filtered we call the onItemSelectClearEvents function to remove any
+    views & bindings related to single markers. The goal is that bindigns and views or markers are only
+    shown when clicking a list item or a marker item. */
     vm.filterMarkers = function() {
         vm.mapEntryList.forEach(function(mapEntry) {
             mapEntry.onItemSelectClearEvents();
@@ -94,6 +107,8 @@ function ViewModel() {
         });
     };
 
+    /* When anything changes in the categories filter we filter on the entryListfiltered
+    which is the one that is referenced in the dom for the item list */
     vm.categoriesFilter.subscribe(function() {
         var filter = vm.categoriesFilter();
         $('#result-title').text('Select a location');
@@ -106,6 +121,8 @@ function ViewModel() {
         }
     });
 
+    /* To ensure consistency between the map markers and the entrylist items, we subscribe to the
+    entrylist and filter the map markers on any changes */
     vm.entryListFiltered.subscribe(function() {
         vm.filterMarkers();
     });

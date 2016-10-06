@@ -131,8 +131,10 @@ body {
 }
 .content-button {
   display: none;
-  padding: 0;
-  marging: 0;
+  margin: 5px;
+}
+#category-drop {
+  margin: 5px;
 }
 /* GENERIC STYLES */
 .page-wrapper {
@@ -227,6 +229,7 @@ hr {
 }
 #directions {
   background-color: #dad8de;
+  margin: 5px;
 }
 #yelp {
   display: -webkit-flex;
@@ -235,8 +238,11 @@ hr {
   flex-direction: column;
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
-  padding: 5px;
+  margin: 5px;
   display: none;
+}
+#pano {
+  margin: 5px;
 }
 .yelp-item {
   display: -webkit-flex;
@@ -261,4 +267,8 @@ hr {
   display: block;
   max-width: 100%;
   height: auto;
+}
+.attribution > p {
+  font-style: italic;
+  font-size: 12px;
 }

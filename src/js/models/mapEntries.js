@@ -111,6 +111,10 @@ var MapEntry = function(data, id) {
 MapEntry.prototype = Object.create(Entry.prototype);
 MapEntry.prototype.constructor = MapEntry;
 
+/*This method initates the marker & calls various google services in the process to gather data used in the web app
+Do to the limitations on queries per second that google has, we do 120 attempts per marker with a
+delay of 100 miliseconds. This is why the first 10 markers show on the map pretty quickly, whereas the following
+comes bit by bit when the QPS goes below 10. */
 MapEntry.prototype.initMarker = function(placeService, streetService, directionsService, map, infoWindow, bounds) {
     var self = this;
     this.placeService = placeService;
@@ -162,6 +166,7 @@ MapEntry.prototype.addQueryResultToObject = function(placeData) {
     };
 };
 
+/* When creating the markers this method adds listeners to clicking them */
 MapEntry.prototype.addMarkerListeners = function() {
     var self = this;
     self.marker.addListener('click', function() {
@@ -191,6 +196,9 @@ MapEntry.prototype.hideMarker = function() {
     this.marker.setMap(null);
 };
 
+/* the infowindow in our app is both the google infowindow above the marker
+aswell as the views & buttons in the resultcontainer, this method initates both and binds everything
+to the selected item */
 MapEntry.prototype.populateInfoWindow = function() {
     if (this.infoWindow.marker != this.marker) {
         var self = this;
@@ -199,17 +207,21 @@ MapEntry.prototype.populateInfoWindow = function() {
         this.infoWindow.open(this.map, this.marker);
         this.infoWindow.addListener('closeclick', function() {
             self.onItemSelectClearEvents();
-            $('#result-title').text(data.title);
+            $('#result-title').text('Select a location');
         });
         this.bindButtonsToMarker(self);
     }
 };
 
+/* When not having a single item selected we want to remove the button bindings aswell as
+removing the buttons themselfes */
 MapEntry.prototype.unBindButtonsFromMarker = function() {
     $('.content-button').unbind('click');
     $('.content-button').css('display', 'none');
 };
 
+/* When a single item is selected this method is used to bind the buttons in the result container
+to that item */
 MapEntry.prototype.bindButtonsToMarker = function(self) {
     self.hideContentViews();
     $('.content-button').css('display', 'block');
@@ -237,6 +249,8 @@ MapEntry.prototype.hideYelpView = function() {
     $('#yelp').css('display', 'none');
 };
 
+/* method to hide display directions, this one is alittle special as we have to both
+remove the directions in the result container aswell as the drawn directions on the map.*/
 MapEntry.prototype.hideDisplayDirections = function() {
     if (directionsDisplayList.length > 0) {
         directionsDisplayList.forEach(function(direction) {
@@ -247,24 +261,31 @@ MapEntry.prototype.hideDisplayDirections = function() {
     $('#directions').css('display', 'none');
 };
 
+/* method to hide all the underlying result container views */
 MapEntry.prototype.hideContentViews = function() {
     this.hidePanoramaView();
     this.hideYelpView();
     this.hideDisplayDirections();
 };
 
+/* Whenever an item is selected or a filter is applied we want to clear the result container content and remove
+the infowindow */
 MapEntry.prototype.onItemSelectClearEvents = function() {
     this.infoWindow.marker = null;
     this.hideContentViews();
     this.unBindButtonsFromMarker();
 };
 
+/* The Yelp API is called with the businessId located on the model objects. First the yelp container
+is replaced with some loading text, that then is replaced with either the yelp data or an error message */
 MapEntry.prototype.createYelpView = function() {
     var self = this;
+    $('#yelp').html('<p>Loading Yelp data</p>');
     $('#yelp').css({
-                display: 'flex',
-                flex: 1
-            });
+        display: 'flex',
+        flex: 1
+    });
+
     function nonce_generate() {
         return (Math.floor(Math.random() * 1e12).toString());
     }
@@ -274,6 +295,9 @@ MapEntry.prototype.createYelpView = function() {
     var YELP_TOKEN = 'foyoWs_yChb81DQX4JivNt8b-ka_hVr9';
     var YELP_KEY_SECRET = 'rR7blQEyj5FSjmtupIgScck7D58';
     var YELP_TOKEN_SECRET = 'MkQHBL_fc2r4nIOrcLXemdffK2Y';
+
+    /* because the neighbourhood is in copenhagen you have to encode to URI to avoid errors with chars like
+    æøå */
 
     var businessIDencoded = encodeURI(this.yelp);
     var yelp_url = YELP_BASE_URL + 'business/' + businessIDencoded;
@@ -287,35 +311,38 @@ MapEntry.prototype.createYelpView = function() {
         callback: 'cb'
     };
 
+
     var encodedSignature = oauthSignature.generate('GET', yelp_url, parameters, YELP_KEY_SECRET, YELP_TOKEN_SECRET);
     parameters.oauth_signature = encodedSignature;
 
     var settings = {
         url: yelp_url,
         data: parameters,
-        cache: true, // This is crucial to include as well to prevent jQuery from adding on a cache-buster parameter "_=23489489749837", invalidating our oauth-signature
+        cache: true,
         dataType: 'jsonp',
         success: function(results) {
-            // Do stuff with results
             self.yelpData = results;
             var yelpHTML = '<div id="yelp-phone" class="yelp-item"><h4>Phone number: </h4><p id="yelp-phone">' + results.phone + '</p></div>';
             yelpHTML = yelpHTML + '<div id="yelp-url" class="yelp-item"><h4>Yelp Page: </h4><a href="' + results.url + '" target="_blank">' + results.name + '</a></div>';
             yelpHTML = yelpHTML + '<div id="yelp-img" class="yelp-item"><h4>Rating: </h4><img src="' + results.rating_img_url + '"></div>';
+            yelpHTML = yelpHTML + '<div class="attribution yelp-item"><p>Content is provided by yelp.com through their API service</p></div>';
             $('#yelp').html(yelpHTML);
         },
-        fail: function(results) {
-            // Do stuff on fail
+        error: function(results) {
             self.yelpData = "NO YELP DATA";
+            var yelpHTML = '<div id="yelp-error"><p>There was some problems in retrieving yelp data on this location</p></div>';
+            $('#yelp').html(yelpHTML);
         }
     };
 
-    // Send AJAX query via jQuery library.
     $.ajax(settings);
-    console.log(self);
 };
 
+/* The google streetservice is called with the location object previously found through the placeservice.
+If the status is ok the streetview will show, or else an error message will be shown. */
 MapEntry.prototype.createPanoramaView = function(self) {
     self.streetService = new google.maps.StreetViewService();
+    $('#pano').html('Loading google streetview');
 
     function getStreetView(data, status) {
         if (status == google.maps.StreetViewStatus.OK) {
@@ -333,6 +360,8 @@ MapEntry.prototype.createPanoramaView = function(self) {
             };
 
             self.panorama = new google.maps.StreetViewPanorama(document.getElementById('pano'), panoramaOptions);
+        } else {
+            $('#pano').html('<p>There was some issues in trying to retrieve the streetview from googles API');
         }
     }
     self.streetService.getPanoramaByLocation(self.marker.position, self.radius, getStreetView);
@@ -342,9 +371,11 @@ MapEntry.prototype.createPanoramaView = function(self) {
     });
 };
 
-
+/* The display directions function shows the direction between CBS IT campus and the selected location.
+The route is shown on the map aswell as specific transit route in the result container */
 MapEntry.prototype.displayDirections = function(self) {
     self.directionsService = new google.maps.DirectionsService();
+    $('#directions').html('<p>Loading directions data</p>');
     var origin = vm.mapEntryList[0].location;
     var destinationAddress = self.location;
     var mode = 'TRANSIT';
@@ -366,11 +397,12 @@ MapEntry.prototype.displayDirections = function(self) {
                 },
                 preserveViewport: true
             });
+            $('#directions').html('');
             directionsDisplay.setPanel(document.getElementById('directions'));
             directionsDisplayList.push(directionsDisplay);
             self.directions = directionsDisplay;
         } else {
-            window.alert('Directions request failed due to ' + status);
+            $('#directions').html('<p>There was some issues in retrieving the directions information from googles service</p>');
         }
     });
     $('#directions').css({

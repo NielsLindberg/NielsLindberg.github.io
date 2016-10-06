@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Copenhagen Map">
+    <meta name="description" content="Copenhagen Map, Udacity Project">
     <meta name="author" content="Niels Lindberg-Poulsen">
     <title>Neighborhood Map</title>
     <link href="css/style.css" rel="stylesheet">
@@ -19,7 +19,7 @@
     <div class="page-wrapper">
         <main class="content">
             <div class="left-menu">
-                <select data-bind="options: uniqueCategories, value: categoriesFilter"></select>
+                <select id="category-drop" data-bind="options: uniqueCategories, value: categoriesFilter"></select>
                 <div class="list-container">
                     <ul data-bind="foreach: entryListFiltered">
                         <div class="list-item">
