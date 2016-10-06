@@ -1,16 +1,18 @@
 var themeColors = ['#ffffff', '#e384a6', '#f4d499', '#4d90d6', '#c7e38c', '#9986c8', '#edf28c', '#ffd1d4', '#5ee1dc', '#b0eead', '#fef85a', '#8badd2'];
 var vm;
 
+
 function ViewModel() {
     vm = this;
     vm.mapEntryList = [];
     vm.entryList = ko.observableArray([]);
 
-    mapEntries.forEach(function(entryData,index) {
+    mapEntries.forEach(function(entryData, index) {
         var id = String.fromCharCode(65 + index);
         vm.entryList.push(new ListEntry(entryData, id));
         vm.mapEntryList.push(new MapEntry(entryData, id));
     });
+
 
     vm.entryListFiltered = ko.observableArray(vm.entryList());
     vm.initMap = function() {
@@ -47,6 +49,9 @@ function ViewModel() {
     vm.itemLabelFilter = function(data, event) {
         vm.mapEntryList.forEach(function(mapEntry) {
             if (mapEntry.id == data.id) {
+                mapEntry.infoWindow.marker = null;
+                mapEntry.unBindButtonsFromMarker();
+                mapEntry.hideContentViews();
                 mapEntry.populateInfoWindow();
             }
         });

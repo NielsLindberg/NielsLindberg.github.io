@@ -76,6 +76,8 @@ var mapEntries = [{
     yelp: 'amager-strandpark-københavn-s'
 }];
 
+var directionsDisplayList = [];
+
 var Entry = function(data, id) {
     var self = this;
     this.title = data.title;
@@ -163,9 +165,9 @@ MapEntry.prototype.addQueryResultToObject = function(placeData) {
 MapEntry.prototype.addMarkerListeners = function() {
     var self = this;
     self.marker.addListener('click', function() {
-        self.hidePanoramaView(self);
-        self.hideDisplayDirections();
-        self.hideYelpView();
+        self.infoWindow.marker = null;
+        self.unBindButtonsFromMarker();
+        self.hideContentViews();
         self.populateInfoWindow();
     });
 };
@@ -197,18 +199,12 @@ MapEntry.prototype.populateInfoWindow = function() {
         this.infoWindow.marker = this.marker;
         this.infoWindow.open(this.map, this.marker);
         this.infoWindow.addListener('closeclick', function() {
-            self.closeInfoWindowEvents();
+            self.infoWindow.marker = null;
+            self.hideContentViews();
+            self.unBindButtonsFromMarker();
         });
         this.bindButtonsToMarker(self);
     }
-};
-
-MapEntry.prototype.closeInfoWindowEvents = function() {
-    this.infoWindow.marker = null;
-    this.hideDisplayDirections();
-    this.hidePanoramaView(this);
-    this.hideYelpView();
-    this.unBindButtonsFromMarker();
 };
 
 MapEntry.prototype.unBindButtonsFromMarker = function() {
@@ -217,21 +213,19 @@ MapEntry.prototype.unBindButtonsFromMarker = function() {
 };
 
 MapEntry.prototype.bindButtonsToMarker = function(self) {
+    self.hideContentViews();
     $('.content-button').css('display', 'block');
     $('#show-panorama').click(function() {
-        self.hideDisplayDirections();
-        self.hideYelpView();
+        self.hideContentViews();
         self.createPanoramaView(self);
     });
 
     $('#show-directions').click(function() {
-        self.hidePanoramaView(self);
-        self.hideYelpView();
+        self.hideContentViews();
         self.displayDirections(self);
     });
     $('#show-yelp').click(function() {
-        self.hidePanoramaView(self);
-        self.hideDisplayDirections();
+        self.hideContentViews();
         self.requestYelpData();
     });
 
@@ -336,10 +330,9 @@ MapEntry.prototype.createPanoramaView = function(self) {
     });
 };
 
-var directionsDisplayList = [];
+
 MapEntry.prototype.displayDirections = function(self) {
     self.directionsService = new google.maps.DirectionsService();
-    self.hideDisplayDirections();
     var origin = vm.mapEntryList[0].location;
     var destinationAddress = self.location;
     var mode = 'TRANSIT';
