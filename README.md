@@ -6,5 +6,5 @@ at my masters program who just moved to copenhagen. The site should list my favo
 with public transportation from our IT campus. The sites should also include a streetview functionality aswell as some basic yelp information on the locations if applicable.
 
 # View site
-To view this site go to (http://nielslindberg.github.io/dist)[dist] for the optimized build version.
-Or go to (http://nielslindberg.github.io/dist)[src] for the non optimized version.
+To view this site go to [dist](http://nielslindberg.github.io/dist) for the optimized build version.
+Or go to [src](http://nielslindberg.github.io/dist) for the non optimized version.
