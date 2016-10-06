@@ -8,3 +8,6 @@ with public transportation from our IT campus. The sites should also include a s
 # View site
 To view this site go to [dist](http://nielslindberg.github.io/dist) for the optimized build version.
 Or go to [src](http://nielslindberg.github.io/dist) for the non optimized version.
+
+# Credits
+I've used various google maps services in this site aswell as the knockout.js framework, jquery, oauth-signature, and data from Yelp.com through their API.
