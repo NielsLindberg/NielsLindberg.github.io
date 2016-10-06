@@ -226,14 +226,14 @@ body {
     padding: 0;
     margin: 0;
     width: 100%;
-    height: 60%;
+    height: 50%;
     overflow-y: auto;
     .flexbox > .flex-parent > .display-flex;
     .flexbox > .flex-parent > .flex-wrap(wrap);
     .flexbox > .flex-parent > .align-start;
 }
 
-.result-container {
+#result-container {
     padding: 0;
     margin: 0;
     width: 100%;
@@ -244,6 +244,46 @@ body {
     .flexbox > .flex-parent > .align-start;
 }
 
+hr {
+    border:0;
+    background-color: @themeColor1;
+    opacity: 0.5;
+    margin:5px;
+    height: 1px;
+}
+
+#result-title {
+    color: @themeColor1;
+    padding: 0 5px 0 5px;
+}
+
 #directions {
     background-color: @themeColor1;
+}
+
+#yelp {
+    .flexbox > .flex-parent > .display-flex;
+    .flexbox > .flex-parent > .flex-direction(column);
+    padding: 5px;
+    display:none;
+}
+
+.yelp-item {
+    .flexbox > .flex-parent > .display-flex;
+    .flexbox > .flex-parent > .flex-direction(row);
+}
+
+.yelp-item > * {
+    .flexbox > .flex-child > .align-self(center);
+    padding: 5px;
+    margin: 0;
+
+}
+#yelp, #directions {
+    background-color: #FFFFFF;
+}
+#yelp > #yelp-img > img {
+    display:block;
+    max-width: 100%;
+    height: auto;
 }

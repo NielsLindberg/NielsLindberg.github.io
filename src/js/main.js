@@ -31,7 +31,6 @@ function ViewModel() {
 
         var infoWindow = new google.maps.InfoWindow({});
         var bounds = new google.maps.LatLngBounds();
-
         vm.mapEntryList.forEach(function(mapEntry) {
             mapEntry.initMarker(placeService, streetService, directionsService, map, infoWindow, bounds);
         });
@@ -49,12 +48,11 @@ function ViewModel() {
     vm.itemLabelFilter = function(data, event) {
         vm.mapEntryList.forEach(function(mapEntry) {
             if (mapEntry.id == data.id) {
-                mapEntry.infoWindow.marker = null;
-                mapEntry.unBindButtonsFromMarker();
-                mapEntry.hideContentViews();
+                mapEntry.onItemSelectClearEvents();
                 mapEntry.populateInfoWindow();
             }
         });
+        $('#result-title').text(data.title);
     };
 
     vm.categories = ko.computed(function() {
@@ -87,7 +85,7 @@ function ViewModel() {
 
     vm.filterMarkers = function() {
         vm.mapEntryList.forEach(function(mapEntry) {
-            mapEntry.closeInfoWindowEvents();
+            mapEntry.onItemSelectClearEvents();
             if (mapEntry.category == vm.categoriesFilter() || vm.categoriesFilter() == 'All') {
                 mapEntry.showMarker();
             } else {
@@ -98,6 +96,7 @@ function ViewModel() {
 
     vm.categoriesFilter.subscribe(function() {
         var filter = vm.categoriesFilter();
+        $('#result-title').text('Select a location');
         if (!filter || filter == 'All') {
             vm.entryListFiltered(vm.entryList());
         } else {

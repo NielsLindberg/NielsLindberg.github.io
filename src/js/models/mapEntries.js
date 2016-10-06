@@ -165,10 +165,9 @@ MapEntry.prototype.addQueryResultToObject = function(placeData) {
 MapEntry.prototype.addMarkerListeners = function() {
     var self = this;
     self.marker.addListener('click', function() {
-        self.infoWindow.marker = null;
-        self.unBindButtonsFromMarker();
-        self.hideContentViews();
+        self.onItemSelectClearEvents();
         self.populateInfoWindow();
+        $('#result-title').text(self.title);
     });
 };
 
@@ -199,9 +198,8 @@ MapEntry.prototype.populateInfoWindow = function() {
         this.infoWindow.marker = this.marker;
         this.infoWindow.open(this.map, this.marker);
         this.infoWindow.addListener('closeclick', function() {
-            self.infoWindow.marker = null;
-            self.hideContentViews();
-            self.unBindButtonsFromMarker();
+            self.onItemSelectClearEvents();
+            $('#result-title').text(data.title);
         });
         this.bindButtonsToMarker(self);
     }
@@ -226,7 +224,7 @@ MapEntry.prototype.bindButtonsToMarker = function(self) {
     });
     $('#show-yelp').click(function() {
         self.hideContentViews();
-        self.requestYelpData();
+        self.createYelpView();
     });
 
 };
@@ -249,14 +247,24 @@ MapEntry.prototype.hideDisplayDirections = function() {
     $('#directions').css('display', 'none');
 };
 
-MapEntry.prototype.hideContentViews = function () {
+MapEntry.prototype.hideContentViews = function() {
     this.hidePanoramaView();
     this.hideYelpView();
     this.hideDisplayDirections();
 };
 
-MapEntry.prototype.requestYelpData = function() {
+MapEntry.prototype.onItemSelectClearEvents = function() {
+    this.infoWindow.marker = null;
+    this.hideContentViews();
+    this.unBindButtonsFromMarker();
+};
+
+MapEntry.prototype.createYelpView = function() {
     var self = this;
+    $('#yelp').css({
+                display: 'flex',
+                flex: 1
+            });
     function nonce_generate() {
         return (Math.floor(Math.random() * 1e12).toString());
     }
@@ -290,6 +298,10 @@ MapEntry.prototype.requestYelpData = function() {
         success: function(results) {
             // Do stuff with results
             self.yelpData = results;
+            var yelpHTML = '<div id="yelp-phone" class="yelp-item"><h4>Phone number: </h4><p id="yelp-phone">' + results.phone + '</p></div>';
+            yelpHTML = yelpHTML + '<div id="yelp-url" class="yelp-item"><h4>Yelp Page: </h4><a href="' + results.url + '" target="_blank">' + results.name + '</a></div>';
+            yelpHTML = yelpHTML + '<div id="yelp-img" class="yelp-item"><h4>Rating: </h4><img src="' + results.rating_img_url + '"></div>';
+            $('#yelp').html(yelpHTML);
         },
         fail: function(results) {
             // Do stuff on fail
