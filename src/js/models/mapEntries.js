@@ -94,8 +94,8 @@ var yelpStatic = {
     rating: 'Rating: ',
     url: 'Yelp Page: ',
     credits: 'Content is provided by yelp.com through their API service',
-    YELP_BASE_URL:'https://api.yelp.com/v2/',
-    YELP_KEY:'_xLjE_NxysOGBW9vTF4YAA',
+    YELP_BASE_URL: 'https://api.yelp.com/v2/',
+    YELP_KEY: '_xLjE_NxysOGBW9vTF4YAA',
     YELP_TOKEN: 'foyoWs_yChb81DQX4JivNt8b-ka_hVr9',
     YELP_KEY_SECRET: 'rR7blQEyj5FSjmtupIgScck7D58',
     YELP_TOKEN_SECRET: 'MkQHBL_fc2r4nIOrcLXemdffK2Y'
@@ -243,36 +243,39 @@ MapEntry.prototype.populateInfoWindow = function() {
 removing the buttons themselfes */
 MapEntry.prototype.unBindButtonsFromMarker = function() {
     $('.content-button').unbind('click');
-    $('.content-button').css('display', 'none');
+
+    vm.contentButtonsVisible(false);
 };
 
 /* When a single item is selected this method is used to bind the buttons in the result container
 to that item */
-MapEntry.prototype.bindButtonsToMarker = function(self) {
-    self.hideContentViews();
-    $('.content-button').css('display', 'block');
+MapEntry.prototype.bindButtonsToMarker = function(mapEntry) {
+    mapEntry.hideContentViews();
+
+    vm.contentButtonsVisible(true);
+
     $('#show-panorama').click(function() {
-        self.hideContentViews();
-        self.createPanoramaView(self);
+        mapEntry.hideContentViews();
+        mapEntry.createPanoramaView(mapEntry);
     });
 
     $('#show-directions').click(function() {
-        self.hideContentViews();
-        self.displayDirections(self);
+        mapEntry.hideContentViews();
+        mapEntry.displayDirections(mapEntry);
     });
     $('#show-yelp').click(function() {
-        self.hideContentViews();
-        self.createYelpView();
+        mapEntry.hideContentViews();
+        mapEntry.createYelpView();
     });
 
 };
 
 MapEntry.prototype.hidePanoramaView = function() {
-    $('#pano').css('display', 'none');
+    vm.panoVisible(false);
 };
 
 MapEntry.prototype.hideYelpView = function() {
-    $('#yelp').css('display', 'none');
+    vm.yelpVisible(false);
 };
 
 /* method to hide display directions, this one is alittle special as we have to both
@@ -284,7 +287,8 @@ MapEntry.prototype.hideDisplayDirections = function() {
             direction.setDirections({ routes: [] });
         });
     }
-    $('#directions').css('display', 'none');
+    vm.directionsVisible(false);
+    //$('#directions').css('display', 'none');
 };
 
 /* method to hide all the underlying result container views */
@@ -314,29 +318,23 @@ MapEntry.prototype.toggleBounce = function() {
 is replaced with some loading text, that then is replaced with either the yelp data or an error message */
 MapEntry.prototype.createYelpView = function() {
     var self = this;
-    $('#yelp').css({
-        display: 'flex',
-        flex: 1
-    });
+    vm.yelpVisible(true);
+    vm.yelpLoading(true);
+    vm.yelpError(false);
+    vm.yelpContentVisible(false);
 
     function nonce_generate() {
         return (Math.floor(Math.random() * 1e12).toString());
     }
 
-    var YELP_BASE_URL = 'https://api.yelp.com/v2/';
-    var YELP_KEY = '_xLjE_NxysOGBW9vTF4YAA';
-    var YELP_TOKEN = 'foyoWs_yChb81DQX4JivNt8b-ka_hVr9';
-    var YELP_KEY_SECRET = 'rR7blQEyj5FSjmtupIgScck7D58';
-    var YELP_TOKEN_SECRET = 'MkQHBL_fc2r4nIOrcLXemdffK2Y';
-
     /* because the neighbourhood is in copenhagen you have to encode to URI to avoid errors with chars like
     æøå */
 
     var businessIDencoded = encodeURI(this.yelp);
-    var yelp_url = YELP_BASE_URL + 'business/' + businessIDencoded;
+    var yelp_url = yelpStatic.YELP_BASE_URL + 'business/' + businessIDencoded;
     var parameters = {
-        oauth_consumer_key: YELP_KEY,
-        oauth_token: YELP_TOKEN,
+        oauth_consumer_key: yelpStatic.YELP_KEY,
+        oauth_token: yelpStatic.YELP_TOKEN,
         oauth_nonce: nonce_generate(),
         oauth_timestamp: Math.floor(Date.now() / 1000),
         oauth_signature_method: 'HMAC-SHA1',
@@ -345,7 +343,7 @@ MapEntry.prototype.createYelpView = function() {
     };
 
 
-    var encodedSignature = oauthSignature.generate('GET', yelp_url, parameters, YELP_KEY_SECRET, YELP_TOKEN_SECRET);
+    var encodedSignature = oauthSignature.generate('GET', yelp_url, parameters, yelpStatic.YELP_KEY_SECRET, yelpStatic.YELP_TOKEN_SECRET);
     parameters.oauth_signature = encodedSignature;
 
     var settings = {
@@ -358,10 +356,14 @@ MapEntry.prototype.createYelpView = function() {
             vm.yelpRatingImgUrl(results.rating_img_url);
             vm.yelpUrl(results.url);
             vm.yelpName(results.name);
-            vm.yelpVisible(true);
+            vm.yelpContentVisible(true);
+
         },
         error: function(results) {
-            vm.yelpVisible(false);
+            vm.yelpError(true);
+        },
+        complete: function() {
+            vm.yelpLoading(false);
         }
     };
 
@@ -372,7 +374,10 @@ MapEntry.prototype.createYelpView = function() {
 If the status is ok the streetview will show, or else an error message will be shown. */
 MapEntry.prototype.createPanoramaView = function(self) {
     self.streetService = new google.maps.StreetViewService();
-    $('#pano').html('Loading google streetview');
+
+    vm.panoVisible(true);
+    vm.panoLoading(true);
+    vm.panoError(false);
 
     function getStreetView(data, status) {
         if (status == google.maps.StreetViewStatus.OK) {
@@ -391,21 +396,21 @@ MapEntry.prototype.createPanoramaView = function(self) {
 
             self.panorama = new google.maps.StreetViewPanorama(document.getElementById('pano'), panoramaOptions);
         } else {
-            $('#pano').html('<p>There was some issues in trying to retrieve the streetview from googles API');
+            vm.panoError(true);
         }
+        vm.panoLoading(false);
     }
     self.streetService.getPanoramaByLocation(self.marker.position, self.radius, getStreetView);
-    $('#pano').css({
-        display: 'flex',
-        flex: 1
-    });
 };
 
 /* The display directions function shows the direction between CBS IT campus and the selected location.
 The route is shown on the map aswell as specific transit route in the result container */
 MapEntry.prototype.displayDirections = function(self) {
     self.directionsService = new google.maps.DirectionsService();
-    $('#directions').html('<p>Loading directions data</p>');
+    vm.directionsVisible(true);
+    vm.directionsLoading(true);
+    vm.directionsError(false);
+
     var origin = vm.mapEntryList[0].location;
     var destinationAddress = self.location;
     var mode = 'TRANSIT';
@@ -427,16 +432,12 @@ MapEntry.prototype.displayDirections = function(self) {
                 },
                 preserveViewport: true
             });
-            $('#directions').html('');
             directionsDisplay.setPanel(document.getElementById('directions'));
             directionsDisplayList.push(directionsDisplay);
             self.directions = directionsDisplay;
         } else {
-            $('#directions').html('<p>There was some issues in retrieving the directions information from googles service</p>');
+            vm.directionsError(true);
         }
     });
-    $('#directions').css({
-        display: 'flex',
-        flex: 1
-    });
+    vm.directionsLoading(false);
 };

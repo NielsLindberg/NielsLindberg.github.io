@@ -32,29 +32,47 @@
                 <div id="result-container" class="result-container">
                     <hr>
                     <h1 id="result-title" data-bind="text: vm.selectedItemTitle"></h1>
-                    <div id="buttons">
+                    <div id="buttons" data-bind="visible: vm.contentButtonsVisible">
                         <input id="show-panorama" class="content-button" type="button" value="Streetview">
                         <input id="show-directions" class="content-button" type="button" value="Directions">
                         <input id="show-yelp" class="content-button" type="button" value="Yelp">
                     </div>
-                    <div id="pano" class="content-container"></div>
-                    <div id="directions" class="content-container"></div>
-                    <div id="yelp" class="content-container">
-                        <div id="yelp-loading" data-bind="visible: vm.yelpLoading">
+                    <div id="pano" class="content-container" data-bind="visible: vm.panoVisible">
+                        <div id="pano-loading" data-bind="visible: vm.panoLoading">
+                            <p data-bind="text: vm.loadingMessages.googleStreetService"></p>
                         </div>
-                        <div id="yelp-content" data-bind="visible: vm.yelpVisible">
+                        <div id="pano-error" data-bind="visible: vm.panoError">
+                            <p data-bind="text: vm.errorMessages.googleStreetService"></p>
+                        </div>
+                    </div>
+                    <div id="directions" class="content-container" data-bind="visible: vm.directionsVisible">
+                        <div id="directions-loading" data-bind="visible: vm.directionsLoading">
+                            <p data-bind="text: vm.loadingMessages.googleDirections"></p>
+                        </div>
+                        <div id="directions-error" data-bind="visible: vm.directionsError">
+                            <p data-bind="text: vm.errorMessages.googleDirections"></p>
+                        </div>
+                    </div>
+                    <div id="yelp" class="content-container" data-bind="visible: vm.yelpVisible">
+                        <div id="yelp-loading" data-bind="visible: vm.yelpLoading">
+                            <p data-bind="text: vm.loadingMessages.yelp"></p>
+                        </div>
+                        <div id="yelp-error" data-bind="visible: vm.yelpError">
+                            <p data-bind="text: vm.errorMessages.yelp"></p>
+                        </div>
+                        <div id="yelp-content" data-bind="visible: vm.yelpContentVisible">
                             <div id="yelp-phone" class="yelp-item">
-                                <h4 data-bind="text: vm.yelpPhonePrefix"></h4>
+                                <h4 data-bind="text: vm.yelpStatic.phone"></h4>
                                 <p id="yelp-phone" data-bind="text: vm.yelpPhone"></p>
                             </div>
                             <div id="yelp-url" class="yelp-item">
-                                <h4 data-bind="text: vm.yelpUrlPrefix"></h4>
+                                <h4 data-bind="text: vm.yelpStatic.url"></h4>
                                 <a data-bind="attr: { href: vm.yelpUrl }, text: vm.yelpName" target="_blank"></a>
                             </div>
                             <div id="yelp-img" class="yelp-item">
-                                <h4 data-bind="text: vm.yelpRatingPrefix"></h4><img data-bind="attr: { src: vm.yelpRatingImgUrl }"></div>
-                            <div class="attribution yelp-item" data-bind="vm.yelpCredits">
-                                <p data-bind="text: vm.yelpCredits"></p>
+                                <h4 data-bind="text: vm.yelpStatic.rating"></h4><img data-bind="attr: { src: vm.yelpRatingImgUrl }"></div>
+                            <div class="attribution yelp-item">
+                                <p data-bind="text: vm.yelpStatic.credits"></p>
                             </div>
                         </div>
                     </div>

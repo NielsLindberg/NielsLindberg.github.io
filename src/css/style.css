@@ -129,13 +129,15 @@ body {
   color: #faf9fa;
 }
 .content-container {
-  display: none;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
   padding: 0;
   margin: 0;
   overflow-y: auto;
 }
 .content-button {
-  display: none;
+  display: block;
   margin: 5px;
 }
 #category-drop {
@@ -224,6 +226,12 @@ hr {
 #directions {
   background-color: #dad8de;
   margin: 5px;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
 }
 #yelp {
   display: -webkit-flex;
@@ -232,11 +240,19 @@ hr {
   flex-direction: column;
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
   margin: 5px;
-  display: none;
 }
 #pano {
   margin: 5px;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
 }
 .yelp-item {
   display: -webkit-flex;

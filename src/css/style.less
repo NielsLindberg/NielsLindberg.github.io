@@ -177,14 +177,14 @@ body {
 }
 
 .content-container {
-    display: none;
+    .flexbox > .flex-parent > .display-flex;
     padding: 0;
     margin: 0;
     overflow-y: auto;
 }
 
 .content-button {
-    display: none;
+    display: block;
     margin: 5px;
 }
 
@@ -256,17 +256,21 @@ hr {
 #directions {
     background-color: @themeColor1;
     margin: 5px;
+    .flexbox > .flex-parent > .display-flex;
+    .flexbox > .flex-child > .flex(1);
 }
 
 #yelp {
     .flexbox > .flex-parent > .display-flex;
     .flexbox > .flex-parent > .flex-direction(column);
+    .flexbox > .flex-child > .flex(1);
     margin: 5px;
-    display: none;
 }
 
 #pano {
     margin: 5px;
+    .flexbox > .flex-parent > .display-flex;
+    .flexbox > .flex-child > .flex(1);
 }
 
 .yelp-item {

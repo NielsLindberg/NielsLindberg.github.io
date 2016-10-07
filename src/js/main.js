@@ -11,19 +11,34 @@ var yelpPrefixes = {
 function ViewModel() {
     vm = this;
     vm.mapEntryList = [];
+    vm.errorMessages = errorMessages;
+    vm.loadingMessages = loadingMessages;
+    vm.yelpStatic = yelpStatic;
+
     vm.entryList = ko.observableArray([]);
     vm.selectedItemTitle = ko.observable('Select a location');
-    vm.yelpObject = yelpPrefixex;
+
+
     vm.yelpPhone = ko.observable();
-    vm.yelpPhonePrefix = ko.observable(yelpPrefixes.phone);
     vm.yelpRatingImgUrl = ko.observable();
-    vm.yelpRatingPrefix = ko.observable(yelpPrefixes.rating);
     vm.yelpUrl = ko.observable();
-    vm.yelpUrlPrefix = yelpPrefixes.url;
     vm.yelpName = ko.observable();
-    vm.yelpCredits = yelpPrefixes.credits;
-    vm.yelpVisible = ko.observable();
-    vm.yelpLoading = ko.observable();
+
+    vm.contentButtonsVisible = ko.observable(false);
+
+    vm.panoVisible = ko.observable(false);
+    vm.panoLoading = ko.observable(false);
+    vm.panoError = ko.observable(false);
+
+    vm.directionsVisible = ko.observable(false);
+    vm.directionsLoading = ko.observable(false);
+    vm.directionsError = ko.observable(false);
+
+    vm.yelpVisible = ko.observable(false);
+    vm.yelpContentVisible = ko.observable(false);
+    vm.yelpLoading = ko.observable(false);
+    vm.yelpError = ko.observable(false);
+
 
     /* this loop crated both an observable array for the list items
     aswell as a standard array for the mapmarkers the id's are generated automatically*/
