@@ -109,7 +109,22 @@ function ViewModel() {
         return uniqueCategories.concat(ko.utils.arrayGetDistinctValues(vm.categories()).sort());
     }, vm);
 
+    vm.test1 = function(data, event) {
+        console.log('test1');
+        console.log(data);
+        console.log(event);
+    };
+    vm.test2 = function(data, event) {
+        console.log('test2');
+        console.log(data);
+        console.log(event);
+    };
 
+    vm.test3 = function(data, event) {
+        console.log('test3');
+        console.log(data);
+        console.log(event);
+    };
     /* for each unique categories we assign a color related to that used for the markers*/
     vm.categoryColors = {};
     vm.categoryIconColors = {};

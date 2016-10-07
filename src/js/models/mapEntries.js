@@ -267,7 +267,6 @@ MapEntry.prototype.bindButtonsToMarker = function(mapEntry) {
         mapEntry.hideContentViews();
         mapEntry.createYelpView();
     });
-
 };
 
 MapEntry.prototype.hidePanoramaView = function() {
