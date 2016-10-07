@@ -58,7 +58,7 @@ function ViewModel() {
                 mapEntry.toggleBounce();
             }
         });
-        $('#result-title').text(data.title);
+        vm.selectedItemTitle(data.title);
     };
 
     /* this computed obersable holds the categories values in the item list */
@@ -76,6 +76,7 @@ function ViewModel() {
         return uniqueCategories.concat(ko.utils.arrayGetDistinctValues(vm.categories()).sort());
     }, vm);
 
+    vm.selectedItemTitle = ko.observable('Select a location');
     /* for each unique categories we assign a color related to that used for the markers*/
     vm.categoryColors = {};
     vm.categoryIconColors = {};
@@ -112,7 +113,7 @@ function ViewModel() {
     which is the one that is referenced in the dom for the item list */
     vm.categoriesFilter.subscribe(function() {
         var filter = vm.categoriesFilter();
-        $('#result-title').text('Select a location');
+        vm.selectedItemTitle('Select a location');
         if (!filter || filter == 'All') {
             vm.entryListFiltered(vm.entryList());
         } else {

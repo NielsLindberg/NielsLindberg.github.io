@@ -173,7 +173,7 @@ MapEntry.prototype.addMarkerListeners = function() {
         self.onItemSelectClearEvents();
         self.populateInfoWindow();
         self.toggleBounce();
-        $('#result-title').text(self.title);
+        vm.selectedItemTitle(self.title);
     });
 };
 
@@ -208,7 +208,7 @@ MapEntry.prototype.populateInfoWindow = function() {
         this.infoWindow.open(this.map, this.marker);
         this.infoWindow.addListener('closeclick', function() {
             self.onItemSelectClearEvents();
-            $('#result-title').text('Select a location');
+            vm.selectedItemTitle('Select a location');
         });
         this.bindButtonsToMarker(self);
     }
