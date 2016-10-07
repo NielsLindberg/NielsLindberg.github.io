@@ -39,11 +39,28 @@
                     </div>
                     <div id="pano" class="content-container"></div>
                     <div id="directions" class="content-container"></div>
-                    <div id="yelp" class="content-container"></div>
+                    <div id="yelp" class="content-container">
+                        <div id="yelp-loading" data-bind="visible: vm.yelpLoading">
+                        </div>
+                        <div id="yelp-content" data-bind="visible: vm.yelpVisible">
+                            <div id="yelp-phone" class="yelp-item">
+                                <h4 data-bind="text: vm.yelpPhonePrefix"></h4>
+                                <p id="yelp-phone" data-bind="text: vm.yelpPhone"></p>
+                            </div>
+                            <div id="yelp-url" class="yelp-item">
+                                <h4 data-bind="text: vm.yelpUrlPrefix"></h4>
+                                <a data-bind="attr: { href: vm.yelpUrl }, text: vm.yelpName" target="_blank"></a>
+                            </div>
+                            <div id="yelp-img" class="yelp-item">
+                                <h4 data-bind="text: vm.yelpRatingPrefix"></h4><img data-bind="attr: { src: vm.yelpRatingImgUrl }"></div>
+                            <div class="attribution yelp-item" data-bind="vm.yelpCredits">
+                                <p data-bind="text: vm.yelpCredits"></p>
+                            </div>
+                        </div>
+                    </div>
                     <hr>
                 </div>
             </div>
-
             <div id="map"></div>
         </main>
         <footer>

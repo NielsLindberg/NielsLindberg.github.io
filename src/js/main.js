@@ -1,11 +1,29 @@
 var themeColors = ['#ffffff', '#e384a6', '#f4d499', '#4d90d6', '#c7e38c', '#9986c8', '#edf28c', '#ffd1d4', '#5ee1dc', '#b0eead', '#fef85a', '#8badd2'];
 var vm;
+var yelpPrefixes = {
+    phone: 'Phone number: ',
+    rating: 'Rating: ',
+    url: 'Yelp Page: ',
+    credits: 'Content is provided by yelp.com through their API service'
+};
 
 
 function ViewModel() {
     vm = this;
     vm.mapEntryList = [];
     vm.entryList = ko.observableArray([]);
+    vm.selectedItemTitle = ko.observable('Select a location');
+    vm.yelpObject = yelpPrefixex;
+    vm.yelpPhone = ko.observable();
+    vm.yelpPhonePrefix = ko.observable(yelpPrefixes.phone);
+    vm.yelpRatingImgUrl = ko.observable();
+    vm.yelpRatingPrefix = ko.observable(yelpPrefixes.rating);
+    vm.yelpUrl = ko.observable();
+    vm.yelpUrlPrefix = yelpPrefixes.url;
+    vm.yelpName = ko.observable();
+    vm.yelpCredits = yelpPrefixes.credits;
+    vm.yelpVisible = ko.observable();
+    vm.yelpLoading = ko.observable();
 
     /* this loop crated both an observable array for the list items
     aswell as a standard array for the mapmarkers the id's are generated automatically*/
@@ -76,7 +94,7 @@ function ViewModel() {
         return uniqueCategories.concat(ko.utils.arrayGetDistinctValues(vm.categories()).sort());
     }, vm);
 
-    vm.selectedItemTitle = ko.observable('Select a location');
+
     /* for each unique categories we assign a color related to that used for the markers*/
     vm.categoryColors = {};
     vm.categoryIconColors = {};

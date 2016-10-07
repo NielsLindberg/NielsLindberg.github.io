@@ -76,6 +76,31 @@ var mapEntries = [{
     yelp: 'amager-strandpark-københavn-s'
 }];
 
+var errorMessages = {
+    googleMap: 'There was some issues retrieving google maps',
+    googleStreetService: 'There was some issues in retrieving streetview for this location',
+    googleDirections: 'There was some issues in retrieving directions for this location',
+    yelp: 'There was some issues in retrieving yelp data for this location'
+};
+
+var loadingMessages = {
+    googleStreetService: 'Retrieving google streetview...',
+    googleDirections: 'Retrieving google directions...',
+    yelp: 'Retrieving yelp data...'
+};
+
+var yelpStatic = {
+    phone: 'Phone number: ',
+    rating: 'Rating: ',
+    url: 'Yelp Page: ',
+    credits: 'Content is provided by yelp.com through their API service',
+    YELP_BASE_URL:'https://api.yelp.com/v2/',
+    YELP_KEY:'_xLjE_NxysOGBW9vTF4YAA',
+    YELP_TOKEN: 'foyoWs_yChb81DQX4JivNt8b-ka_hVr9',
+    YELP_KEY_SECRET: 'rR7blQEyj5FSjmtupIgScck7D58',
+    YELP_TOKEN_SECRET: 'MkQHBL_fc2r4nIOrcLXemdffK2Y'
+};
+
 var directionsDisplayList = [];
 
 var Entry = function(data, id) {
@@ -279,11 +304,7 @@ MapEntry.prototype.onItemSelectClearEvents = function() {
 
 MapEntry.prototype.toggleBounce = function() {
     var self = this;
-    if (this.marker.getAnimation() !== null) {
-        this.marker.setAnimation(null);
-    } else {
-        this.marker.setAnimation(google.maps.Animation.BOUNCE);
-    }
+    this.marker.setAnimation(google.maps.Animation.BOUNCE);
     setTimeout(function() {
         self.marker.setAnimation(null);
     }, 1400);
@@ -293,7 +314,6 @@ MapEntry.prototype.toggleBounce = function() {
 is replaced with some loading text, that then is replaced with either the yelp data or an error message */
 MapEntry.prototype.createYelpView = function() {
     var self = this;
-    $('#yelp').html('<p>Loading Yelp data</p>');
     $('#yelp').css({
         display: 'flex',
         flex: 1
@@ -334,17 +354,14 @@ MapEntry.prototype.createYelpView = function() {
         cache: true,
         dataType: 'jsonp',
         success: function(results) {
-            self.yelpData = results;
-            var yelpHTML = '<div id="yelp-phone" class="yelp-item"><h4>Phone number: </h4><p id="yelp-phone">' + results.phone + '</p></div>';
-            yelpHTML = yelpHTML + '<div id="yelp-url" class="yelp-item"><h4>Yelp Page: </h4><a href="' + results.url + '" target="_blank">' + results.name + '</a></div>';
-            yelpHTML = yelpHTML + '<div id="yelp-img" class="yelp-item"><h4>Rating: </h4><img src="' + results.rating_img_url + '"></div>';
-            yelpHTML = yelpHTML + '<div class="attribution yelp-item"><p>Content is provided by yelp.com through their API service</p></div>';
-            $('#yelp').html(yelpHTML);
+            vm.yelpPhone(results.phone);
+            vm.yelpRatingImgUrl(results.rating_img_url);
+            vm.yelpUrl(results.url);
+            vm.yelpName(results.name);
+            vm.yelpVisible(true);
         },
         error: function(results) {
-            self.yelpData = "NO YELP DATA";
-            var yelpHTML = '<div id="yelp-error"><p>There was some problems in retrieving yelp data on this location</p></div>';
-            $('#yelp').html(yelpHTML);
+            vm.yelpVisible(false);
         }
     };
 
