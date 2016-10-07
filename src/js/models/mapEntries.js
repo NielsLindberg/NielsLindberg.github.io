@@ -172,6 +172,7 @@ MapEntry.prototype.addMarkerListeners = function() {
     self.marker.addListener('click', function() {
         self.onItemSelectClearEvents();
         self.populateInfoWindow();
+        self.toggleBounce();
         $('#result-title').text(self.title);
     });
 };
@@ -274,6 +275,18 @@ MapEntry.prototype.onItemSelectClearEvents = function() {
     this.infoWindow.marker = null;
     this.hideContentViews();
     this.unBindButtonsFromMarker();
+};
+
+MapEntry.prototype.toggleBounce = function() {
+    var self = this;
+    if (this.marker.getAnimation() !== null) {
+        this.marker.setAnimation(null);
+    } else {
+        this.marker.setAnimation(google.maps.Animation.BOUNCE);
+    }
+    setTimeout(function() {
+        self.marker.setAnimation(null);
+    }, 1400);
 };
 
 /* The Yelp API is called with the businessId located on the model objects. First the yelp container

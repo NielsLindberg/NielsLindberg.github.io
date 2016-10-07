@@ -55,6 +55,7 @@ function ViewModel() {
             if (mapEntry.id == data.id) {
                 mapEntry.onItemSelectClearEvents();
                 mapEntry.populateInfoWindow();
+                mapEntry.toggleBounce();
             }
         });
         $('#result-title').text(data.title);
