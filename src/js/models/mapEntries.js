@@ -236,37 +236,21 @@ MapEntry.prototype.populateInfoWindow = function() {
             self.onItemSelectClearEvents();
             vm.selectedItemTitle('Select a location');
         });
-        //this.bindButtonsToMarker(self);
+        this.showContentButtons(self);
     }
 };
 
-/* When not having a single item selected we want to remove the button bindings aswell as
-removing the buttons themselfes */
-MapEntry.prototype.unBindButtonsFromMarker = function() {
-    $('.content-button').unbind('click');
-
-    vm.contentButtonsVisible(false);
+MapEntry.prototype.showContentButtons = function (mapEntry)  {
+    vm.entryList().forEach(function(listEntry) {
+        if(listEntry.id == mapEntry.id) {
+            listEntry.contentButtonsVisible(true);
+        }
+    });
 };
 
-/* When a single item is selected this method is used to bind the buttons in the result container
-to that item */
-MapEntry.prototype.bindButtonsToMarker = function(mapEntry) {
-    mapEntry.hideContentViews();
-
-    vm.contentButtonsVisible(true);
-
-    $('#show-panorama').click(function() {
-        mapEntry.hideContentViews();
-        mapEntry.createPanoramaView(mapEntry);
-    });
-
-    $('#show-directions').click(function() {
-        mapEntry.hideContentViews();
-        mapEntry.displayDirections(mapEntry);
-    });
-    $('#show-yelp').click(function() {
-        mapEntry.hideContentViews();
-        mapEntry.createYelpView();
+MapEntry.prototype.hideContentButtons = function () {
+    vm.entryList().forEach(function(listEntry) {
+        listEntry.contentButtonsVisible(false);
     });
 };
 
@@ -303,7 +287,7 @@ the infowindow */
 MapEntry.prototype.onItemSelectClearEvents = function() {
     this.infoWindow.marker = null;
     this.hideContentViews();
-    //this.unBindButtonsFromMarker();
+    this.hideContentButtons();
 };
 
 MapEntry.prototype.toggleBounce = function() {

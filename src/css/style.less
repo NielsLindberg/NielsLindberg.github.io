@@ -302,19 +302,30 @@ hr {
 
 @media screen and (max-width:700px) {
     .content {
-        .flexbox > .flex-parent > .flex-direction(column-reverse);
+        .flexbox > .flex-parent > .flex-direction(column);
         height: auto;
-    }
-    .left-menu {
-        width: 100%;
-        height: auto;
-        .flexbox > .flex-parent > .flex-direction(column-reverse);
-    }
-    .content-container {
-        min-height: 30vh;
     }
     #map {
         width: 100%;
         height: 50vh;
+        .flexbox > .flex-child > .flex-order(1);
+    }
+    .left-menu {
+        width: 100%;
+        height: auto;
+        .flexbox > .flex-parent > .flex-direction(column);
+        .flexbox > .flex-child > .flex-order(2);
+    }
+    .content-container {
+        height: 250px;
+    }
+    #category-drop {
+        .flexbox > .flex-child > .flex-order(1);
+    }
+    #result-container {
+        .flexbox > .flex-child > .flex-order(2);
+    }
+    .list-container {
+        .flexbox > .flex-child > .flex-order(3);
     }
 }

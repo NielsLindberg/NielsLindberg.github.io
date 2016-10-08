@@ -83,11 +83,6 @@ function ViewModel() {
     and the result viewing buttons are binded to this item */
     vm.itemLabelFilter = function(data, event) {
 
-        vm.entryList().forEach(function(listEntry) {
-            listEntry.contentButtonsVisible(true);
-        });
-        data.contentButtonsVisible(true);
-
         vm.mapEntryList.forEach(function(mapEntry) {
             if (mapEntry.id == data.id) {
                 mapEntry.onItemSelectClearEvents();
