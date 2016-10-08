@@ -8,13 +8,6 @@
 
 var themeColors = ['#ffffff', '#e384a6', '#f4d499', '#4d90d6', '#c7e38c', '#9986c8', '#edf28c', '#ffd1d4', '#5ee1dc', '#b0eead', '#fef85a', '#8badd2'];
 var vm;
-var yelpPrefixes = {
-    phone: 'Phone number: ',
-    rating: 'Rating: ',
-    url: 'Yelp Page: ',
-    credits: 'Content is provided by yelp.com through their API service'
-};
-
 
 function ViewModel() {
     vm = this;
@@ -26,6 +19,7 @@ function ViewModel() {
     vm.entryList = ko.observableArray([]);
     vm.selectedItemTitle = ko.observable('Select a location');
 
+    vm.mapError = ko.observable(false);
 
     vm.yelpPhone = ko.observable();
     vm.yelpRatingImgUrl = ko.observable();
@@ -58,6 +52,11 @@ function ViewModel() {
     /*this observable array is the filtered version of entrylist, it is this array
     that is being referenced in the binding to the DOM on the item list */
     vm.entryListFiltered = ko.observableArray(vm.entryList());
+
+    vm.errorMap = function() {
+        vm.mapError(true);
+    };
+
     vm.initMap = function() {
         var map = new google.maps.Map(document.getElementById('map'), {
             center: {

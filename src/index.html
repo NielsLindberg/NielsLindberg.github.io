@@ -10,7 +10,6 @@
     <link href="css/style.css" rel="stylesheet">
     <script src="../bower_components/jquery/dist/jquery.min.js"></script>
     <script src="../bower_components/knockout/dist/knockout.js"></script>
-    <script src="../bower_components/oauth-signature/dist/oauth-signature.min.js"></script>
 </head>
 
 <body>
@@ -22,11 +21,11 @@
                 <select id="category-drop" data-bind="options: uniqueCategories, value: categoriesFilter"></select>
                 <div class="list-container">
                     <ul data-bind="foreach: entryListFiltered">
-                        <div class="list-item">
+                        <li class="list-item">
                             <p class="title-label" data-bind="text: title, click: vm.itemLabelFilter"></p>
                             <p class="category-label" data-bind="text: category, click: vm.categoryLabelFilter"></p>
                             <p class="item-id" data-bind="text: id, style: { backgroundColor: vm.categoryColors[category] }"></p>
-                        </div>
+                        </li>
                     </ul>
                 </div>
                 <div id="result-container" class="result-container">
@@ -63,16 +62,16 @@
                             <p data-bind="text: vm.errorMessages.yelp"></p>
                         </div>
                         <div id="yelp-content" data-bind="visible: vm.yelpContentVisible">
-                            <div id="yelp-phone" class="yelp-item">
+                            <div id="yelp-phone" class="yelp-item yelp-phone">
                                 <h4 data-bind="text: vm.yelpStatic.phone"></h4>
-                                <p id="yelp-phone" data-bind="text: vm.yelpPhone"></p>
+                                <p data-bind="text: vm.yelpPhone"></p>
                             </div>
                             <div id="yelp-url" class="yelp-item">
                                 <h4 data-bind="text: vm.yelpStatic.url"></h4>
                                 <a data-bind="attr: { href: vm.yelpUrl }, text: vm.yelpName" target="_blank"></a>
                             </div>
                             <div id="yelp-img" class="yelp-item">
-                                <h4 data-bind="text: vm.yelpStatic.rating"></h4><img data-bind="attr: { src: vm.yelpRatingImgUrl }"></div>
+                                <h4 data-bind="text: vm.yelpStatic.rating"></h4><img src="" alt="Yelp image placeholder" data-bind="attr: { src: vm.yelpRatingImgUrl, alt: vm.yelpName }"></div>
                             <div class="attribution yelp-item">
                                 <p data-bind="text: vm.yelpStatic.credits"></p>
                             </div>
@@ -81,15 +80,18 @@
                     <hr>
                 </div>
             </div>
-            <div id="map"></div>
+            <div id="map">
+                <p id="mapError" data-bind="visible: vm.mapError, text: vm.errorMessages.googleMap"></p>
+            </div>
         </main>
         <footer>
         </footer>
     </div>
+    <script src="../bower_components/oauth-signature/dist/oauth-signature.min.js"></script>
+    <script src="js/models/mapEntries.js"></script>
+    <script src="js/mapStyles.js"></script>
+    <script src="js/main.js"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDwCMeEpZWGWPIgmzaGxGj7D4odnXZQVkE&v=3&callback=vm.initMap&libraries=places,geometry,drawing" onerror="vm.errorMap()"></script>
 </body>
-<script src="js/models/mapEntries.js"></script>
-<script src="js/mapStyles.js"></script>
-<script src="js/main.js"></script>
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDwCMeEpZWGWPIgmzaGxGj7D4odnXZQVkE&v=3&callback=vm.initMap&libraries=places,geometry,drawing"></script>
 
 </html>

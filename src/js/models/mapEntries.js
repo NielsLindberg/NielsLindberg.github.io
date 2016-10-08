@@ -91,6 +91,7 @@ var errorMessages = {
 };
 
 var loadingMessages = {
+    googleMap: 'Retrieving google maps...',
     googleStreetService: 'Retrieving google streetview...',
     googleDirections: 'Retrieving google directions...',
     yelp: 'Retrieving yelp data...'
