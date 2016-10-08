@@ -1,3 +1,11 @@
+/*  Date: 08-10-2016
+    Author: Niels Lindberg-Poulsen
+    Context: Udacity Front End Nanodegree
+    Project: Neighboorhood Map
+    Description: This file represents the viewmodel of the project and integrates the data and functionality
+    with the DOM based on the knockout.js framework.
+*/
+
 var themeColors = ['#ffffff', '#e384a6', '#f4d499', '#4d90d6', '#c7e38c', '#9986c8', '#edf28c', '#ffd1d4', '#5ee1dc', '#b0eead', '#fef85a', '#8badd2'];
 var vm;
 var yelpPrefixes = {
@@ -25,6 +33,7 @@ function ViewModel() {
     vm.yelpName = ko.observable();
 
     vm.panoVisible = ko.observable(false);
+    vm.panoContentVisible = ko.observable(false);
     vm.panoLoading = ko.observable(false);
     vm.panoError = ko.observable(false);
 
@@ -108,8 +117,10 @@ function ViewModel() {
         return uniqueCategories.concat(ko.utils.arrayGetDistinctValues(vm.categories()).sort());
     }, vm);
 
+    /* When the streetview button is clicked the panaroma view is created for the corresponding list item.
+    Since both the mapentries and listentries are stored in arrays i have to loop over the mapentries to referenced the
+    mapentry functions, if i stored both in objects i could have referenced directly with the id's instead of loops. */
     vm.createPanoramaView = function(data, event) {
-        console.log(vm.mapEntryList);
         vm.mapEntryList.forEach(function(mapEntry) {
             if (mapEntry.id == data.id) {
                 mapEntry.hideContentViews();
@@ -117,6 +128,8 @@ function ViewModel() {
             }
         });
     };
+
+    /* when the directions button is clicked the directions view is created */
     vm.displayDirections = function(data, event) {
         vm.mapEntryList.forEach(function(mapEntry) {
             if (mapEntry.id == data.id) {
@@ -125,6 +138,8 @@ function ViewModel() {
             }
         });
     };
+
+    /* when the yelp button is clicked the yelp view is created */
     vm.createYelpView = function(data, event) {
         vm.mapEntryList.forEach(function(mapEntry) {
             if (mapEntry.id == data.id) {
@@ -133,6 +148,7 @@ function ViewModel() {
             }
         });
     };
+
     /* for each unique categories we assign a color related to that used for the markers*/
     vm.categoryColors = {};
     vm.categoryIconColors = {};

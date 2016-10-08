@@ -1,3 +1,10 @@
+/*  Date: 08-10-2016
+    Author: Niels Lindberg-Poulsen
+    Context: Udacity Front End Nanodegree
+    Project: Neighboorhood Map
+    Description: This file represents the data used in the project, aswell as functionality that are linked
+    to each item in the mapEntries data..
+*/
 var mapEntries = [{
     search: "CBS, Solbjerg Campus",
     title: "CBS, Solbjerg Campus",
@@ -240,6 +247,8 @@ MapEntry.prototype.populateInfoWindow = function() {
     }
 };
 
+/* when the marker is clicked i have to loop through the listentries to update the observable binding.
+if i had stored in objects i could maybe have selected directly via the ID */
 MapEntry.prototype.showContentButtons = function (mapEntry)  {
     vm.entryList().forEach(function(listEntry) {
         if(listEntry.id == mapEntry.id) {
@@ -248,6 +257,7 @@ MapEntry.prototype.showContentButtons = function (mapEntry)  {
     });
 };
 
+/*hide all content buttons */
 MapEntry.prototype.hideContentButtons = function () {
     vm.entryList().forEach(function(listEntry) {
         listEntry.contentButtonsVisible(false);
@@ -361,6 +371,7 @@ MapEntry.prototype.createPanoramaView = function(self) {
     vm.panoVisible(true);
     vm.panoLoading(true);
     vm.panoError(false);
+    vm.panoContentVisible(false);
 
     function getStreetView(data, status) {
         if (status == google.maps.StreetViewStatus.OK) {
@@ -378,6 +389,7 @@ MapEntry.prototype.createPanoramaView = function(self) {
             };
 
             self.panorama = new google.maps.StreetViewPanorama(document.getElementById('pano'), panoramaOptions);
+            vm.panoContentVisible(true);
         } else {
             vm.panoError(true);
         }
@@ -421,6 +433,7 @@ MapEntry.prototype.displayDirections = function(self) {
         } else {
             vm.directionsError(true);
         }
+        vm.directionsLoading(false);
     });
-    vm.directionsLoading(false);
+
 };

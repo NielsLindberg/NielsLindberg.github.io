@@ -44,6 +44,8 @@
                         <div id="pano-error" data-bind="visible: vm.panoError">
                             <p data-bind="text: vm.errorMessages.googleStreetService"></p>
                         </div>
+                        <div id="pano-content" data-bind="visible: vm.panoContentVisible">
+                        </div>
                     </div>
                     <div id="directions" class="content-container" data-bind="visible: vm.directionsVisible">
                         <div id="directions-loading" data-bind="visible: vm.directionsLoading">
