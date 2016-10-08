@@ -114,6 +114,7 @@ var Entry = function(data, id) {
 
 var ListEntry = function(data, id) {
     Entry.call(this, data, id);
+    this.contentButtonsVisible = ko.observable(false);
 };
 
 ListEntry.prototype = Object.create(Entry.prototype);
@@ -235,7 +236,7 @@ MapEntry.prototype.populateInfoWindow = function() {
             self.onItemSelectClearEvents();
             vm.selectedItemTitle('Select a location');
         });
-        this.bindButtonsToMarker(self);
+        //this.bindButtonsToMarker(self);
     }
 };
 
@@ -302,7 +303,7 @@ the infowindow */
 MapEntry.prototype.onItemSelectClearEvents = function() {
     this.infoWindow.marker = null;
     this.hideContentViews();
-    this.unBindButtonsFromMarker();
+    //this.unBindButtonsFromMarker();
 };
 
 MapEntry.prototype.toggleBounce = function() {
@@ -340,7 +341,6 @@ MapEntry.prototype.createYelpView = function() {
         oauth_version: '1.0',
         callback: 'cb'
     };
-
 
     var encodedSignature = oauthSignature.generate('GET', yelp_url, parameters, yelpStatic.YELP_KEY_SECRET, yelpStatic.YELP_TOKEN_SECRET);
     parameters.oauth_signature = encodedSignature;

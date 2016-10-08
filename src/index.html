@@ -32,10 +32,10 @@
                 <div id="result-container" class="result-container">
                     <hr>
                     <h1 id="result-title" data-bind="text: vm.selectedItemTitle"></h1>
-                    <div id="buttons" data-bind="foreach: entryList, visible: vm.contentButtonsVisible">
-                        <input id="xshow-panorama" class="content-button" type="button" value="Streetview" data-bind="click: vm.test1">
-                        <input id="xshow-directions" class="content-button" type="button" value="Directions" data-bind="click: vm.test2">
-                        <input id="xshow-yelp" class="content-button" type="button" value="Yelp" data-bind="click: vm.test3">
+                    <div id="buttons" data-bind="foreach: entryList">
+                        <input id="xshow-panorama" class="content-button" type="button" value="Streetview" data-bind="visible: contentButtonsVisible, click: $root.createPanoramaView">
+                        <input id="xshow-directions" class="content-button" type="button" value="Directions" data-bind="visible: contentButtonsVisible, click: $root.displayDirections">
+                        <input id="xshow-yelp" class="content-button" type="button" value="Yelp" data-bind="visible: contentButtonsVisible, click: $root.createYelpView">
                     </div>
                     <div id="pano" class="content-container" data-bind="visible: vm.panoVisible">
                         <div id="pano-loading" data-bind="visible: vm.panoLoading">

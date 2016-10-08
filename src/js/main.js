@@ -24,8 +24,6 @@ function ViewModel() {
     vm.yelpUrl = ko.observable();
     vm.yelpName = ko.observable();
 
-    vm.contentButtonsVisible = ko.observable(false);
-
     vm.panoVisible = ko.observable(false);
     vm.panoLoading = ko.observable(false);
     vm.panoError = ko.observable(false);
@@ -84,6 +82,12 @@ function ViewModel() {
     /* when selecting on a title in the item list the corresponding markers infowindow is opened
     and the result viewing buttons are binded to this item */
     vm.itemLabelFilter = function(data, event) {
+
+        vm.entryList().forEach(function(listEntry) {
+            listEntry.contentButtonsVisible(true);
+        });
+        data.contentButtonsVisible(true);
+
         vm.mapEntryList.forEach(function(mapEntry) {
             if (mapEntry.id == data.id) {
                 mapEntry.onItemSelectClearEvents();
@@ -109,21 +113,30 @@ function ViewModel() {
         return uniqueCategories.concat(ko.utils.arrayGetDistinctValues(vm.categories()).sort());
     }, vm);
 
-    vm.test1 = function(data, event) {
-        console.log('test1');
-        console.log(data);
-        console.log(event);
+    vm.createPanoramaView = function(data, event) {
+        console.log(vm.mapEntryList);
+        vm.mapEntryList.forEach(function(mapEntry) {
+            if (mapEntry.id == data.id) {
+                mapEntry.hideContentViews();
+                mapEntry.createPanoramaView(mapEntry);
+            }
+        });
     };
-    vm.test2 = function(data, event) {
-        console.log('test2');
-        console.log(data);
-        console.log(event);
+    vm.displayDirections = function(data, event) {
+        vm.mapEntryList.forEach(function(mapEntry) {
+            if (mapEntry.id == data.id) {
+                mapEntry.hideContentViews();
+                mapEntry.displayDirections(mapEntry);
+            }
+        });
     };
-
-    vm.test3 = function(data, event) {
-        console.log('test3');
-        console.log(data);
-        console.log(event);
+    vm.createYelpView = function(data, event) {
+        vm.mapEntryList.forEach(function(mapEntry) {
+            if (mapEntry.id == data.id) {
+                mapEntry.hideContentViews();
+                mapEntry.createYelpView();
+            }
+        });
     };
     /* for each unique categories we assign a color related to that used for the markers*/
     vm.categoryColors = {};
