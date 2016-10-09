@@ -346,12 +346,11 @@ MapEntry.prototype.createYelpView = function() {
         cache: true,
         dataType: 'jsonp',
         success: function(results) {
-            vm.yelpPhone(results.phone);
-            vm.yelpRatingImgUrl(results.rating_img_url);
-            vm.yelpUrl(results.url);
-            vm.yelpName(results.name);
+            vm.yelpPhone(results.phone ? results.phone : 'No phone number');
+            vm.yelpRatingImgUrl(results.rating_img_url ? results.rating_img_url : '#');
+            vm.yelpUrl(results.url ? results.url : '#');
+            vm.yelpName(results.name ? results.name : 'No name found');
             vm.yelpContentVisible(true);
-
         },
         error: function(results) {
             vm.yelpError(true);
