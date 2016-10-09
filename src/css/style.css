@@ -1,40 +1,40 @@
 /*----------------MIXINS---------------------*/
-.flexbox .flex-parent .display-flex {
+.flex-parent-display-flex {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
 }
-.flexbox .flex-parent .align-start {
+.flex-parent-align-start {
   -ms-flex-line-pack: start;
   -webkit-align-content: flex-start;
   align-content: flex-start;
 }
-.flexbox .flex-parent .align-center {
+.flex-parent-align-center {
   -webkit-align-content: center;
   -ms-flex-line-pack: center;
   align-content: center;
 }
-.flexbox .flex-parent .align-end {
+.flex-parent-align-end {
   -webkit-align-content: end;
   -ms-flex-line-pack: flex-end;
   align-content: flex-end;
 }
-.flexbox .flex-parent .justify-start {
+.flex-parent-justify-start {
   -webkit-justify-content: flex-start;
   -ms-flex-pack: start;
   justify-content: flex-start;
 }
-.flexbox .flex-parent .justify-center {
+.flex-parent-justify-center {
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
 }
-.flexbox .flex-parent .justify-between {
+.flex-parent-justify-between {
   -webkit-justify-content: space-between;
   -ms-flex-pack: space-between;
   justify-content: space-between;
 }
-.flexbox .flex-parent .justify-end {
+.flex-parent-justify-end {
   -webkit-justify-content: flex-end;
   -ms-flex-pack: end;
   justify-content: flex-end;
@@ -78,7 +78,7 @@ body {
   justify-content: flex-end;
   width: 100%;
 }
-#buttons {
+.buttons {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
@@ -93,13 +93,14 @@ body {
   flex-wrap: wrap;
   width: 100%;
 }
-#buttons > input {
+.buttons > input {
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
+  font-size: 16px;
 }
 .list-item p {
-  font-size: 1.2rem;
+  font-size: 16px;
   padding: 0 5px 0 5px;
   margin: 2px;
 }
@@ -132,17 +133,27 @@ body {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  flex-direction: column;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
   background-color: #FFFFFF;
   padding: 0;
-  margin: 0;
+  margin: 5px;
   overflow-y: auto;
+  font-size: 16px;
 }
 .content-button {
   display: block;
   margin: 5px;
+  min-height: 40px;
 }
-#category-drop {
+.category-drop {
   margin: 5px;
+  min-height: 40px;
+  font-size: 16px;
 }
 .content {
   font-family: Helvetica Neue, Helvetica, sans-serif;
@@ -161,11 +172,14 @@ body {
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
 }
-#map {
+.map-container {
   width: calc(100% - 350px);
   height: 100%;
   margin: 0;
   padding: 0;
+}
+.map-container > p {
+  color: #dad8de;
 }
 .left-menu {
   padding: 0;
@@ -193,7 +207,7 @@ body {
   -webkit-align-content: flex-start;
   align-content: flex-start;
 }
-#result-container {
+.result-container {
   padding: 0;
   margin: 0;
   width: 100%;
@@ -220,40 +234,9 @@ hr {
   margin: 5px;
   height: 1px;
 }
-#result-title {
+.result-title {
   color: #dad8de;
-  padding: 0 5px 0 5px;
-}
-#directions {
-  background-color: #dad8de;
-  margin: 5px;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-}
-#yelp {
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  flex-direction: column;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-  margin: 5px;
-}
-#pano {
-  margin: 5px;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
+  padding: 0 10px 0 10px;
 }
 .yelp-item {
   display: -webkit-flex;
@@ -270,11 +253,7 @@ hr {
   padding: 5px;
   margin: 0;
 }
-#yelp,
-#directions {
-  background-color: #FFFFFF;
-}
-#yelp > #yelp-img > img {
+.yelp-item > img {
   display: block;
   max-width: 100%;
   height: auto;
@@ -290,7 +269,7 @@ hr {
     -ms-flex-direction: column;
     height: auto;
   }
-  #map {
+  .map-container {
     width: 100%;
     height: 50vh;
     -webkit-order: 1;
@@ -310,12 +289,12 @@ hr {
   .content-container {
     height: 250px;
   }
-  #category-drop {
+  .category-drop {
     -webkit-order: 1;
     -ms-flex-order: 1;
     order: 1;
   }
-  #result-container {
+  .result-container {
     -webkit-order: 2;
     -ms-flex-order: 2;
     order: 2;

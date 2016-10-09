@@ -18,7 +18,7 @@
     <div class="page-wrapper">
         <main class="content">
             <div class="left-menu">
-                <select id="category-drop" data-bind="options: uniqueCategories, value: categoriesFilter"></select>
+                <select id="category-drop" class="category-drop" data-bind="options: uniqueCategories, value: categoriesFilter"></select>
                 <div class="list-container">
                     <ul data-bind="foreach: entryListFiltered">
                         <li class="list-item">
@@ -30,8 +30,8 @@
                 </div>
                 <div id="result-container" class="result-container">
                     <hr>
-                    <h1 id="result-title" data-bind="text: vm.selectedItemTitle"></h1>
-                    <div id="buttons" data-bind="foreach: entryList">
+                    <h1 id="result-title" class="result-title" data-bind="text: vm.selectedItemTitle"></h1>
+                    <div id="buttons" class="buttons" data-bind="foreach: entryList">
                         <input id="xshow-panorama" class="content-button" type="button" value="Streetview" data-bind="visible: contentButtonsVisible, click: $root.createPanoramaView">
                         <input id="xshow-directions" class="content-button" type="button" value="Directions" data-bind="visible: contentButtonsVisible, click: $root.displayDirections">
                         <input id="xshow-yelp" class="content-button" type="button" value="Yelp" data-bind="visible: contentButtonsVisible, click: $root.createYelpView">
@@ -68,7 +68,7 @@
                             </div>
                             <div id="yelp-url" class="yelp-item">
                                 <h4 data-bind="text: vm.yelpStatic.url"></h4>
-                                <a data-bind="attr: { href: vm.yelpUrl }, text: vm.yelpName" target="_blank"></a>
+                                <a data-bind="attr: { href: vm.yelpUrl }" target="_blank"><img src="images/yelp-2c.png" alt="yelp logo"></a>
                             </div>
                             <div id="yelp-img" class="yelp-item">
                                 <h4 data-bind="text: vm.yelpStatic.rating"></h4><img src="http://placehold.it/10x10" alt="Yelp image placeholder" data-bind="attr: { src: vm.yelpRatingImgUrl, alt: vm.yelpName }"></div>
@@ -80,7 +80,7 @@
                     <hr>
                 </div>
             </div>
-            <div id="map">
+            <div id="map" class="map-container">
                 <p id="mapError" data-bind="visible: vm.mapError, text: vm.errorMessages.googleMap"></p>
             </div>
         </main>
@@ -91,7 +91,7 @@
     <script src="js/models/mapEntries.js"></script>
     <script src="js/mapStyles.js"></script>
     <script src="js/main.js"></script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDwCMeEpZWGWPIgmzaGxGj7D4odnXZQVkE&v=3&callback=vm.initMap&libraries=places,geometry,drawing" onerror="vm.errorMap()"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDwCMeEpZWGWPIgmzaGxGj7D4odnXZQVkEdd&v=3&callback=vm.initMap&libraries=places,geometry,drawing" onerror="vm.errorMap()"></script>
 </body>
 
 </html>

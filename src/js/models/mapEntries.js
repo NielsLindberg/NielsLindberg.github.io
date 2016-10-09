@@ -101,7 +101,7 @@ var yelpStatic = {
     phone: 'Phone number: ',
     rating: 'Rating: ',
     url: 'Yelp Page: ',
-    credits: 'Content is provided by yelp.com through their API service',
+    logoUrl: 'images/yelp-2c.png',
     YELP_BASE_URL: 'https://api.yelp.com/v2/',
     YELP_KEY: '_xLjE_NxysOGBW9vTF4YAA',
     YELP_TOKEN: 'foyoWs_yChb81DQX4JivNt8b-ka_hVr9',

@@ -38,10 +38,10 @@ module.exports = function(grunt) {
                     rename: false,
                     autoOrient: true,
                     sizes: [
-                        { width: 150 }
+                        { width: 60 }
                     ]
                 },
-                files: [{}]
+                files: [{'dist/images/yelp-2c.png': 'src/images/yelp-2c.png'}]
             }
         },
         uglify: {
