@@ -178,8 +178,9 @@ body {
   margin: 0;
   padding: 0;
 }
-.map-container > p {
+.map-error {
   color: #dad8de;
+  font-size: 16px;
 }
 .left-menu {
   padding: 0;

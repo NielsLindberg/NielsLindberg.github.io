@@ -78,8 +78,10 @@
                     <hr>
                 </div>
             </div>
-            <div id="map" class="map-container">
-                <p id="mapError" data-bind="visible: vm.mapError, text: vm.errorMessages.googleMap"></p>
+            <div id="map" class="map-container" data-bind="visible: vm.mapVisible">
+            </div>
+            <div id="mapError" class="map-error" data-bind="visible: vm.mapError">
+                <p data-bind="text: vm.errorMessages.googleMap"></p>
             </div>
         </main>
         <footer>
@@ -91,7 +93,7 @@
     <script src="js/models/mapEntries.js"></script>
     <script src="js/mapStyles.js"></script>
     <script src="js/main.js"></script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDwCMeEpZWGWPIgmzaGxGj7D4odnXZQVkE&v=3&callback=vm.initMap&libraries=places,geometry,drawing" onerror="vm.errorMap()"></script>
+    <script async defer src="https://maps.googleapis.com/ddmaps/api/js?key=AIzaSyDwCMeEpZWGWPIgmzaGxGj7D4odnXZQVkE&v=3&callback=vm.initMap&libraries=places,geometry,drawing" onload="vm.loadMap()" , onerror="vm.errorMap()"></script>
 </body>
 
 </html>

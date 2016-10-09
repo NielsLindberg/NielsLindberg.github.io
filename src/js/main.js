@@ -20,6 +20,7 @@ function ViewModel() {
     vm.selectedItemTitle = ko.observable('Select a location');
 
     vm.mapError = ko.observable(false);
+    vm.mapVisible = ko.observable(false);
 
     vm.yelpPhone = ko.observable();
     vm.yelpRatingImgUrl = ko.observable();
@@ -53,8 +54,13 @@ function ViewModel() {
     that is being referenced in the binding to the DOM on the item list */
     vm.entryListFiltered = ko.observableArray(vm.entryList());
 
+    vm.loadMap = function() {
+        vm.mapVisible(true);
+        vm.mapError(false);
+    };
     vm.errorMap = function() {
         vm.mapError(true);
+        vm.mapVisible(false);
     };
 
     vm.initMap = function() {
